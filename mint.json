@@ -6,6 +6,16 @@
     "light": "/logo/dimedove-logo.png"
   },
   "favicon": "/favicon.svg",
+  "versions": [
+    {
+      "name": "English",
+      "locale": "en",
+    },
+    {
+      "name": "French",
+      "locale": "fr",
+    }
+  ],
   "colors": {
     "primary": "#16a34a",
     "light": "#07C983",
