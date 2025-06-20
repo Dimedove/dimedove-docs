@@ -1,64 +1,92 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "maple",
-  "name": "Maple Starter Kit",
-  "colors": {
-    "primary": "#9A3412",
-    "light": "#EA580C",
-    "dark": "#9A3412"
+  "name": "Dimedove",
+  "description": "Dimedove API Documentation",
+  "appearance": {
+    "default": "system",
+    "strict": false
   },
-  "favicon": "/favicon.svg",
+  "styling": {
+    "codeblocks": "system",
+    "eyebrows": "section"
+  },
+  "icons": {
+    "library": "lucide"
+  },
+  "fonts": {
+    "body": {
+      "family": "Inter"
+    },
+    "heading": {
+      "family": "Inter"
+    }
+  },
+  "colors": {
+    "primary": "#0f0e0d",
+    "light": "#f4f4f5",
+    "dark": "#27272a"
+  },
+  "favicon": "/favicon.ico",
   "navigation": {
-    "languages": [
+    "global": {
+      "tabs": [],
+      "anchors": [
+        {
+          "anchor": "Anchor",
+          "href": "https://github.com",
+          "icon": "github"
+        }
+      ]
+    },
+    "groups": [
       {
-        "language": "en",
-        "groups": [
-          {
-            "group": "Get Started",
-            "pages": [
-              "welcome",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Essentials",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/settings",
-              "essentials/navigation",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "API Documentation",
-            "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint Examples",
-            "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete"
-            ]
-          }
+        "group": "Get Started",
+        "pages": ["welcome", "quickstart", "development"]
+      },
+      {
+        "group": "Essentials",
+        "pages": [
+          "essentials/markdown",
+          "essentials/code",
+          "essentials/images",
+          "essentials/settings",
+          "essentials/navigation",
+          "essentials/reusable-snippets"
+        ]
+      },
+      {
+        "group": "API Documentation",
+        "pages": ["api-reference/introduction"]
+      },
+      {
+        "group": "Endpoint Examples",
+        "pages": [
+          "api-reference/endpoint/get",
+          "api-reference/endpoint/create",
+          "api-reference/endpoint/delete"
         ]
       }
     ]
   },
   "logo": {
-    "light": "/logo/light.svg",
-    "dark": "/logo/dark.svg"
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png"
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://www.linkedin.com/company/mintsearch"
+      "linkedin": "https://www.linkedin.com/company/dimedove"
+    }
+  },
+  "seo": {
+    "metatags": {
+      "charset": "UTF-8",
+      "viewport": "width=device-width, initial-scale=1.0",
+      "description": "Page description",
+      "keywords": "keyword1, keyword2, keyword3",
+      "author": "Author Name",
+      "robots": "index, follow",
+      "category": "Technology"
     }
   }
 }
