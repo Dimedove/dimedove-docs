@@ -1,0 +1,357 @@
+**Effective Date:** 2025-07-01  
+**Last Updated:** 2025-07-01
+
+## Overview
+
+At Dimedove, we take the protection of customer data extremely seriously. This Security Policy describes the organizational and technical measures Dimedove implements platform-wide designed to prevent unauthorized access, use, alteration, or disclosure of customer data and AI agent interactions. Our AI agent building platform operates on Amazon Web Services ("AWS"), and this policy describes security activities within our AWS infrastructure unless otherwise specified.
+
+As you continue to learn more about Dimedove, we recommend you also review our [Terms of Service](https://docs.dimedove.com/legal/terms-of-service), [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy), and [Cookie Policy](https://docs.dimedove.com/legal/cookie-policy).
+
+**Company Information:**  
+Dimedove Technologies Inc.  
+4 Pl. Ville-Marie #300  
+Montréal, QC H3B 2E7, Canada
+
+## Security Team and Philosophy
+
+Our infrastructure and security team includes experienced professionals who have designed, built, and operated secure internet-facing systems across various industries, from startups to enterprise organizations. We implement security-by-design principles throughout our AI agent platform development and operations.
+
+**Security Principles:**
+
+- **Zero-Trust Architecture:** No implicit trust within our network infrastructure
+- **Defense in Depth:** Multiple layers of security controls and monitoring
+- **Continuous Monitoring:** Real-time security event detection and response
+- **Privacy by Design:** Security and privacy considerations integrated from the ground up
+- **Compliance Focus:** Adherence to Canadian privacy laws and industry standards
+
+## Security Best Practices
+
+### Incident Response Plan
+
+**Formal Security Procedures:**
+
+- We have implemented comprehensive incident response procedures for security events
+- All staff receive regular security awareness training and understand our security policies
+- Security incidents are immediately escalated to our emergency response team
+- Response teams are alerted and assembled rapidly to address any security events
+
+**Post-Incident Analysis:**
+
+- After any security event is resolved, we conduct thorough post-mortem analyses
+- Findings are reviewed, documented, and distributed to relevant stakeholders
+- Action items are identified and implemented to improve detection and prevention capabilities
+- Lessons learned are incorporated into our security training and procedures
+
+**Customer Notification:**
+
+- Dimedove will promptly notify customers in writing upon verification of any security breach that affects customer data
+- Notifications will describe the nature of the breach, affected data, and the status of our investigation
+- We will provide guidance on any actions customers should take to protect their interests
+
+### Build Process and Deployment Security
+
+**Automated Deployment Pipeline:**
+
+- We maintain secure, automated deployment processes for rapid and reliable code deployment
+- Our deployment automation includes security scanning and validation checks
+- We deploy code updates regularly, enabling quick deployment of security fixes when required
+- All deployments are logged, monitored, and can be rolled back if security issues are detected
+
+**Code Security:**
+
+- All code changes undergo security review and automated security testing
+- We use static code analysis tools to identify potential security vulnerabilities
+- Dependencies and third-party libraries are regularly updated and scanned for known vulnerabilities
+- Security testing is integrated into our continuous integration and deployment pipeline
+
+## Infrastructure Security
+
+### Cloud Infrastructure
+
+**AWS Foundation:**
+
+- All Dimedove services run in Amazon Web Services (AWS) cloud infrastructure
+- We do not maintain physical servers, routers, load balancers, or DNS servers
+- Our infrastructure leverages AWS security controls and compliance certifications
+- AWS security details are available at [AWS Security](https://aws.amazon.com/security/)
+
+**High Availability and Disaster Recovery:**
+
+- Services are designed with disaster recovery and business continuity in mind
+- Infrastructure is distributed across multiple AWS availability zones for redundancy
+- Automated backup and recovery procedures ensure data protection and service continuity
+- Regular disaster recovery testing validates our recovery capabilities
+
+**Network Security:**
+
+- All servers operate within isolated Virtual Private Clouds (VPCs)
+- Network Access Control Lists (ACLs) prevent unauthorized access to internal networks
+- Security groups provide additional firewall protection at the instance level
+- All network traffic is monitored and logged for security analysis
+
+### Data Storage and Protection
+
+**Data Hosting Locations:**
+
+- Dimedove services and data are hosted in AWS regions: US East (us-east-1) and Canada Central (ca-central-1)
+- Data residency preferences can be accommodated based on customer requirements and applicable regulations
+- We comply with Canadian data localization requirements where applicable
+
+**Data Architecture:**
+
+- Customer data is stored in secure, multi-tenant datastores with strict logical separation
+- Application-level privacy controls prevent cross-customer data access
+- Comprehensive unit and integration tests validate privacy controls continuously
+- Any test failures prevent code deployment to production environments
+
+**System Hardening:**
+
+- All systems processing customer data are configured using industry-recognized hardening standards
+- Regular security patching and updates are applied to all infrastructure components
+- Operating systems and applications are configured with minimal necessary privileges
+- Unused services and ports are disabled to reduce attack surface
+
+## Data Security and Encryption
+
+### Data in Transit
+
+**Encryption Standards:**
+
+- All data transmitted to and from Dimedove is encrypted using TLS 1.3 with 256-bit encryption
+- Our API and application endpoints are TLS/SSL only
+- We implement HTTP Strict Transport Security (HSTS) and Perfect Forward Secrecy
+- Regular SSL/TLS configuration testing ensures optimal security ratings
+
+### Data at Rest
+
+**Storage Encryption:**
+
+- All customer data is encrypted at rest using industry-standard AES-256 encryption
+- Encryption keys are managed using AWS Key Management Service (KMS)
+- Database encryption includes both data files and backup storage
+- AI agent conversation data receives additional encryption protections
+
+**Backup Security:**
+
+- Automated backup systems protect against data loss
+- Backups are encrypted and stored across multiple geographic locations
+- Regular backup restoration testing validates data recovery capabilities
+- Backup access is strictly controlled and monitored
+
+## Authentication and Access Controls
+
+### Platform Authentication
+
+**Secure Access:**
+
+- Dimedove platform is served 100% over HTTPS
+- We implement zero-trust network architecture principles
+- Multi-factor authentication (MFA) is available and encouraged for all user accounts
+- Strong password policies are enforced across the platform
+
+**Identity Management:**
+
+- Integration with Kinde provides robust identity and access management
+- Single Sign-On (SSO) capabilities support enterprise authentication requirements
+- OAuth integration with trusted providers (Google) offers additional authentication options
+- Session management includes automatic timeout and secure session invalidation
+
+### Administrative Controls
+
+**Employee Access:**
+
+- All employee access to production systems requires multi-factor authentication
+- Access permissions follow the principle of least privilege
+- Regular access reviews ensure appropriate permission levels
+- All administrative actions are logged and monitored
+
+**Customer Permission Management:**
+
+- Granular permission levels can be configured for customer team members
+- Role-based access controls include AI agent management, billing, and administrative functions
+- Customer administrators can manage user access and permissions independently
+- Permission changes are logged and auditable
+
+## Monitoring and Auditing
+
+### Application Monitoring
+
+**Comprehensive Logging:**
+
+- All platform activity is logged and monitored in real-time
+- Audit logs capture user actions, system events, and security-relevant activities
+- Log data is centralized and protected with appropriate retention policies
+- Security Information and Event Management (SIEM) tools analyze log data for threats
+
+**Access Monitoring:**
+
+- All access to Dimedove applications and infrastructure is logged
+- Bastion hosts provide secure, monitored access to production systems
+- Administrative console access is restricted and fully audited
+- Anomalous access patterns trigger automated alerts
+
+### Security Analytics
+
+**Threat Detection:**
+
+- Automated monitoring systems detect suspicious activities and potential security threats
+- Machine learning algorithms identify anomalous behavior patterns
+- Real-time alerting enables rapid response to security events
+- Integration with threat intelligence feeds enhances detection capabilities
+
+## Third-Party Integrations and Subprocessors
+
+### AI Service Providers
+
+**AI Model Partners:**
+
+- OpenAI - Natural language processing and AI model services
+- Google - Cloud services, authentication, and AI capabilities
+- Anthropic - Advanced AI model services and safety-focused AI development
+- Groq - High-performance AI inference and processing
+- Meta - AI research and model capabilities
+
+**Service Provider Security:**
+
+- All AI service providers undergo security assessment and due diligence
+- Data sharing agreements include appropriate security and privacy protections
+- Regular reviews ensure continued compliance with our security standards
+- Provider security certifications and reports are evaluated regularly
+
+### Subprocessors List
+
+Dimedove engages certain subprocessors to deliver our services effectively. Our current subprocessors include organizations that provide infrastructure, payment processing, authentication, and AI capabilities. A comprehensive, up-to-date list of subprocessors is maintained and available upon request.
+
+**Key Service Categories:**
+
+- Cloud infrastructure and hosting services
+- Payment processing and billing management
+- Identity and authentication services
+- AI model and natural language processing services
+- Analytics and performance monitoring tools
+
+_For a complete and current list of subprocessors, please contact us at security@dimedove.com_
+
+## Security Audits and Compliance
+
+### Current Security Practices
+
+**Ongoing Security Assessments:**
+
+- Regular internal security assessments and penetration testing
+- Vulnerability scanning and management programs
+- Third-party security reviews and code audits as our business scales
+- Continuous security monitoring and threat assessment
+
+**Compliance Framework:**
+
+- Working towards compliance with Canadian privacy laws including Quebec Bill 25 and PIPEDA
+- Implementation of industry security frameworks and best practices
+- Regular review and updates to security policies and procedures
+- Documentation and evidence collection for future compliance initiatives
+
+### Future Compliance Goals
+
+**Planned Certifications:**
+
+- SOC 2 Type II audit preparation and certification
+- Evaluation of Cloud Security Alliance (CSA) best practices implementation
+- Assessment of additional security frameworks relevant to AI services
+- Continuous improvement of security posture and compliance readiness
+
+**Payment Security:**
+
+- All payment processing is handled by Stripe, a PCI DSS compliant payment processor
+- Dimedove does not directly process, store, or transmit payment card data
+- Stripe's security practices are detailed at [Stripe Security](https://stripe.com/docs/security/stripe)
+
+## Customer Security Responsibilities
+
+### Account Management
+
+**Customer Obligations:**
+
+- Managing user accounts, roles, and permissions within the Dimedove platform
+- Implementing strong password policies and enabling multi-factor authentication for all users
+- Promptly removing access for users who no longer require platform access
+- Regular review of user permissions and access levels
+
+### Security Best Practices
+
+**Recommended Actions:**
+
+- Enable two-factor authentication for all team members accessing Dimedove services
+- Implement secure development practices when integrating with Dimedove APIs
+- Provide appropriate security awareness training for team members using the platform
+- Maintain secure configurations for AI agents deployed on customer properties
+
+### Incident Reporting
+
+**Customer Responsibilities:**
+
+- Promptly notify Dimedove if user credentials are compromised
+- Report suspected security incidents or suspicious activities immediately
+- Cooperate with Dimedove security investigations when necessary
+- Maintain incident response procedures for AI agent-related security events
+
+### Security Testing
+
+**Important Restrictions:**
+
+- Customers may not perform security penetration tests or security assessments against Dimedove infrastructure without express written consent
+- Authorized security testing must be coordinated with our security team
+- Any discovered vulnerabilities must be reported through responsible disclosure procedures
+
+## Data Processing and AI Security
+
+### AI Agent Security
+
+**Conversation Protection:**
+
+- All AI agent conversations are encrypted in transit and at rest
+- Access to conversation data is strictly controlled and logged
+- AI agent responses are monitored for potential security or compliance issues
+- Customer-deployed AI agents inherit security protections from the Dimedove platform
+
+**Model Security:**
+
+- AI model access is secured through encrypted APIs and authentication
+- Training data and model parameters are protected with appropriate access controls
+- We do not use customer conversation data to train AI models
+- AI model outputs are filtered for potential security risks
+
+### Data Privacy Protection
+
+**Privacy by Design:**
+
+- Customer data processing minimizes collection and retention
+- Personal information is pseudonymized where possible
+- Data access is restricted to authorized personnel for legitimate business purposes
+- Regular privacy impact assessments ensure continued protection
+
+## Contact Information and Security Support
+
+### Security Communications
+
+**General Security Inquiries:**  
+Email: security@dimedove.com
+
+### Business Contact
+
+**Dimedove Technologies Inc.**  
+4 Pl. Ville-Marie #300  
+Montréal, QC H3B 2E7  
+Canada
+
+**General Support:** support@dimedove.com  
+**Legal Inquiries:** legal@dimedove.com
+
+## Policy Updates and Changes
+
+This Security Policy may be updated periodically to reflect changes in our security practices, technology infrastructure, or regulatory requirements. Material changes will be communicated to customers through appropriate channels, and the updated policy will be published on our website with a revised effective date.
+
+For questions about this Security Policy or our security practices, please contact our security team at security@dimedove.com.
+
+---
+
+**Dimedove is committed to maintaining the highest standards of security and privacy protection for our customers' data and AI agent interactions. This Security Policy reflects our ongoing commitment to transparency and continuous improvement in our security practices.**

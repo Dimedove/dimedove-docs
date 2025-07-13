@@ -56,22 +56,24 @@
         ]
       },
       {
-        "group": "API Documentation",
-        "pages": ["api-reference/introduction"]
+        "group": "Webhooks",
+        "pages": ["webhooks/introduction"]
       },
       {
-        "group": "Endpoint Examples",
+        "group": "Legal",
         "pages": [
-          "api-reference/endpoint/get",
-          "api-reference/endpoint/create",
-          "api-reference/endpoint/delete"
+          "legal/terms-of-service",
+          "legal/privacy-policy",
+          "legal/cookie-policy",
+          "legal/security-policy",
+          "legal/subprocessors-list"
         ]
       }
     ]
   },
   "logo": {
-    "light": "/logo/light.png",
-    "dark": "/logo/dark.png"
+    "light": "/images/logos/light.png",
+    "dark": "/images/logos/dark.png"
   },
   "footer": {
     "socials": {
