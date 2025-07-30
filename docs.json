@@ -1,8 +1,8 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "maple",
+  "theme": "mint",
   "name": "Dimedove",
-  "description": "Dimedove API Documentation",
+  "description": "Comprehensive documentation for Dimedove's customer engagement platform",
   "appearance": {
     "default": "system",
     "strict": false
@@ -28,45 +28,167 @@
     "dark": "#27272a"
   },
   "favicon": "/favicon.ico",
+  "navbar": {
+    "links": [
+      {
+        "label": "Talk to Support",
+        "href": "https://cal.com/felixsimard/onboarding"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://dashboard.dimedove.com"
+    }
+  },
   "navigation": {
-    "global": {
-      "tabs": [],
-      "anchors": [
-        {
-          "anchor": "Anchor",
-          "href": "https://github.com",
-          "icon": "github"
-        }
-      ]
-    },
-    "groups": [
+    "tabs": [
       {
-        "group": "Get Started",
-        "pages": ["welcome", "quickstart", "development"]
-      },
-      {
-        "group": "Essentials",
-        "pages": [
-          "essentials/markdown",
-          "essentials/code",
-          "essentials/images",
-          "essentials/settings",
-          "essentials/navigation",
-          "essentials/reusable-snippets"
+        "tab": "Platform",
+        "groups": [
+          {
+            "group": "Quickstart",
+            "pages": [
+              "platform/quickstart/introduction",
+              "platform/quickstart/getting-started"
+            ]
+          },
+          {
+            "group": "Agents",
+            "pages": [
+              "platform/agents/overview",
+              "platform/agents/identity",
+
+              {
+                "group": "Content",
+                "pages": [
+                  "platform/agents/content/files",
+                  "platform/agents/content/websites",
+                  "platform/agents/content/articles"
+                ]
+              },
+              {
+                "group": "Behavior",
+                "pages": [
+                  "platform/agents/behavior/first-message",
+                  "platform/agents/behavior/instructions",
+                  "platform/agents/behavior/personality",
+                  "platform/agents/behavior/tone",
+                  "platform/agents/behavior/human-fallback",
+                  "platform/agents/behavior/verbosity",
+                  "platform/agents/behavior/controls"
+                ]
+              },
+              {
+                "group": "Knowledge",
+                "pages": [
+                  "platform/agents/knowledge/web-search",
+                  "platform/agents/knowledge/domain-expertise"
+                ]
+              },
+              {
+                "group": "Tasks",
+                "pages": [
+                  "platform/agents/tasks/api",
+                  "platform/agents/tasks/calendly-calcom",
+                  "platform/agents/tasks/email"
+                ]
+              },
+              "platform/agents/design",
+              "platform/agents/languages-timezone",
+              "platform/agents/preview",
+              "platform/agents/install"
+            ]
+          },
+          {
+            "group": "Inbox",
+            "pages": ["platform/inbox/overview", "platform/inbox/chats"]
+          },
+          {
+            "group": "Contacts",
+            "pages": [
+              "platform/contacts/overview",
+              "platform/contacts/contact",
+              "platform/contacts/insights",
+              "platform/contacts/attributes",
+              "platform/contacts/manage-attributes"
+            ]
+          },
+          {
+            "group": "Webhooks",
+            "pages": [
+              "platform/webhooks/overview",
+              "platform/webhooks/event-types",
+              "platform/webhooks/security"
+            ]
+          },
+          {
+            "group": "Team",
+            "pages": [
+              "platform/team/overview",
+              "platform/team/manage",
+              "platform/team/usage",
+              "platform/team/billing"
+            ]
+          },
+          {
+            "group": "Legal",
+            "pages": [
+              "legal/terms-of-service",
+              "legal/privacy-policy",
+              "legal/cookie-policy",
+              "legal/security-policy",
+              "legal/subprocessors-list"
+            ]
+          }
         ]
       },
       {
-        "group": "Webhooks",
-        "pages": ["webhooks/introduction"]
+        "tab": "Developer Guides",
+        "groups": [
+          {
+            "group": "Messenger",
+            "pages": [
+              "developer-guides/messenger/overview",
+              "developer-guides/messenger/installation",
+              "developer-guides/messenger/security"
+            ]
+          },
+          {
+            "group": "API",
+            "pages": [
+              "developer-guides/api/manage-keys"
+            ]
+          }
+        ]
       },
       {
-        "group": "Legal",
-        "pages": [
-          "legal/terms-of-service",
-          "legal/privacy-policy",
-          "legal/cookie-policy",
-          "legal/security-policy",
-          "legal/subprocessors-list"
+        "tab": "Integrations",
+        "groups": [
+          {
+            "group": "Integrations",
+            "pages": [
+              "integrations/hubspot",
+              "integrations/pipedrive",
+              "integrations/attio",
+              "integrations/klaviyo",
+              "integrations/google-drive",
+              "integrations/salesforce",
+              "integrations/notion",
+              "integrations/slack",
+              "integrations/onedrive",
+              "integrations/shopify"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "FAQs",
+        "groups": [
+          {
+            "group": "FAQs",
+            "pages": ["faqs/general"]
+          }
         ]
       }
     ]
@@ -84,9 +206,9 @@
     "metatags": {
       "charset": "UTF-8",
       "viewport": "width=device-width, initial-scale=1.0",
-      "description": "Page description",
-      "keywords": "keyword1, keyword2, keyword3",
-      "author": "Author Name",
+      "description": "Dimedove customer engagement platform documentation - Learn how to use agents, manage inbox, contacts, team collaboration and webhooks",
+      "keywords": "dimedove, customer engagement, agents, inbox, contacts, team, webhooks, documentation",
+      "author": "Dimedove",
       "robots": "index, follow",
       "category": "Technology"
     }
