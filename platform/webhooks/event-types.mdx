@@ -1,15 +1,77 @@
 ---
 title: Event Types
-description: Learn about available webhook event types and their data
+description: List of supported event types and their payload.
 ---
 
-Available webhook event types:
+import ChatStartedWebhook from "/snippets/chat-started-webhook.mdx";
+import ChatEndedWebhook from "/snippets/chat-ended-webhook.mdx";
+import ChatHumanRequiredWebhook from "/snippets/chat-human-required-webhook.mdx";
+import ContactInsightCreatedWebhook from "/snippets/contact-insight-created-webhook.mdx";
+import ContactInsightUpdatedWebhook from "/snippets/contact-insight-updated-webhook.mdx";
+import ContactAttributeCreatedWebhook from "/snippets/contact-attribute-created-webhook.mdx";
+import ContactAttributeUpdatedWebhook from "/snippets/contact-attribute-updated-webhook.mdx";
+import TaskCompletedWebhook from "/snippets/task-completed-webhook.mdx";
 
-- **chat.started** - When a conversation begins
-- **chat.ended** - When a conversation completes
-- **chat.human_required** - When human assistance is needed
-- **contact:insight.created** - When new contact insight is generated
-- **contact:insight.updated** - When contact insight is modified
-- **contact:attribute.created** - When new contact attribute is added
-- **contact:attribute.updated** - When contact attribute is modified
-- **task.completed** - When an agent task is finished
+### `chat.started`
+
+Occurs whenever a conversation begins, marked by a user sending a message.
+
+<Accordion title="Sample Request Body">
+  <ChatStartedWebhook />
+</Accordion>
+
+### `chat.ended`
+
+Occurs whenever a conversation completes.
+
+<Accordion title="Sample Request Body">
+  <ChatEndedWebhook />
+</Accordion>
+
+### `chat.human_required`
+
+Occurs whenever human assistance is needed.
+
+<Accordion title="Sample Request Body">
+  <ChatHumanRequiredWebhook />
+</Accordion>
+
+### `contact:insight.created`
+
+Occurs whenever new contact insight is generated.
+
+<Accordion title="Sample Request Body">
+  <ContactInsightCreatedWebhook />
+</Accordion>
+
+### `contact:insight.updated`
+
+Occurs whenever contact insight is modified.
+
+<Accordion title="Sample Request Body">
+  <ContactInsightUpdatedWebhook />
+</Accordion>
+
+### `contact:attribute.created`
+
+Occurs whenever a new contact attribute is added.
+
+<Accordion title="Sample Request Body">
+  <ContactAttributeCreatedWebhook />
+</Accordion>
+
+### `contact:attribute.updated`
+
+Occurs whenever a contact attribute is modified.
+
+<Accordion title="Sample Request Body">
+  <ContactAttributeUpdatedWebhook />
+</Accordion>
+
+### `task.completed`
+
+Occurs whenever an agent task is finished.
+
+<Accordion title="Sample Request Body">
+  <TaskCompletedWebhook />
+</Accordion>

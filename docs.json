@@ -32,7 +32,7 @@
     "links": [
       {
         "label": "Talk to Support",
-        "href": "https://cal.com/felixsimard/onboarding"
+        "href": "https://cal.com/felixsimard/support"
       }
     ],
     "primary": {
@@ -156,9 +156,7 @@
           },
           {
             "group": "API",
-            "pages": [
-              "developer-guides/api/manage-keys"
-            ]
+            "pages": ["developer-guides/api/manage-keys"]
           }
         ]
       },
