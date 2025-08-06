@@ -4,7 +4,7 @@
   "name": "Dimedove",
   "description": "Comprehensive documentation for Dimedove's customer engagement platform",
   "appearance": {
-    "default": "system",
+    "default": "dark",
     "strict": false
   },
   "styling": {
