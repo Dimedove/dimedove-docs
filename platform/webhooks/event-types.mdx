@@ -11,6 +11,7 @@ import ContactInsightUpdatedWebhook from "/snippets/contact-insight-updated-webh
 import ContactAttributeCreatedWebhook from "/snippets/contact-attribute-created-webhook.mdx";
 import ContactAttributeUpdatedWebhook from "/snippets/contact-attribute-updated-webhook.mdx";
 import TaskCompletedWebhook from "/snippets/task-completed-webhook.mdx";
+import PerformanceRecordedWebhook from "/snippets/performance-recorded-webhook.mdx";
 
 ### `chat.started`
 
@@ -74,4 +75,12 @@ Occurs whenever an agent task is finished.
 
 <Accordion title="Sample Request Body">
   <TaskCompletedWebhook />
+</Accordion>
+
+### `performance.recorded`
+
+Occurs whenever an agent logs a successful Qualified Opportunity. Learn more about [Team Usage](/platform/team/usage).
+
+<Accordion title="Sample Request Body">
+  <PerformanceRecordedWebhook />
 </Accordion>

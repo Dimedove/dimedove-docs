@@ -94,6 +94,7 @@
                   "platform/agents/tasks/email"
                 ]
               },
+              "platform/agents/performance",
               "platform/agents/design",
               "platform/agents/languages-timezone",
               "platform/agents/preview",
@@ -127,8 +128,8 @@
             "pages": [
               "platform/team/overview",
               "platform/team/manage",
-              "platform/team/usage",
-              "platform/team/billing"
+              "platform/team/billing",
+              "platform/team/usage"
             ]
           },
           {
