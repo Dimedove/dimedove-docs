@@ -3,4 +3,80 @@ title: Attributes
 description: View and manage custom contact attributes
 ---
 
-Inferred and structured data points making up the contact cards to ensure streamlined and unified datapoints across your contacts.
+Contact attributes are structured, predefined data fields that create unified contact profiles across all visitors. Attributes enable businesses to standardize data collection and ensure consistent contact information formatting.
+
+## Core Capabilities
+
+Contact attributes enable businesses to:
+
+- **Define custom data fields** - Create attributes specific to business needs
+- **Standardize contact data** - Ensure all contacts share the same attribute structure
+- **Auto-populate from conversations** - AI can infer attribute values from chat context
+- **Manual data entry** - Team members can enter attributes directly
+- **Support multiple input types** - Text inputs and text areas for different data formats
+- **Localize attribute names** - Display attributes in English or French
+- **Track attribute updates** - Monitor when each attribute value was last modified
+- **Enforce data consistency** - All contacts use the same attribute definitions
+
+## Attribute Properties
+
+Each attribute includes:
+
+- **Attribute ID** - Unique identifier for the attribute
+- **Name** - Attribute display name
+- **Description** - Explanation of what the attribute represents
+- **Input type** - Field type (input or textarea)
+- **Example value** - Placeholder showing expected format
+- **Inference mode** - AI-inferred or manual entry
+- **Editability** - Whether the attribute can be modified or deleted
+- **Translations** - Localized names for English and French
+
+## Standard Attributes
+
+Default attributes provided by the platform:
+
+- **first_name** - Contact's first name
+- **last_name** - Contact's last name
+- **email** - Email address
+- **phone** - Phone number
+- **company** - Company or organization name
+- **job_title** - Professional role
+- **location** - Geographic location
+
+Standard attributes cannot be deleted but can have their inference mode changed.
+
+## Custom Attributes
+
+Businesses can create custom attributes for:
+
+- Industry-specific data (e.g., "property_type" for real estate)
+- Business process data (e.g., "lead_score", "follow_up_date")
+- Product preferences (e.g., "preferred_product_category")
+- Service requirements (e.g., "support_tier", "contract_type")
+- Any other structured data relevant to the business
+
+## Attribute Input Types
+
+### Input Field
+
+- Single-line text entry
+- Suitable for short values (names, emails, IDs)
+- Displays as standard text input
+- Examples shown as placeholder text
+
+### Textarea
+
+- Multi-line text entry
+- Maximum 10,000 characters
+- Suitable for longer content (notes, descriptions, addresses)
+- Displays as expandable text area
+- Examples shown as placeholder text
+
+## Attribute Values
+
+Values can be:
+
+- **AI-extracted** - Automatically inferred from conversation content
+- **Manually entered** - Input by team members directly
+- **Empty** - No value collected yet
+- **Updated over time** - Values can change as new information is gathered

@@ -1,0 +1,89 @@
+---
+title: Deployment
+description: Deploy forms to your website and share with users
+---
+
+## Form URLs
+
+### Preview URL
+
+- Available in draft or live status
+- Used for testing before going live
+- Fully functional but marked as preview mode
+- Access via "Test" button in Forms table
+
+### Public URL
+
+- Only available when form is enabled (live status)
+- Used for production with real visitors
+- Submitted data is processed normally
+- Access via "Copy URL" button in Forms table
+
+## External IDs
+
+Optional parameters that can be appended to form URLs.
+
+**Purpose**: Link form submissions to external systems (CRM records, campaigns, user sessions)
+
+**Usage**:
+
+1. Enter external ID when copying a URL
+2. ID is automatically appended to URL
+3. Submissions include this ID in webhook payloads and API responses
+
+**Example**:
+
+```
+https://form.dimedove.com/f/A7B9I6H4?external_id=user_ui12y31i2u
+```
+
+## Form Status
+
+### Draft (Disabled)
+
+- Form is being configured
+- Only preview URL is accessible
+- Submissions not processed in production
+
+### Live (Enabled)
+
+- Form is publicly accessible
+- Public URL is active
+- Submissions are processed and stored
+- Data flows to integrations and webhooks
+
+## Enabling Forms
+
+**Prerequisites**:
+
+- Agent is assigned and live
+- All required configuration is complete
+- Form passes validation
+
+**Process**:
+
+1. Navigate to Forms section
+2. Toggle status switch to "Enabled"
+3. Form becomes immediately accessible via public URL
+
+## Disabling Forms
+
+Toggle status switch to "Disabled" to take form offline.
+
+- Public URL becomes immediately inaccessible
+- Preview URL remains accessible
+
+## Deleting Forms
+
+**Requirements**:
+
+- Form must be disabled first
+- Cannot be undone
+
+**Process**:
+
+1. Disable the form
+2. Click "Delete" action
+3. Confirm deletion
+
+**Note**: Deleting a form does not delete submitted data (chats and contacts remain accessible).

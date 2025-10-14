@@ -133,31 +133,36 @@
             ]
           },
           {
-            "group": "Legal",
+            "group": "Forms",
             "pages": [
-              "legal/terms-of-service",
-              "legal/privacy-policy",
-              "legal/cookie-policy",
-              "legal/security-policy",
-              "legal/subprocessors-list"
+              "platform/forms/overview",
+              "platform/forms/configuration",
+              "platform/forms/deployment"
+            ]
+          },
+          {
+            "group": "Telephony",
+            "pages": [
+              "platform/telephony/overview",
+              "platform/telephony/configuration"
             ]
           }
         ]
       },
       {
-        "tab": "Developer Guides",
+        "tab": "Developer",
         "groups": [
           {
             "group": "Messenger",
             "pages": [
-              "developer-guides/messenger/overview",
-              "developer-guides/messenger/installation",
-              "developer-guides/messenger/security"
+              "developer/messenger/overview",
+              "developer/messenger/installation",
+              "developer/messenger/security"
             ]
           },
           {
             "group": "API",
-            "pages": ["developer-guides/api/manage-keys"]
+            "pages": ["developer/api/manage-keys"]
           }
         ]
       },
@@ -169,6 +174,8 @@
             "pages": [
               "integrations/hubspot",
               "integrations/pipedrive",
+              "integrations/close",
+              "integrations/zoho",
               "integrations/attio",
               "integrations/klaviyo",
               "integrations/google-drive",
@@ -177,6 +184,30 @@
               "integrations/slack",
               "integrations/onedrive",
               "integrations/shopify"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Changelog",
+        "groups": [
+          {
+            "group": "Product Updates",
+            "pages": ["changelog/overview"]
+          }
+        ]
+      },
+      {
+        "tab": "Legal",
+        "groups": [
+          {
+            "group": "Legal",
+            "pages": [
+              "legal/terms-of-service",
+              "legal/privacy-policy",
+              "legal/cookie-policy",
+              "legal/security-policy",
+              "legal/subprocessors-list"
             ]
           }
         ]

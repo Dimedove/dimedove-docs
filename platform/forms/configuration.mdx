@@ -1,0 +1,133 @@
+---
+title: Configuration
+description: Configure form settings, agent overrides, and input fields
+---
+
+## Basic Settings
+
+### Form Name
+
+Internal identifier for organizing forms. Not shown to users.
+
+### Agent Assignment
+
+- Every form must be connected to an agent
+- Agent must be in "Live" status before form can be enabled
+- One agent can power multiple forms
+
+### Form Logo
+
+- Optional custom logo displayed at top of form
+- Recommended size: 250x150 pixels
+- Supports PNG, JPG formats
+
+### Estimated Duration
+
+- Optional completion time estimate
+- Options: 1, 5, 10, 15, or 30 minutes
+- Displayed to users when they start the form
+
+## Agent Overrides
+
+Override specific agent settings for this form. All overrides are optional.
+
+### Custom Instructions
+
+Replace the agent's default instructions with form-specific instructions.
+
+### Custom First Message
+
+Replace the agent's default greeting with a form-specific welcome message.
+
+- Supports multiple languages
+- Users see the greeting in their selected language
+
+### Custom Conversation Starters
+
+Replace default conversation starters with form-specific quick replies.
+
+- Maximum 4 starters per form
+- 100 character limit per starter
+- Supports multiple languages
+- Only shown on first message
+
+### Custom Human Fallback
+
+Replace the agent's default human fallback message with form-specific escalation handling.
+
+### Task Selection
+
+Choose which agent tasks are available in this form.
+
+- By default, all agent tasks are available
+- Enable override to select specific tasks only
+- Only active tasks can be selected
+
+## Form Structure
+
+### Title
+
+Main heading displayed at the top of the form.
+
+- Required for live forms
+- Supports multiple languages
+
+### Description
+
+Brief explanation of the form's purpose displayed to users.
+
+- Optional
+- Supports multiple languages
+
+## Form Inputs
+
+Define data fields to collect from users.
+
+### Input Types
+
+**Text** - Single-line text input
+
+**Number** - Integer values only
+
+**Decimal** - Decimal/floating-point numbers
+
+**Boolean** - True/false values
+
+### Input Configuration
+
+Each input field requires:
+
+**Key** (Required)
+
+- Unique identifier for the field
+- Used in webhooks and API responses
+- Format: lowercase with underscores (e.g., `first_name`)
+- Auto-generated from name, can be edited
+
+**Name** (Required)
+
+- Display name for the field
+- Shown to users during collection
+
+**Description** (Required)
+
+- Explains what information is needed
+- Used by agent to understand collection requirements
+
+**Required**
+
+- Mark if field must be collected
+- Agent ensures required fields are obtained
+
+## Collection Mode
+
+**Manual Collection**
+
+- Agent explicitly asks user for this field
+- User provides value in response
+
+**AI-Inferred Collection**
+
+- Agent extracts value from conversation context
+- No explicit question required
+- May not be collected if context is insufficient

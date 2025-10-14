@@ -3,4 +3,69 @@ title: Manage Attributes
 description: Create, edit, and organize custom contact attributes
 ---
 
-Businesses can manage custom defined attributes to create custom contact cards and manage what attributes should be auto inferred and which should be manually inputted.
+The Manage Attributes interface enables businesses to configure the attribute schema used across all contact profiles. This centralized management ensures consistent data collection and attribute behavior.
+
+## Core Capabilities
+
+The attribute management interface enables businesses to:
+
+- **View all attributes** - Display both default and custom attributes in scrollable list
+- **Add new attributes** - Create custom attributes up to plan limits
+- **Edit existing attributes** - Modify custom attribute properties
+- **Delete custom attributes** - Remove attributes no longer needed
+- **Toggle inference modes** - Switch between AI-inferred and manual for each attribute
+- **Monitor usage** - Track custom attribute count against entitlement limits
+- **Manage attribute display** - Configure how attributes appear on contact profiles
+
+## Adding Attributes
+
+When creating new attributes, businesses can:
+
+- **Define attribute name** - Set display name for the attribute
+- **Provide description** - Explain what the attribute represents
+- **Add example value** - Show placeholder demonstrating expected format
+- **Select input type** - Choose between single-line input or textarea
+- **Set inference mode** - Enable AI inference or require manual entry
+- **Add translations** - Provide localized names for English and French
+
+## Editing Attributes
+
+For custom attributes, businesses can modify:
+
+- **Attribute name** - Update the display name
+- **Description** - Revise the attribute explanation
+- **Example value** - Change the placeholder text
+- **Input type** - Switch between input and textarea
+- **Translations** - Update localized attribute names
+
+Note: Standard (default) attributes cannot be edited but their inference mode can be changed.
+
+## Inference Mode Toggle
+
+Each attribute displays a mode selector with two options:
+
+### Manual Mode (Pen icon)
+
+- Attribute values must be entered manually by team members
+- AI will not automatically populate this field
+- Provides control over sensitive or specific data
+- Prevents automatic overwrites
+
+### AI-Inferred Mode (Wand icon)
+
+- Attribute values are automatically extracted from conversations
+- AI analyzes chat content to populate the field
+- Updates when new relevant information is detected
+- Requires "Sync" operation on contact profile to extract
+
+Businesses can toggle between modes at any time, affecting all contacts going forward.
+
+## Deleting Attributes
+
+Custom attributes can be deleted with:
+
+- **Confirmation dialog** - Prevents accidental deletion
+- **Warning message** - Explains data will be removed from all contacts
+- **Immediate effect** - Attribute and all associated values are removed
+
+Standard attributes cannot be deleted.

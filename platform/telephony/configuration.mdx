@@ -1,0 +1,140 @@
+---
+title: Configuration
+description: Configure phone numbers, services, and usage limits
+---
+
+## Adding Phone Numbers
+
+**Prerequisites**:
+- Active team subscription
+- Valid payment method on file
+
+**Process**:
+1. Navigate to Telephony section
+2. Click "Add" button
+3. Review pricing information
+4. Accept terms and complete purchase
+5. Phone number is instantly available
+
+## Basic Configuration
+
+### Phone Number Name
+Internal identifier for organizing phone numbers. Not shown to callers or SMS users.
+
+### Agent Assignment
+- Every phone number must be connected to an agent
+- Agent must be in "Live" status
+- One agent can handle multiple phone numbers
+- Agent's knowledge base, tasks, and behavior apply to both voice and SMS
+
+## Service Configuration
+
+Each phone number can offer voice calls, SMS messaging, or both.
+
+### Calls Service
+
+**When Enabled**:
+- Inbound calls are answered by your agent
+- Conversations are transcribed in real-time
+- Call recordings and transcripts are saved
+
+**Configuration**:
+- Enable/disable toggle
+- Optional monthly minutes limit
+
+### SMS Service
+
+**When Enabled**:
+- Inbound SMS messages are received by your agent
+- Agent responds via SMS
+- Multi-turn conversations supported
+- SMS threads appear in Inbox
+
+**Configuration**:
+- Enable/disable toggle
+- Optional monthly SMS limit
+
+### Service Requirements
+- At least one service must be enabled for phone number to be active
+- Cannot disable both services while phone number is enabled
+- Agent must be assigned before enabling any services
+
+## Usage Limits
+
+### Monthly Call Minutes Limit
+- Set a positive integer or leave empty for unlimited
+- When limit is reached, calls are no longer answered
+- Limit resets at beginning of each calendar month
+- First 60 minutes per month are free (shared across all phone numbers)
+
+**Example**: Setting 300 minutes means:
+- First 60 minutes free (shared)
+- Next 240 minutes charged at standard rates
+- After 300 total minutes, calls stop until next month
+
+### Monthly SMS Limit
+- Set a positive integer or leave empty for unlimited
+- When limit is reached, SMS service stops responding
+- Limit resets at beginning of each calendar month
+- First 100 SMS per month are free (shared across all phone numbers)
+- Both incoming and outgoing messages count toward limit
+
+**Example**: Setting 1000 messages means:
+- First 100 messages free (shared)
+- Next 900 messages charged at standard rates
+- After 1000 total messages, SMS stops until next month
+
+## Phone Number Status
+
+### Disabled
+- Phone number is configured but not active
+- Calls and SMS are not answered
+- No usage charges
+
+### Enabled
+- Phone number is fully active
+- Calls and SMS are answered and processed
+- Usage is tracked and billed
+
+## Enabling Phone Numbers
+
+**Prerequisites**:
+- Phone number has a name
+- Agent is assigned and live
+- At least one service is enabled
+
+**Process**:
+1. Toggle status switch to "Enabled"
+2. Phone number becomes immediately active
+
+## Disabling Phone Numbers
+
+Toggle status to "Disabled" to temporarily deactivate.
+- Services immediately stop
+- Configuration is preserved
+- No usage charges while disabled
+
+## Deleting Phone Numbers
+
+**Requirements**:
+- Phone number must be disabled first
+- Cannot be undone
+
+**Process**:
+1. Disable the phone number
+2. Click "Delete" action
+3. Confirm deletion
+
+**Note**: Phone number is released and may be reassigned to others. Conversation history remains in Inbox.
+
+## Advanced Configuration
+
+### Integration with Workflows
+
+**Inbox**: All calls and SMS appear as chat conversations
+
+**Contacts**: Phone numbers link to contact records, caller ID enriches profiles
+
+**Webhooks**: Telephony events trigger webhooks
+
+**Tasks**: Agents can execute tasks during calls and SMS conversations

@@ -3,4 +3,53 @@ title: Insights
 description: Analyze customer behavior and interaction patterns
 ---
 
-Unstructured data points collected from visitors through agent conversations.
+Contact insights are unstructured key-value data points automatically collected from visitor conversations with AI agents. Unlike structured attributes, insights capture raw information without predefined schemas.
+
+## Core Capabilities
+
+Contact insights enable businesses to:
+
+- **Capture unstructured data** - Collect any information mentioned during conversations
+- **Store unlimited key-value pairs** - No limit on types of insights that can be captured
+- **Track insight timestamps** - Monitor when each insight was captured
+- **Link insights to conversations** - Each insight is associated with a specific chat
+- **Review insight history** - View all insights collected over time in chronological order
+- **Access raw insight data** - View unprocessed insights before attribute extraction
+
+## Insight Structure
+
+Each insight contains:
+
+- **Key** - The name or label of the insight (e.g., "preferred_contact_time", "pain_point")
+- **Value** - The actual data captured (can be text, numbers, or mixed content)
+- **Creation timestamp** - When the insight was captured during the conversation
+- **Chat association** - Link to the conversation where the insight was captured
+- **Contact ID** - The contact profile this insight belongs to
+
+## Insights vs Attributes
+
+### Insights
+
+- Unstructured, freeform data
+- No predefined schema required
+- Captured automatically during any conversation
+- Can contain any type of information
+- Stored as raw key-value pairs
+- Multiple insights can have different keys
+
+### Attributes
+
+- Structured, predefined fields
+- Defined by team administrators
+- Can be AI-inferred or manually entered
+- Limited to configured attribute definitions
+- Used for unified contact card format
+- All contacts share the same attribute schema
+
+## Viewing Insights
+
+Businesses can access insights from:
+
+- **Contact profile page** - "Raw Insights" button opens insight modal
+- **Chat insights tab** - View insights captured during specific conversations
+- **Read-only display** - Insights shown in disabled text areas with timestamps

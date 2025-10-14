@@ -3,4 +3,41 @@ title: Overview
 description: Comprehensive customer relationship management
 ---
 
-Centralized directory of all contacts generated and collected from agent conversations. Auto-populated contact cards with custom defined attributes and unstructured to structured contact insights automations.
+The Contacts section provides a centralized directory of all visitors who have interacted with your agent(s). Contacts are automatically created from conversations and include both structured attributes and unstructured insights.
+
+## Core Capabilities
+
+The Contacts system enables businesses to:
+
+- **Automatically generate contact profiles** - Each conversation creates or updates a contact record
+- **Track contact activity** - Monitor last seen timestamps and interaction history
+- **Link contacts to conversations** - Navigate between contact profiles and their associated chats
+- **Identify contacts across channels** - Track visitors across chat, call, SMS, and form interactions
+- **View agent associations** - See which agent(s) have interacted with each contact
+- **Search contact directory** - Quickly locate contacts using search functionality
+- **Filter by interaction date** - View contacts ordered by most recent activity
+- **Access conversation history** - Track chat type and conversation origins
+
+## Contact Information
+
+Each contact profile includes:
+
+- **Contact ID** - Unique identifier for the contact
+- **Visitor information** - Device, browser, and session data
+- **Last seen timestamp** - Most recent interaction date and time
+- **Associated agent** - Agent emoji and name from last conversation
+- **Conversation type** - Chat, call, SMS, or form indicator
+- **Creation date** - When the contact was first created
+- **Team association** - Team ID for multi-tenant organization
+
+## Contact Display Names
+
+The platform automatically determines contact display names using a priority hierarchy:
+
+1. First name + Last name (if both available)
+2. First name only
+3. Last name only
+4. Email address
+5. Phone number
+6. Any other populated attribute
+7. Contact ID (fallback)
