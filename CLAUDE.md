@@ -118,6 +118,7 @@ The project uses Mintlify's built-in components:
 - Language tags on all code blocks
 - Alt text on all images
 - Relative paths for internal links
+- **NEVER use emdashes (—) in documentation**: Use colons, commas, or parentheses instead. This is mandatory.
 
 ## Git workflow
 
