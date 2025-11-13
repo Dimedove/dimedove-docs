@@ -3,6 +3,52 @@ title: "Changelog"
 description: "Product updates and announcements from the Dimedove team"
 ---
 
+<Update
+  label="November 13, 2025"
+  description="Agent Versions, Labels, and Forms Upgrades"
+>
+    We're rolling out a major set of improvements that help teams iterate faster, organize conversations at scale, and capture data more reliably. First up: Agent Versions. You can now create multiple versions of an agent's configuration, preview how each behaves, and switch or roll out changes with confidence using a two-step deployment flow. This makes it easy to A/B test instructions, tasks, or knowledge and evolve your agent without disrupting production.
+
+    Next, we're introducing Labels: a powerful way to automatically categorize conversations. Define the labels that matter to your business (e.g., product fit, priority, intent), and Dimedove will auto-assign them based on the exchange. Labels appear right in the Inbox for quick scanning and can be managed centrally, giving your team new ways to segment, personalize, and report on outcomes.
+
+    We've also upgraded Forms to be more resilient and structured. You can enable auto-submit to finalize a Form as soon as the agent collects all required inputs, and specify the exact question order the agent should follow. Under the hood, we improved how agents handle task inputs, especially AI-inferred prompts, and tightened email format validation for cleaner data.
+
+    To round things out, we added a conversation toolbar in the Inbox so you can mark threads as requiring human assistance, quickly export messages, and manually assign labels when needed. A new notifications center lets each teammate subscribe to essential email alerts like "human assistance required" or "qualified opportunity," so nothing slips through the cracks.
+
+    And on mobile, the Messenger received a significant UX upgrade with much smoother virtual keyboard handling and layout polish to keep conversations fluid on every device.
+
+    - **Agent Versions** to safely test, preview, and deploy configuration changes with a two-step flow
+    - **Auto-assigned Labels** for smarter conversation categorization and faster prioritization in the Inbox
+    - **Inbox conversation toolbar** to request human help, export messages, and assign labels manually
+    - **Forms upgrades** with auto-submit, precise question ordering, and stronger task/input handling
+    - **Notifications center** for opt-in email alerts on key events
+    - **Mobile Messenger improvements** with drastically better virtual keyboard handling and UX on small screens
+
+    ### Features
+
+    - Create and manage multiple agent configuration versions; preview outputs, A/B test behavior, and switch live versions without downtime
+    - Two-step deployment separates editing from publishing so production remains stable while you iterate
+    - Define team labels that are automatically assigned to conversations based on agent understanding; view and filter labels directly in the Inbox
+    - Manage labels in the dashboard with plan-aware caps for PAYG; labels also appear inline in conversation views
+    - New Inbox conversation toolbar: mark conversations as requiring human assistance, export messages in one click, and manually assign labels
+    - Forms: enable auto-submit to complete a Form as soon as required data is captured; set the exact order of inputs for a consistent question flow
+    - Improved Form task handling and required AI-inferred input collection for more reliable data capture; stricter email format validation for cleaner records
+    - Notifications center (baseline): subscribe to key email alerts such as "human assistance required" and "qualified opportunity"; expand deeper via webhooks
+    - Admin quality-of-life: added search filters across admin views to find what you need faster
+    - Messenger: mobile UX revamp with better virtual keyboard handling, improved conversation starter alignment, optional hide-close in compact mode, and automatic light/dark mode fallback
+
+    ### Bug Fixes
+
+    - Fixed a dialog cleanup issue that could block screen interactivity after closing
+    - Resolved grouping inaccuracies in usage charts for performance records
+    - Improved mobile Messenger initialization for conversation starters and device theme detection
+    - Corrected compact mode behavior with an option to hide the close button where desired
+    - Addressed various mobile layout and virtual keyboard edge cases for a smoother typing experience
+    - Improved Form behavior when overriding team tasks and ensured email formatting is respected during collection
+    - Refined dashboard data refreshes for webhooks, Forms, and phone resources to reduce stale views
+
+</Update>
+
 <Update label="October 29, 2025" description="Messenger Compact Mode: Branding, Visibility, and Mobile Controls">
     We're rolling out powerful new customization options for the Dimedove Messenger, especially in compact mode. You can now add your company logo, fine-tune exactly what's displayed on desktop and mobile, and guide visitors with streamlined quick replies. Conversation Starters and Smart Replies are unified into tappable suggestions, making it faster for prospects to jump into the right flow. Everything is configurable in the Design tab and updates instantly with no code required.
 
