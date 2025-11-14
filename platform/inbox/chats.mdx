@@ -3,19 +3,16 @@ title: Chats
 description: Manage and monitor customer conversations
 ---
 
-Individual chat pages provide detailed views of conversations, enabling businesses to analyze customer interactions, review AI agent actions, and understand conversation outcomes.
+Individual chat pages provide detailed views of conversations, enabling businesses to analyze customer interactions, review AI agent actions, and understand conversation outcomes. They mirror the preview workspace but operate on live conversations, ensuring parity between what visitors saw and what operators can investigate.
 
 ## Chat Details
 
-Each chat view displays:
+Each chat view displays the context operators need to triage quickly:
 
-- **Conversation type** - Chat, call, SMS, or form submission indicator
-- **Last activity timestamp** - Time since last user interaction
-- **Call duration** - For voice calls, displays total conversation duration in minutes
-- **Associated agent** - Agent emoji and name that handled the conversation
-- **Linked form** - Form name (if conversation originated from a form submission)
-- **Performance qualification badge** - Indicates conversations with recorded performance metrics
-- **Contact information** - Direct link to associated contact profile
+- **Conversation type & metadata** – Channel badge (chat, call, SMS, form), last activity timestamp, and call duration (when applicable).
+- **Agent attribution** – Agent emoji/name plus any linked form so you know which funnel or entry point produced the exchange.
+- **Labels & statuses** – Human assistance badge, performance qualification badge, and every auto/manual label applied to the thread.
+- **Contact panel** – Renders the recognized visitor details (name, email, phone, contact ID) together with a shortcut button to open the full contact record.
 
 ## AI-Generated Summaries
 
@@ -25,6 +22,8 @@ When conversation summaries are enabled, businesses can access:
 - **Conversation summary** - Detailed summary of key discussion points and outcomes
 - **Human intervention flag** - Badge indicating when human assistance was requested
 - **Expandable summaries** - Toggle to view full summary content
+
+Summaries are displayed above the messenger preview, and the toggle preserves your preference per conversation.
 
 ## Conversation Tabs
 
@@ -63,11 +62,31 @@ Insights are displayed as:
 - Timestamp of capture
 - Read-only formatted text areas
 
-## Messenger Preview
+## Messenger preview
 
-Each chat view includes:
+The right-hand pane includes a read-only view of the messenger:
 
-- **Live conversation preview** - Read-only view of the full conversation
-- **Reversed role display** - Shows conversation from the business perspective
-- **Fixed conversation window** - 600px height messenger window
-- **Disabled interaction** - Preview-only mode preventing accidental messages
+- **Roles reversed** – Messages render from the team perspective with the newest content at the bottom, matching the Inbox experience.
+- **Safe viewing** – Inputs are disabled so operators cannot send messages accidentally, keeping the conversation timeline intact.
+- **Consistent layout** – Height automatically adjusts if summaries are present, and voice/SMS/form transcripts are all normalized for easy scanning.
+- **Contact badges** – Inline chips show associated contact and agent at a glance even while scrolling through long transcripts.
+
+When a conversation reaches the maximum token threshold, the preview displays an overlay instructing operators to start a new chat, mirroring the visitor experience.
+
+## Conversation toolbar
+
+A toolbar appears at the top of each conversation so operators can take immediate action without leaving the Inbox.
+
+- **Label chips** – Active labels are rendered as colored chips; click the inline × to remove one. Labels update instantly across the workspace.
+- **Manage labels** – Select the Tag icon to open a full dialog of all active team labels. Check or uncheck entries to manually assign conversations to intents that matter for your business.
+- **Request human assistance** – Toggle the concierge icon to mark the thread as requiring a teammate. Dimedove updates the chat record (`human_required` flag) and triggers relevant automation such as notification emails or webhook events.
+- **Copy transcript** – Export the entire conversation into your clipboard, including user/agent roles, with a single click for handoffs or compliance logging.
+- **Manual refresh** – Reload both the transcript and tool call data while staying on the same page—useful during live escalations.
+
+The toolbar works alongside automatic labeling so teams can override, enrich, or triage any conversation in seconds.
+
+## Tips for managing chats
+
+- **Use tabs strategically** – Leave the Events tab open during troubleshooting so you can refresh tool calls after adjusting tasks, and switch to Insights when validating enrichment or labels.
+- **Apply sidebar filters first** – Label/search filters in the left rail persist as you open chats, helping you focus on the right cohort.
+- **Jump to contacts** – Click the contact badge in the header to inspect historical context or update attributes without losing your Inbox position.

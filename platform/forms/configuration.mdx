@@ -119,6 +119,14 @@ Each input field requires:
 - Mark if field must be collected
 - Agent ensures required fields are obtained
 
+### Input ordering
+
+- Reorder fields using the drag handle to the left of each input.
+- The agent follows this sequence when guiding visitors through a form, so you can create intentional flows (e.g., qualification before scheduling).
+- Drag-and-drop updates are saved instantly, allowing you to test new sequences without recreating inputs.
+
+Use templates (First Name, Email, Phone, etc.) at the top of the inputs section to seed commonly used questions before fine-tuning their order.
+
 ## Collection Mode
 
 **Manual Collection**
@@ -131,3 +139,15 @@ Each input field requires:
 - Agent extracts value from conversation context
 - No explicit question required
 - May not be collected if context is insufficient
+
+## Advanced submission controls
+
+Open the **Advanced** tab of a form to configure automation that keeps completion rates high.
+
+### Auto-submit on inactivity
+
+- Enable **Auto-submit on Inactivity** to let Dimedove finish the form when a visitor stops responding.
+- The platform monitors for short periods of inactivity and automatically submits the conversation using all collected answers, ensuring downstream systems still receive a full payload.
+- This setting is ideal for long forms or high-intent flows where you want partial data captured even if a prospect drops off.
+
+Combine auto-submit with redirect URLs or post-form webhooks to continue journeys (CRM creation, scheduling links, etc.) even when the visitor abandons the chat near the end.

@@ -97,6 +97,7 @@
               "platform/agents/performance",
               "platform/agents/design",
               "platform/agents/languages-timezone",
+              "platform/agents/versions",
               "platform/agents/preview",
               "platform/agents/install"
             ]
@@ -111,7 +112,6 @@
               "platform/contacts/overview",
               "platform/contacts/contact",
               "platform/contacts/insights",
-              "platform/contacts/attributes",
               "platform/contacts/manage-attributes"
             ]
           },
@@ -128,6 +128,9 @@
             "pages": [
               "platform/team/overview",
               "platform/team/manage",
+              "platform/contacts/labels",
+              "platform/contacts/attributes",
+              "platform/team/notifications",
               "platform/team/billing",
               "platform/team/usage"
             ]

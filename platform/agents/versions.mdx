@@ -1,0 +1,42 @@
+---
+title: Versions
+description: Create, test, and deploy agent configuration versions with confidence
+---
+
+Agent versions allow teams to iterate on an agent's content, instructions, knowledge, and tasks without disrupting the live experience. Every agent view in the dashboard (identity, behavior, tasks, install, etc.) now respects the version selected in the version bar, so you can move between sections while staying scoped to the same draft.
+
+## Version bar
+
+- Access the version bar at the top of every agent workspace page.
+- The **version selector** shows the current version name (or its auto-generated number such as `v25.11.04.02`) together with `Live`, `Active`, or `Draft` badges so you always know which configuration you are editing.
+- Dimedove remembers the last version you viewed per agent, so returning to the dashboard automatically restores that context.
+- A warning chip appears whenever a version has unpublished changes so you do not promote stale configs by mistake.
+
+## Creating drafts
+
+1. Click **Create new version** from the version menu.
+2. Optionally provide a friendly version name (numbers are auto-generated if you skip this step).
+3. Dimedove clones the current configuration into a draft and automatically switches your session to that draft.
+4. Continue editing any aspect of the agent—content, tone, preview prompts, tasks, or install assets—without impacting the active version.
+
+You can keep as many drafts as you need, making it easy to A/B test configurations or prepare variants for different campaigns.
+
+## Switching and previewing versions
+
+- Use the dropdown menu to jump between any existing version. Selecting the published configuration clears the `?v=` query parameter so you see exactly what is live.
+- Non-active versions keep the `?v=VERSION_NUMBER` query parameter in the URL. Share that link with teammates to review the same draft in design, preview, performance, or install views.
+- Messenger preview sessions automatically reload when you switch versions, allowing you to compare responses across drafts in seconds.
+
+## Publishing a version
+
+1. While viewing a draft, click **Publish**.
+2. Dimedove confirms if you are promoting a different version to production versus just shipping the pending edits on the live configuration.
+3. Once confirmed, the version becomes the active/live configuration and the version parameter is cleared so the dashboard reflects the new baseline everywhere.
+
+Publishing is available even when the draft only contains unpublished edits, so you can push incremental changes without creating extra versions.
+
+## Best practices
+
+- Name drafts with a clear objective (e.g., "Black Friday Playbook") to keep the version list understandable for teammates.
+- Use the preview link embedded in each agent section to QA changes before publishing.
+- Keep at least one stable live version that mirrors production, then branch into drafts for experiments or region-specific adjustments.

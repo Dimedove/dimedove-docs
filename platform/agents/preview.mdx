@@ -3,4 +3,54 @@ title: Preview
 description: Test and preview your agent before deployment
 ---
 
-Agents can be tested in a sandbox and isolated environment without impacting live data like contacts or inbox. Testing ensures the agent is properly configured and ready to serve visitors.
+Agents can be tested in a sandboxed environment without creating contacts, filling the inbox, or sending external messages. The preview workspace mirrors the agent configuration (including the currently selected version) so you can test flows before pushing them live.
+
+## Key controls
+
+- **Version-aware** – The preview always aligns with the version selected in the global version bar. Switching versions automatically spins up a separate preview conversation for that draft so you can compare responses without losing work.
+- **Sandbox alert** – A callout reminds you that preview chats run in test mode and do not impact production systems.
+- **History** – Opens a side sheet containing the ten most recent preview chats for the current version. Use it to reopen older tests, compare behavior, or fetch summaries without rerunning the scenario.
+- **New chat** – Starts a brand-new sandbox conversation that inherits the agent version, session information, and locale you are currently viewing.
+
+Preview chats are pinned per (agent, version) using browser storage. Returning to the page restores the last test conversation you ran for that configuration so you can continue iterating without restarting from scratch.
+
+## Messenger experience
+
+The right-hand pane renders the exact messenger component that end users see:
+
+- A conversation summary surfaces above the transcript whenever the agent generated both a title and summary for that chat. The “See more/See less” toggle lets you expand longer recaps.
+- Dimedove automatically disables the messenger if a preview chat reaches its token limit and prompts you to start a new conversation.
+- The messenger reflects the locale, language, and personalization settings defined on the version you are testing. Inputs are disabled only when the chat is locked (e.g., token limit reached); otherwise you can type freely to simulate visitors.
+- When you are previewing a non-active version, the UI uses the draft messenger so styling, instructions, or tasks unique to that version can be verified before publishing.
+
+## Events & insights tabs
+
+The left-hand panel contains tabs that mirror the Inbox experience, but scoped to the active preview chat:
+
+### Events
+
+- Lists every tool call and task execution triggered during the preview.
+- Shows success/failure states, execution timestamps, and links to the originating task configuration so you can immediately tweak misfiring steps.
+- Refreshes alongside the messenger, giving you immediate feedback on new prompts or task wiring.
+
+### Insights
+
+- Displays the contact insights generated during the preview (including AI-inferred attributes).
+- Helps validate whether the form inputs, labels, or enrichment logic you configured are being captured before the agent reaches production visitors.
+
+Use the tab selector (persisted via the `?tab=` query parameter) to stay on the view you care about between sessions.
+
+## Preview history drawer
+
+Selecting **History** opens a right-side drawer with the version-specific archive:
+
+- Each entry shows the AI-generated title, truncated summary, and relative last-activity timestamp so you can quickly spot the right test run.
+- Clicking an entry loads that chat into both the messenger and the analytics tabs. The selection state stays in sync with the URL’s `?c=` parameter, making it easy to share a specific preview transcript with teammates for review.
+- Infinite scroll loads additional chats as you reach the bottom of the list, and a refresh button pulls the newest preview runs into view without closing the drawer.
+
+## Tips for productive preview sessions
+
+- **Switch versions often** – Preview makes it trivial to A/B test prompts, tone, or tasks. Keep a draft dedicated to experiments, then publish only when you are confident in its output.
+- **Validate tokens** – If you frequently hit the max-token overlay, consider shortening prompts or adding guardrails so production visitors never encounter it.
+- **Use history for collaboration** – Drop the preview URL (which includes the chat ID) into Slack or task trackers so teammates can reproduce exactly what you saw.
+- **Pair with labels and notifications** – When you preview new label conditions or notification triggers, the preview tabs will show whether those automations fire before you expose them to customers.
