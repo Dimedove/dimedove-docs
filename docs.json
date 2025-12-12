@@ -31,7 +31,7 @@
   "navbar": {
     "links": [
       {
-        "label": "Talk to Support",
+        "label": "Support",
         "href": "https://cal.com/felixsimard/support"
       }
     ],
@@ -149,6 +149,13 @@
               "platform/telephony/overview",
               "platform/telephony/configuration"
             ]
+          },
+          {
+            "group": "Slack",
+            "pages": [
+              "platform/slack/overview",
+              "platform/slack/configuration"
+            ]
           }
         ]
       },
@@ -175,18 +182,25 @@
           {
             "group": "Integrations",
             "pages": [
+              "integrations/slack",
               "integrations/hubspot",
+              "integrations/salesforce",
+              "integrations/attio",
               "integrations/pipedrive",
               "integrations/close",
               "integrations/zoho",
-              "integrations/attio",
-              "integrations/klaviyo",
               "integrations/google-drive",
-              "integrations/salesforce",
               "integrations/notion",
-              "integrations/slack",
-              "integrations/onedrive",
-              "integrations/shopify"
+              "integrations/shopify",
+              "integrations/stripe",
+              "integrations/zapier",
+              "integrations/intercom",
+              "integrations/zendesk",
+              "integrations/gumloop",
+              "integrations/telegram",
+              "integrations/google-calendar",
+              "integrations/linear",
+              "integrations/monday"
             ]
           }
         ]

@@ -1,0 +1,134 @@
+---
+title: Configuration
+description: Set up and configure Slack Agents for your workspace
+---
+
+<Info>Slack Agents are available to teams on the Pro subscription.</Info>
+
+This guide walks you through connecting your Slack workspace and deploying agents to your channels.
+
+## Prerequisites
+
+Before setting up Slack Agents, ensure you have:
+
+- A Dimedove account with Pro subscription
+- Admin access to your Slack workspace
+- At least one Dimedove agent configured and ready to deploy
+
+## Setup Flow
+
+### Step 1: Connect Your Slack Workspace
+
+1. Navigate to **Settings** in your Dimedove dashboard
+2. Go to the **Integrations** tab
+3. Click **Connect** next to Slack
+4. You'll be redirected to Slack to authorize the connection
+5. Review the permissions and click **Allow**
+6. Once authorized, you'll be redirected back to Dimedove
+
+Your Slack workspace is now connected and ready for agent deployment.
+
+### Step 2: Create a Slack Agent
+
+1. Navigate to the **Slack** section in your dashboard sidebar
+2. Click **Add** to create a new Slack Agent
+3. Enter a name for your Slack Agent (this is for your internal reference in the dashboard)
+
+### Step 3: Configure Your Slack Agent
+
+Once created, configure your Slack Agent with the following options:
+
+#### Name
+
+An internal identifier for this Slack Agent. Use descriptive names like "Sales Support" or "Technical Questions" to easily identify the agent's purpose in your dashboard.
+
+#### Agent Assignment
+
+Select which Dimedove agent should handle conversations in Slack. Choose from your existing agents based on the purpose of the channels where this agent will be deployed.
+
+<Note>The assigned agent must be published and active. If you select an agent that hasn't been published yet, a warning will appear.</Note>
+
+#### Response Trigger
+
+Choose how your agent responds to messages:
+
+- **Respond only when @mentioned** (default, recommended): The agent only responds when someone explicitly mentions it with @Dimedove. This is ideal for busy channels where you don't want the agent responding to every message.
+
+- **Respond to every message in threads**: Once mentioned in a thread, the agent will respond to all subsequent messages in that thread. Use this for dedicated support channels or when you want continuous conversation flow.
+
+### Step 4: Add the Agent to Channels
+
+After configuring your Slack Agent, you need to add it to the channels where you want it to operate. This is done directly in Slack using slash commands.
+
+<Note>The following steps are performed in your Slack workspace, not in the Dimedove dashboard.</Note>
+
+#### Installation Steps
+
+1. **Invite the Dimedove bot to the channel**
+
+   In Slack, go to the channel where you want to add the agent and type:
+   ```
+   /invite @Dimedove
+   ```
+
+2. **Assign the Slack Agent to the channel**
+
+   Once the bot is in the channel, assign your specific Slack Agent:
+   ```
+   /dimedove add {agent_id}
+   ```
+   Replace `{agent_id}` with the ID shown in your Dimedove dashboard for this Slack Agent.
+
+3. **Start interacting with your agent**
+
+   Once assigned, you can interact with the agent by mentioning it:
+   ```
+   @Dimedove What are our pricing plans?
+   ```
+
+The agent will respond in a thread to keep the channel organized.
+
+### Step 5: Enable the Agent
+
+After adding the agent to your channels, return to the Dimedove dashboard and enable the Slack Agent using the toggle. The agent will now start responding to messages in the assigned channels.
+
+## Channel Support
+
+<Warning>Slack Agents are currently available in public and private channels only. Direct message support is not yet available.</Warning>
+
+### Public Channels
+
+Add your agent to any public channel in your workspace. All workspace members can interact with the agent in public channels.
+
+### Private Channels
+
+Add your agent to private channels for more controlled access. Only members of the private channel can see and interact with the agent.
+
+### Threaded Responses
+
+All agent responses are posted as replies in threads. This keeps your channel clean and organized while allowing extended conversations with the agent.
+
+## Checking the Active Agent
+
+To see which agent is currently active in a channel, use the following command:
+```
+/dimedove active
+```
+
+This displays information about the Dimedove agent assigned to the current channel, helping you quickly verify the agent configuration.
+
+## Removing an Agent from a Channel
+
+To remove an agent from a channel, use the following command in Slack:
+```
+/dimedove remove
+```
+
+This removes the agent assignment from that channel. The bot will remain in the channel but will no longer respond to messages.
+
+## Benefits
+
+- **Standardized Qualification**: Apply the same qualification criteria across all channels, ensuring consistent lead handling
+- **Team Collaboration**: Multiple team members can participate in threads with the agent, building context together
+- **Organized Discussions**: Threaded responses keep conversations contained and easy to follow
+- **Centralized Visibility**: All Slack conversations appear in your Dimedove Inbox alongside other channels
