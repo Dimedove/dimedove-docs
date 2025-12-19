@@ -3,4 +3,64 @@ title: Email
 description: Configure email capabilities for your agent
 ---
 
-Businesses can send out custom emails as tasks through their agent(s).
+Email tasks enable your agent to send customized emails during conversations. Whether you need to send confirmation emails, follow-up messages, or notifications, email tasks provide flexible templating with dynamic content from your conversations.
+
+## Configuration
+
+### Recipient
+
+Define who receives the email. You have two options:
+
+- **Static** - Enter a fixed email address (e.g., your sales team's inbox)
+- **From Input** - Use an email address collected from the visitor during the conversation
+
+For most use cases, you'll want to collect the visitor's email as a task input and reference it here.
+
+### Subject
+
+The email subject line. You can include placeholders to insert dynamic content from task inputs. Placeholders use double curly braces:
+
+```
+Thank you for your inquiry, {{firstName}}!
+```
+
+### Body
+
+The email body content. Like the subject, you can include placeholders for personalization:
+
+```
+Hi {{firstName}},
+
+Thank you for reaching out about {{topic}}.
+
+We'll get back to you within 24 hours.
+
+Best regards,
+The Team
+```
+
+Line breaks in the body are automatically converted to HTML `<br>` tags when the email is sent.
+
+## Task Inputs
+
+Task inputs define the dynamic information your agent collects from visitors. Each input you create becomes available as a placeholder in your subject and body.
+
+For each input, configure:
+
+- **Name** - Display name for the input
+- **Key** - The placeholder key (e.g., `firstName` for `{{firstName}}`)
+- **Type** - Data type (text, number, decimal, or boolean)
+- **Required** - Whether the agent must collect this before sending
+- **AI Inferred** - Whether the agent can extract this from conversation context
+
+Quick-start templates are available for common inputs like first name, last name, email, and phone.
+
+## Testing
+
+Before going live, verify your email configuration:
+
+1. **Preview** - See how your email will look with placeholders rendered
+2. **Test Values** - Enter sample values for each input to preview the result
+3. **Send Test** - Send an actual test email to verify delivery
+
+The preview shows both the rendered version (with test values) and the raw template (with placeholders visible), so you can verify your templating is correct.

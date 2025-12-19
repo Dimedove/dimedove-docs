@@ -1,0 +1,43 @@
+---
+title: Calendar
+description: Let visitors book meetings directly within the chat experience
+---
+
+Calendar tasks enable your agent to offer scheduling directly within conversations. When a visitor is ready to book a meeting, your agent presents the calendar widget inline, allowing them to select a time without leaving the chat.
+
+## Supported Providers
+
+Dimedove integrates with two popular scheduling platforms:
+
+- **Calendly** - Widely used scheduling tool with robust calendar integrations
+- **Cal.com** - Open-source scheduling platform with flexible customization options
+
+Both providers work seamlessly within the chat interface, providing a consistent booking experience for your visitors.
+
+## Configuration
+
+To set up a calendar task, you need to configure two settings:
+
+### Provider
+
+Select which scheduling platform you use. This determines how the booking widget appears and functions within the chat.
+
+### Event Link
+
+Provide the direct URL to the specific event type you want visitors to book. The format depends on your provider:
+
+- **Calendly**: `https://calendly.com/username/event-name`
+- **Cal.com**: `https://cal.com/username/event-name`
+
+Make sure to use the link to a specific event type, not your general scheduling page.
+
+## How It Works
+
+When your agent determines a visitor is ready to book (based on the conversation context and your agent's instructions), it triggers the calendar task:
+
+1. The calendar widget appears directly in the chat interface
+2. The visitor selects an available time slot from your calendar
+3. They confirm the booking with their details
+4. Both you and the visitor receive confirmation
+
+The entire booking flow happens without the visitor ever leaving the conversation, creating a smooth and engaging experience.

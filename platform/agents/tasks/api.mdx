@@ -3,4 +3,73 @@ title: API
 description: Configure API integrations for your agent to perform actions
 ---
 
-Businesses can define an API request as an agent task with full control over the request construction including headers, query/path parameters, body, inputs, and more.
+API tasks give your agent the ability to make HTTP requests to external services during conversations. Whether you need to look up customer data, submit forms, or trigger workflows in other systems, API tasks provide full control over request construction.
+
+## Configuration
+
+### HTTP Method
+
+Select the type of request your agent will make:
+
+- **GET** - Retrieve data from an API
+- **POST** - Submit data to create a new resource
+- **PUT** - Replace an existing resource entirely
+- **PATCH** - Partially update an existing resource
+- **DELETE** - Remove a resource
+
+### URL
+
+The HTTPS endpoint your agent will call. The URL can include path parameters using curly braces (e.g., `https://api.example.com/users/{userId}`).
+
+### Path Parameters
+
+Dynamic segments in your URL that get replaced at runtime. For each path parameter:
+
+- **Key** - Matches the placeholder in your URL (e.g., `userId`)
+- **Value type** - Either a static value you define, or a reference to a task input collected from the visitor
+
+### Query Parameters
+
+URL query string parameters appended to your request. Like path parameters, each can be static or sourced from task inputs.
+
+### Headers
+
+HTTP headers sent with the request. Common uses include:
+
+- `Authorization` - API keys or bearer tokens
+- `Content-Type` - Usually `application/json`
+- Custom headers required by your API
+
+### Request Body
+
+For POST, PUT, and PATCH requests, define the JSON body structure. The body builder supports:
+
+- **Static values** - Fixed values with type conversion (text, number, decimal, boolean)
+- **Input references** - Values collected from the visitor during conversation
+- **Arrays** - Lists of items, either static or from inputs
+- **Nested objects** - Complex structures up to 3 levels deep
+
+## Task Inputs
+
+Task inputs are pieces of information your agent collects from visitors during the conversation. These inputs can then be used as dynamic values in your API request (path parameters, query parameters, or body fields).
+
+For each input, you define:
+
+- **Name** - Display name shown in the configuration
+- **Key** - Reference key used in the request (auto-generated from name)
+- **Type** - Data type (text, number, decimal, or boolean)
+- **Required** - Whether the agent must collect this before making the request
+- **AI Inferred** - Whether the agent can extract this from conversation context
+
+Common input templates are available for quick setup: first name, last name, email, and phone.
+
+## Testing
+
+Before deploying, test your API configuration:
+
+1. **URL Preview** - See the fully constructed URL with path and query parameters
+2. **JSON Preview** - Review the request body structure
+3. **Test Values** - Provide sample values for each input to simulate a real request
+4. **Execute Test** - Send an actual request and inspect the response (status, headers, body)
+
+Testing helps catch configuration errors and verify your API responds as expected.

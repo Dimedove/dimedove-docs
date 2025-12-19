@@ -1,0 +1,73 @@
+---
+title: MCP
+description: Connect your agent to external tools and services via Model Context Protocol
+---
+
+MCP (Model Context Protocol) tasks allow your agent to connect to external MCP servers and use their tools during conversations. This opens up powerful integrations with third-party services, custom APIs, and specialized functionality that extend your agent's capabilities.
+
+<Info>
+MCP tasks require a Pro plan subscription.
+</Info>
+
+## What is MCP?
+
+The Model Context Protocol is an open standard that enables AI agents to interact with external tools and data sources. When you connect an MCP server to your agent, it can discover and use the tools that server provides, seamlessly incorporating them into conversations.
+
+## Configuration
+
+### Server URL
+
+The HTTPS endpoint of your MCP server. This is where your agent will connect to discover and invoke tools.
+
+Example: `https://mcp.example.com/mcp`
+
+### Transport Protocol
+
+Choose how your agent communicates with the MCP server:
+
+- **Streamable HTTP** (Recommended) - Modern streaming protocol with better performance and reliability
+- **SSE** (Server-Sent Events) - Alternative transport for servers that don't support streamable HTTP
+
+### Custom Headers
+
+Add optional HTTP headers that will be sent with every request to the MCP server. Useful for:
+
+- Authentication tokens
+- API keys
+- Custom routing information
+
+Each header consists of a key-value pair that you define.
+
+### Trust Acknowledgment
+
+Before saving your MCP configuration, you must acknowledge that:
+
+- Your data may be shared with the third-party MCP server
+- You trust the server and its operators
+- You understand the security implications of this integration
+
+## Available Tools
+
+Once connected, your agent automatically discovers the tools available on the MCP server. These tools appear in your configuration after a successful connection test, showing:
+
+- **Tool name** - The identifier used to invoke the tool
+- **Description** - What the tool does (if provided by the server)
+
+Your agent can then use these tools during conversations when appropriate, based on the context and your agent's instructions.
+
+## Testing Your Connection
+
+Before saving, use the **Test Connection** button to verify:
+
+1. Your agent can reach the MCP server
+2. The server responds correctly
+3. Available tools are discovered
+
+The connection status indicator shows:
+
+- **Not configured** - No URL entered yet
+- **Connected** - Server reachable and tools discovered
+- **Connected, no tools** - Server reachable but no tools available
+- **Connection failed** - Unable to reach or authenticate with the server
+
+If connection fails, verify your server URL, headers, and that the server is running and accessible.

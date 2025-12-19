@@ -90,7 +90,8 @@
                 "group": "Tasks",
                 "pages": [
                   "platform/agents/tasks/api",
-                  "platform/agents/tasks/calendly-calcom",
+                  "platform/agents/tasks/mcp",
+                  "platform/agents/tasks/calendar",
                   "platform/agents/tasks/email"
                 ]
               },
