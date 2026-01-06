@@ -145,6 +145,13 @@
             ]
           },
           {
+            "group": "Emails",
+            "pages": [
+              "platform/emails/overview",
+              "platform/emails/configuration"
+            ]
+          },
+          {
             "group": "Telephony",
             "pages": [
               "platform/telephony/overview",
@@ -174,6 +181,13 @@
           {
             "group": "API",
             "pages": ["developer/api/manage-keys"]
+          },
+          {
+            "group": "MCP Servers",
+            "pages": [
+              "developer/mcp/overview",
+              "developer/mcp/configuration"
+            ]
           }
         ]
       },

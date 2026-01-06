@@ -3,6 +3,74 @@ title: "Changelog"
 description: "Product updates and announcements from the Dimedove team"
 ---
 
+<Update label="January 13, 2026" description="Emails: Forward, Respond, Repeat">
+    Emails let your agents handle inbound email conversations. Forward emails from your business addresses to a Dimedove-generated inbound address, assign an agent, and responses go out automatically. You can verify your own domain to send replies from your business address instead of the Dimedove address, with DNS-based verification for DKIM authentication.
+
+    All email threads appear in your unified Inbox alongside chat, phone, SMS, and Slack. Team members can take over conversations when needed, with configurable handoff behavior: permanent takeover or automatic resume after a timeout. Composition settings include custom signatures, CC/BCC recipients, quoted thread inclusion, and original CC preservation.
+
+    - **Inbound email forwarding** from any business address to your AI agents
+    - **Automatic AI responses** using your agent's full knowledge base and capabilities
+    - **Custom domain verification** with DKIM support for professional reply addresses
+    - **Proper email threading** with RFC 5322 compliant headers
+    - **Flexible human handoff** with permanent or timeout-based resume options
+    - **Unified Inbox integration** showing all email conversations alongside other channels
+    - **Configurable composition** including signatures, CC/BCC, and quoted threads
+
+    ### Features
+
+    - Create emails from the dashboard with automatic inbound address generation
+    - Forward from any provider that supports mail forwarding (Gmail, Outlook, Yahoo, etc.)
+    - Assign any published agent to handle email conversations
+    - Verify custom domains through DNS records for professional reply addresses
+    - Choose between Dimedove address or verified domain for outgoing replies
+    - Configure human handoff: permanent takeover or resume after configurable timeout
+    - Add custom email signatures appended to all agent replies
+    - Set static CC and BCC recipients for compliance or team visibility
+    - Toggle quoted thread inclusion and original CC preservation
+    - All email threads visible in unified Inbox with full conversation history
+
+    ### Notes
+
+    - Emails are available to teams on the Pro subscription and above
+
+</Update>
+
+<Update label="January 6, 2026" description="MCP Support: Extend and Expose Your Agents">
+    We're introducing full Model Context Protocol (MCP) support, giving your agents two powerful new capabilities: connect to external MCP servers to extend what your agents can do, and deploy your own hosted MCP servers to expose your agents to the broader AI ecosystem. Whether you want to bring third-party tools into your agent conversations or make your agents accessible from ChatGPT, automation platforms, and other AI tools, MCP makes it possible.
+
+    MCP Tasks let your agents connect to any MCP-compatible server during conversations. Configure the server URL, choose your transport protocol, add custom headers for authentication, and your agent automatically discovers and uses the available tools. This opens up integrations with specialized services, custom APIs, and external capabilities that extend your agent far beyond its built-in functionality. A trust acknowledgment ensures you maintain control over which third-party servers your agents can access.
+
+    MCP Servers flip the script: instead of consuming external tools, you expose your Dimedove agents as tools that other applications can use. Create a hosted MCP server from your dashboard, assign an agent, select which tasks to expose, and optionally enable knowledge base access. Dimedove manages all the infrastructure, so there are no servers to deploy or maintain. Your agents become accessible to ChatGPT apps, AI automation tools like n8n, Make, Gumloop, and Zapier, AI assistants and copilots, and any MCP-compatible client. Built-in rate limiting and analytics give you visibility and control over external usage.
+
+    - **MCP Tasks** for connecting agents to external MCP servers and third-party tools
+    - **MCP Servers** for exposing your agents via Dimedove-hosted MCP endpoints
+    - **Selective task exposure** to control exactly what external tools can access
+    - **Knowledge base access** toggle for MCP server queries
+    - **Connection testing** to verify MCP configurations before going live
+    - **Built-in rate limiting** and usage analytics for MCP servers
+
+    ### Features
+
+    - Create MCP tasks that connect to any external MCP server during conversations
+    - Configure server URL, transport protocol (Streamable HTTP or SSE), and custom headers
+    - Automatic tool discovery from connected MCP servers
+    - Trust acknowledgment workflow for third-party MCP server connections
+    - Create and manage MCP servers from Settings > MCP in your dashboard
+    - Assign any published agent to an MCP server
+    - Selectively expose specific agent tasks through each MCP server
+    - Enable or disable knowledge base queries per MCP server
+    - Test MCP server connections and view discovered tools before enabling
+    - Copy MCP server URLs for easy configuration in external tools
+    - Live/Draft status with validation ensuring proper configuration before enabling
+    - Per-server rate limiting to prevent abuse and ensure reliable performance
+    - All MCP tool calls logged for monitoring and debugging
+
+    ### Notes
+
+    - MCP Tasks and MCP Servers are available to teams on the Pro subscription
+
+</Update>
+
 <Update label="December 17, 2025" description="Multiple Agents: Specialized Experts for Every Channel">
     Teams can now create and manage multiple agents, each becoming an expert in a specific part of your lead qualification flow. Dimedove makes it seamless to assign agents to Forms, Slack channels, Telephony, and more channels coming soon, so you can have specialized qualification agents tailored to each channel's unique context and audience.
 

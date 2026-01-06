@@ -1,0 +1,176 @@
+---
+title: Configuration
+description: Set up and configure MCP Servers to expose your agents
+---
+
+<Info>MCP Servers are available to teams on the Pro subscription.</Info>
+
+This guide walks you through creating and configuring an MCP Server to expose your agent to external AI tools.
+
+## Prerequisites
+
+Before setting up an MCP Server, ensure you have:
+
+- A Dimedove account with Pro subscription
+- At least one agent configured with tasks you want to expose
+- The agent must be published (live) before you can enable the MCP Server
+
+## Setup Flow
+
+### Step 1: Navigate to MCP Settings
+
+1. Go to **Settings** in your Dimedove dashboard
+2. Click **MCP** in the sidebar
+
+You will see a list of any existing MCP Servers, or an empty state if this is your first one.
+
+### Step 2: Create an MCP Server
+
+1. Click **Create MCP Server**
+2. Enter a name for your MCP Server (this is for your internal reference)
+
+Your MCP Server is now created in draft mode. You need to configure it before enabling.
+
+### Step 3: Assign an Agent
+
+1. In the **Agent** dropdown, select the agent whose tasks you want to expose
+2. Only published (live) agents can be assigned
+
+<Warning>If you select an agent that is not live, you will see a warning. The MCP Server cannot be enabled until the agent is published.</Warning>
+
+### Step 4: Select Tasks to Expose
+
+After assigning an agent, you can choose which tasks to expose:
+
+1. In the **Exposed Tasks** section, you will see all tasks configured on the selected agent
+2. Check the boxes next to the tasks you want to make available through this MCP Server
+3. Only active tasks can be selected
+
+External tools will only be able to execute the tasks you explicitly select here.
+
+### Step 5: Enable Knowledge Base Access (Optional)
+
+If your agent has a knowledge base configured:
+
+1. Toggle **Knowledge Base Access** to enable it
+2. When enabled, external tools can search your agent's knowledge base using the `query_knowledge` tool
+
+Leave this disabled if you only want to expose tasks without knowledge base access.
+
+### Step 6: Test the Connection
+
+Before enabling your MCP Server, verify the configuration:
+
+1. Click **Test Connection**
+2. The status indicator shows the result:
+   - **Connected**: Server is reachable and tools are available
+   - **Connected, no tools**: Server works but no tasks are exposed
+   - **Error**: Configuration issue (check that an agent is assigned and tasks are selected)
+
+The test results display all available MCP tools, helping you verify that the right capabilities are exposed.
+
+### Step 7: Enable the MCP Server
+
+Once configured and tested:
+
+1. Toggle the **Enable** switch at the top of the page
+2. The status changes from **Draft** to **Live**
+
+Your MCP Server is now active and ready to accept connections.
+
+## Configuration Options
+
+### Name
+
+An internal identifier for this MCP Server. Use descriptive names like "Sales Agent MCP" or "Support Bot External" to easily identify the server's purpose in your dashboard.
+
+### Agent Assignment
+
+The agent whose tasks and knowledge base will be exposed. You can only assign one agent per MCP Server. If you need to expose multiple agents, create separate MCP Servers for each.
+
+### Exposed Tasks
+
+Select which of the agent's tasks are available through this MCP Server. This gives you fine-grained control over what external tools can do. You might expose read-only API tasks while keeping write operations private.
+
+### Knowledge Base Access
+
+When enabled, external tools can search the agent's knowledge base. This is useful when you want external AI tools to have access to your documentation, FAQs, or other indexed content.
+
+### Rate Limiting
+
+Each MCP Server has built-in rate limiting to prevent abuse. The limits help ensure reliable performance and protect your integrations from excessive usage.
+
+## Using Your MCP Server
+
+### Copy the Server URL
+
+1. In your MCP Server configuration, find the **MCP Server URL** field
+2. Click the copy button to copy the URL to your clipboard
+
+### Connect External Tools
+
+Use the copied URL to configure your MCP client. Dimedove MCP Servers work with any MCP-compatible tool, including:
+
+- **Claude Desktop**: Add the URL to your Claude Desktop configuration
+- **Cursor**: Configure the MCP server in Cursor settings
+- **ChatGPT**: Use the URL when setting up custom integrations
+- **Custom clients**: Use the URL with any MCP client library
+
+Each tool has its own configuration method. Refer to the tool's documentation for specific setup instructions.
+
+## Connection Status
+
+The MCP Server configuration page shows the current connection status:
+
+- **Not configured**: No agent assigned or no tasks selected
+- **Connected**: Server is active and tools are available
+- **Connected, no tools**: Server works but nothing is exposed (assign tasks or enable knowledge base)
+- **Connection failed**: Error reaching the server (verify the URL and try again)
+
+## Managing MCP Servers
+
+### Disable an MCP Server
+
+Toggle the **Enable** switch off to disable an MCP Server. External tools will no longer be able to connect, but your configuration is preserved.
+
+### Delete an MCP Server
+
+1. First disable the MCP Server
+2. Open the actions menu and click **Delete**
+3. Confirm the deletion
+
+<Warning>Deleting an MCP Server is permanent. Any external tools configured with this server's URL will stop working.</Warning>
+
+### Update Configuration
+
+You can update an MCP Server's configuration at any time:
+
+- Change the assigned agent
+- Add or remove exposed tasks
+- Toggle knowledge base access
+- Update the name
+
+Changes take effect immediately for new connections.
+
+## Troubleshooting
+
+### Cannot Enable MCP Server
+
+Verify that:
+- An agent is assigned
+- The assigned agent is published (live)
+- At least one task is selected for exposure
+
+### Connection Test Fails
+
+Check that:
+- The agent is live and active
+- Selected tasks are active (not disabled)
+- Your Dimedove subscription is active
+
+### External Tool Cannot Connect
+
+Ensure that:
+- The MCP Server is enabled (status shows Live)
+- You copied the complete URL
+- The external tool supports MCP with streamable HTTP transport

@@ -1,0 +1,146 @@
+---
+title: Overview
+description: Deploy hosted MCP servers to expose your agents to external AI tools
+---
+
+<Info>MCP Servers are available to teams on the Pro subscription.</Info>
+
+Dimedove MCP Servers let you expose your configured agents to external AI tools through the Model Context Protocol (MCP). Instead of managing your own infrastructure, Dimedove hosts and maintains the MCP endpoint for you, allowing tools like Claude Desktop, Cursor, and ChatGPT to connect directly to your agents.
+
+## What are MCP Servers?
+
+While MCP tasks allow your agents to consume external tools, MCP Servers work in the opposite direction: they expose your Dimedove agents as tools that external AI applications can use.
+
+When you create an MCP Server, Dimedove generates a hosted endpoint that any MCP-compatible client can connect to. This gives external tools access to your agent's tasks and knowledge base, enabling powerful integrations without writing code.
+
+## Key Features
+
+### Hosted Infrastructure
+
+Dimedove manages the MCP server infrastructure for you. There are no servers to deploy, maintain, or scale. Simply create an MCP Server in your dashboard and start using the generated URL.
+
+### Selective Task Exposure
+
+Choose exactly which agent tasks to expose through your MCP Server. You have full control over what functionality external tools can access, keeping sensitive operations private while sharing useful capabilities.
+
+### Knowledge Base Access
+
+Optionally enable knowledge base queries through your MCP Server. External tools can search your agent's knowledge base to retrieve relevant information during their workflows.
+
+### Built-in Protection
+
+Each MCP Server includes configurable rate limiting to prevent abuse and ensure reliable performance. All tool calls are logged for monitoring and debugging.
+
+## Available MCP Tools
+
+When external tools connect to your MCP Server, they can discover and use these tools:
+
+### `get_agent_guidelines`
+
+Retrieves your agent's configuration including identity, personality, objectives, expertise, and language settings. External tools use this to understand how your agent operates and maintain consistency.
+
+<Accordion title="Response Schema">
+```json
+{
+  "agent_info": {
+    "name": "string",
+    "business_name": "string",
+    "description": "string"
+  },
+  "personality": {
+    "tone": "string",
+    "personality": "string",
+    "verbosity": "string"
+  },
+  "objectives": {
+    "instructions": "string",
+    "performance_metrics": ["string"],
+    "human_fallback": "string"
+  },
+  "expertise": {
+    "field": "string",
+    "jurisdiction": "string",
+    "scope": "string",
+    "disclaimer": "string"
+  },
+  "languages": {
+    "default": "string",
+    "additional": ["string"]
+  }
+}
+```
+</Accordion>
+
+### `list_available_tasks`
+
+Returns a list of all tasks you have exposed on this MCP Server, along with their descriptions and input schemas. This helps external tools understand what actions they can perform.
+
+<Accordion title="Response Schema">
+```json
+{
+  "tasks": [
+    {
+      "task_id": "string",
+      "name": "string",
+      "description": "string",
+      "type": "api | calendar | email | mcp_server",
+      "input_schema": {}
+    }
+  ],
+  "knowledge_base_enabled": "boolean"
+}
+```
+</Accordion>
+
+### `execute_task`
+
+Runs a specific agent task with the provided inputs. This works with all task types: API calls, calendar bookings, email sending, and even calls to other MCP servers.
+
+<Accordion title="Parameters">
+```json
+{
+  "task_id": "string (required)",
+  "inputs": {
+    "key": "value"
+  }
+}
+```
+</Accordion>
+
+### `query_knowledge`
+
+Searches your agent's knowledge base and returns relevant results with citations. Only available when you enable knowledge base access on the MCP Server.
+
+<Accordion title="Parameters">
+```json
+{
+  "query": "string (required)"
+}
+```
+</Accordion>
+
+## Use Cases
+
+### ChatGPT Apps
+
+Build ChatGPT applications that leverage your Dimedove agent's tasks and knowledge. Your existing agent configuration becomes accessible through ChatGPT's interface.
+
+### AI Automation Tools
+
+Connect your agent to workflow automation platforms like n8n, Make, Gumloop, or Zapier. Trigger your agent's tasks as part of automated workflows, enabling actions like booking meetings, sending emails, or calling APIs based on external events.
+
+### AI Assistants and Copilots
+
+Integrate your agent with interactive AI tools like Claude Desktop, Microsoft Copilot, or other MCP-compatible assistants. Let users access your agent's capabilities through the AI tools they already use for daily conversations and productivity.
+
+### Custom MCP Clients
+
+Any application that supports the MCP protocol can connect to your Dimedove MCP Server. Build custom integrations using the standard MCP client libraries.
+
+## Benefits
+
+- **No infrastructure management**: Dimedove hosts and maintains the MCP endpoint
+- **Reuse existing configuration**: Your agent's tasks and knowledge base work immediately
+- **Consistent behavior**: External tools follow the same guidelines as your embedded agents
+- **Full visibility**: Monitor all external tool calls from your Dimedove dashboard
+- **Flexible access control**: Choose exactly what to expose through each MCP Server
