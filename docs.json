@@ -117,14 +117,6 @@
             ]
           },
           {
-            "group": "Webhooks",
-            "pages": [
-              "platform/webhooks/overview",
-              "platform/webhooks/event-types",
-              "platform/webhooks/security"
-            ]
-          },
-          {
             "group": "Team",
             "pages": [
               "platform/team/overview",
@@ -179,8 +171,12 @@
             ]
           },
           {
-            "group": "API",
-            "pages": ["developer/api/manage-keys"]
+            "group": "Webhooks",
+            "pages": [
+              "developer/webhooks/overview",
+              "developer/webhooks/event-types",
+              "developer/webhooks/security"
+            ]
           },
           {
             "group": "MCP Servers",
@@ -188,6 +184,10 @@
               "developer/mcp/overview",
               "developer/mcp/configuration"
             ]
+          },
+          {
+            "group": "API",
+            "pages": ["developer/api/manage-keys"]
           }
         ]
       },
