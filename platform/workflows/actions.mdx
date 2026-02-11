@@ -1,0 +1,131 @@
+---
+title: Actions
+description: Action types that workflows can execute after a trigger fires
+---
+
+Actions define what a workflow does after its trigger fires. Each workflow can have up to 2 action nodes. If you use 2 action nodes, the first must be a Delay action, enabling patterns like: trigger, wait, then execute. All text fields in action configurations support [template variables](/platform/workflows/configuration#using-template-variables) for inserting dynamic data from the trigger payload.
+
+## Action Types
+
+### HTTP Request
+
+Send an HTTP request to any external URL. Use this to connect your workflows to external APIs, webhook endpoints, third-party services, or custom applications.
+
+**Configuration Fields**:
+
+- **Method**: The HTTP method to use: GET, POST, PUT, PATCH, or DELETE
+- **URL** (required): The target URL. Supports template variables.
+- **Headers**: Key-value pairs for custom request headers. Add as many as needed. Supports template variables in both keys and values.
+- **Query Parameters**: Key-value pairs appended to the URL as query string parameters. Supports template variables.
+- **Body**: The request body content in JSON format. Only available for POST, PUT, and PATCH methods. Supports template variables. A "Format JSON" button is provided to help you validate and format the JSON.
+
+<Tip>When using the Webhook trigger, you can use `{{trigger.body.field}}` in the URL, headers, query parameters, or body to forward data from the incoming webhook request to the external API.</Tip>
+
+### Email
+
+Send an email to a specified recipient. The Email action supports three sending modes, giving you flexibility in how the email appears to the recipient and whether the conversation continues through an agent.
+
+**Sending Modes**:
+
+- **Default (Dimedove)**: Sends the email from the Dimedove platform address. No additional setup required. Suitable for simple notifications.
+- **Custom Sender Name**: Sends from a custom display name using the Dimedove address (e.g., "Your Company Name"). Allows you to customize the sender appearance without setting up a full email channel.
+- **Email Channel**: Sends through one of your configured [email channels](/platform/emails/overview), using your verified domain. When the email channel has an assigned agent, an inbox conversation is automatically created, and the agent can respond to replies.
+
+**Configuration Fields**:
+
+- **From**: Select the sending mode (Default, Custom, or a specific Email Channel)
+- **Custom From Name** (Custom mode only): The display name for the sender
+- **Reply-To** (Default and Custom modes): An optional reply-to email address. Supports template variables.
+- **To** (required): The recipient email address. Supports template variables.
+- **Subject** (required): The email subject line. Supports template variables.
+- **Body** (required): The email body content. Supports template variables. Line breaks are preserved in the sent email.
+- **Context** (Email Channel mode only): Additional context provided to the agent when an inbox conversation is created. Use this to give the agent relevant background information about why this email was sent.
+
+**Inbox Integration**:
+
+When using the Email Channel sending mode with an agent-assigned channel, the sent email creates a conversation in your [Inbox](/platform/inbox/overview). The agent handles any replies from the recipient, and the conversation shows its workflow origin with a link back to the run. This enables workflows to initiate outreach that seamlessly transitions into agent-powered conversations.
+
+See [Email Channels](/platform/emails/overview) for setting up email channels with verified domains.
+
+### SMS
+
+Send an SMS text message to a phone number.
+
+**Sending Modes**:
+
+- **Default (Dimedove)**: Sends from a Dimedove-managed phone number. No setup required. Recipients cannot reply to this number.
+- **Team Phone Number**: Sends from one of your configured [phone numbers](/platform/telephony/overview). When the phone number has an assigned agent, an inbox conversation is created (or continued), and the agent can respond to replies.
+
+**Configuration Fields**:
+
+- **From**: Select the sending source (Default or a specific team phone number)
+- **To** (required): The recipient phone number. Supports template variables. The dashboard automatically normalizes phone numbers to international format.
+- **Message** (required): The SMS message content, up to 150 characters. A character counter is displayed in the editor. Supports template variables.
+- **Context** (Team Phone Number mode only): Additional context provided to the agent when an inbox conversation is created.
+
+**Inbox Integration**:
+
+When using a team phone number with an assigned agent, the SMS creates or continues a conversation in your [Inbox](/platform/inbox/overview). If an existing SMS conversation with the same phone number exists within a recent window, the message is added to that conversation rather than creating a new one. The conversation shows its workflow origin.
+
+See [Telephony](/platform/telephony/overview) for phone number configuration.
+
+### Call
+
+Initiate an outbound voice call using one of your team phone numbers. The call is handled by the agent assigned to the phone number, enabling fully automated outbound conversations.
+
+<Note>Call actions require a team phone number with an assigned agent that has voice capabilities enabled.</Note>
+
+**Configuration Fields**:
+
+- **From** (required): The team phone number to call from. Must have a voice-enabled agent assigned.
+- **To** (required): The recipient phone number. Supports template variables. The dashboard normalizes phone numbers to international format.
+- **First Message** (optional): The opening message the agent speaks when the call connects. Supports template variables. If not set, the agent uses its default first message.
+- **Context** (optional): Additional context provided to the agent for the call. Use this to give the agent background information about the recipient or the purpose of the call. Supports template variables.
+
+**Inbox Integration**:
+
+An inbox conversation is always created before the call is initiated. The conversation shows the workflow origin and contains the full call transcript once the call completes. Your team can review the conversation in the [Inbox](/platform/inbox/overview).
+
+See [Telephony](/platform/telephony/overview) for setting up phone numbers with voice agents.
+
+### Slack Message
+
+Send a message to a Slack channel in your connected workspace.
+
+<Note>Requires a connected Slack workspace. See [Slack Configuration](/platform/slack/configuration) for setup instructions.</Note>
+
+**Configuration Fields**:
+
+- **Channel** (required): The Slack channel to send the message to. Select from your workspace's available channels. A refresh button lets you reload the channel list if you have recently created new channels.
+- **Message** (required): The message content. Supports template variables.
+
+If no Slack integration is found, the dashboard displays a prompt to connect Slack in your team settings.
+
+See [Slack](/platform/slack/overview) for details on the Slack workspace integration.
+
+### Delay
+
+Pause workflow execution for a specified duration before continuing to the next step. Use this to add timing between a trigger and a subsequent action, for example waiting before sending a follow-up message or allowing time for an external process to complete.
+
+**Configuration Fields**:
+
+- **Duration** (required): A positive number representing the wait time
+- **Unit**: Select the time unit: Seconds, Minutes, or Hours
+
+**Behavior**:
+
+- The workflow is paused for the specified duration, then resumes execution with the next action node
+- If the workflow is disabled or paused during the delay period, the remaining steps are cancelled when the delay ends
+- The delay does not block other workflows or processes on your team
+
+<Tip>The Delay action is especially useful when combined with a second action node. For example: trigger on a qualified opportunity, delay for 30 minutes, then place a follow-up call.</Tip>
+
+## Inbox Conversations from Actions
+
+Email, SMS, and Call actions can create conversations in your [Inbox](/platform/inbox/overview) when sent through agent-assigned resources:
+
+- **Email** (Email Channel mode): Creates an inbox conversation when the email channel has an assigned agent
+- **SMS** (Team Phone Number mode): Creates or continues an inbox conversation when the phone number has an assigned agent
+- **Call**: Always creates an inbox conversation (a phone number with a voice agent is required)
+
+These conversations display the originating workflow's name and provide a direct link to the specific workflow run that initiated them. This gives your team full visibility into how conversations were started and allows agents to seamlessly continue the interaction with the recipient.

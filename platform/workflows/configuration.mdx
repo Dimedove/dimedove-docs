@@ -1,0 +1,271 @@
+---
+title: Configuration
+description: Build and configure workflows with triggers, actions, and template variables
+---
+
+<Info>Workflows are available to teams on the Pro subscription.</Info>
+
+This guide walks you through creating, configuring, publishing, and managing workflows in the Dimedove dashboard.
+
+## Prerequisites
+
+Before building a workflow, ensure you have:
+
+- A Dimedove account with a Pro subscription
+- Depending on the workflow you want to build, one or more of the following configured and active:
+  - An [agent](/platform/agents/overview) (for Qualified Opportunity or Human Required triggers, or for Email, SMS, and Call actions through agent-assigned channels)
+  - A [form](/platform/forms/overview) (for Form Submission triggers)
+  - An [email channel](/platform/emails/overview) (for Email Received triggers or Email actions via email channel)
+  - A [phone number](/platform/telephony/overview) (for Inbound Call or Inbound SMS triggers, or for SMS and Call actions)
+  - A [Slack workspace](/platform/slack/configuration) (for Slack Message Received triggers or Slack Message actions)
+
+## Creating a Workflow
+
+1. Navigate to the **Workflows** section in your dashboard sidebar
+2. Click **Add** to create a new workflow
+3. You are taken to the workflow editor where you can configure the trigger and actions
+
+The workflow is created in **Draft** status and will not run until you publish and enable it.
+
+## The Workflow Editor
+
+The editor has two main areas:
+
+- **Canvas (left side)**: A visual representation of your workflow showing the trigger node, action nodes, and the connections between them. Click any node on the canvas to select it and open its configuration.
+- **Configuration Panel (right side)**: Displays the configuration options for the selected node, or the workflow overview and checklist when no node is selected.
+
+### Workflow Details
+
+When no node is selected, the configuration panel shows:
+
+- **Name**: Give your workflow a descriptive name (e.g., "Notify Sales on New Lead" or "Follow-Up Call After Qualification"). The name auto-saves when you press Enter or click away.
+- **Description**: Add an optional description to explain the workflow's purpose. The description auto-saves when you press Ctrl+Enter or click away.
+- **Checklist**: A list of items that must be resolved before publishing. The checklist automatically detects missing configurations such as an unset trigger, missing action steps, or incomplete action fields.
+
+## Configuring the Trigger
+
+Every workflow must have exactly one trigger. The trigger determines what event starts your workflow.
+
+### Selecting a Trigger Type
+
+1. Click the trigger node on the canvas (or click the trigger area when creating a new workflow)
+2. Choose from the 9 available trigger types. Each type shows an icon and a brief description.
+3. Configure any available filters for the selected trigger type
+
+See [Triggers](/platform/workflows/triggers) for full details on each trigger type and its available filters.
+
+### Applying Trigger Filters
+
+Many triggers accept optional filters to narrow which events fire the workflow:
+
+- **Qualified Opportunity** and **Human Required**: Filter by a specific agent or channel type
+- **Form Submission**: Filter by a specific form
+- **Email Received**: Filter by a specific email channel
+- **Inbound Call** and **Inbound SMS**: Filter by a specific phone number
+- **Slack Message Received**: Filter by a specific Slack Agent
+
+When a filter is left unset (showing "Any"), the trigger fires for every matching event across your team.
+
+<Note>The dashboard displays warning indicators next to resources that are currently disabled. Disabled resources will not generate events, so the trigger will not fire for them.</Note>
+
+### Webhook URL
+
+When using the Webhook trigger, your workflow receives a unique URL displayed in the trigger configuration:
+
+```
+https://hooks.dimedove.com/v1/w/{path}
+```
+
+Copy this URL and configure your external system to send HTTP POST requests with a JSON body to it. Each POST request triggers a workflow run.
+
+### Node Name and Description
+
+Every node (trigger or action) can have a custom name and description:
+
+- **Name**: Click the name area to edit. Use descriptive names like "New Lead Form" or "Send Follow-Up Email". Node names are used in template variable paths for step output chaining (`{{steps.NodeName.output.field}}`).
+- **Description**: Click "Add a description..." to add context about what this node does or why it exists. Helpful for team documentation.
+
+## Adding Actions
+
+After configuring your trigger, add one or more actions to define what happens when the trigger fires.
+
+### Adding an Action Node
+
+1. Click the **Add Action** button below the last node on the canvas
+2. Select the action type from the available options
+3. Configure the action fields in the panel on the right
+
+<Note>You can add up to 2 action nodes per workflow. If you use 2 actions, the first must be a Delay action, enabling patterns like: trigger, wait, then execute an action.</Note>
+
+### Configuring Action Fields
+
+Each action type has its own configuration fields. Fill in the required fields for your selected action. See [Actions](/platform/workflows/actions) for full details on each action type and its fields.
+
+### Changing a Node Type
+
+You can change a trigger or action node's type at any time by clicking the edit (pencil) icon on the node. This opens the type selection panel where you can choose a different type. Changing the type resets the node's configuration to the defaults for the new type.
+
+### Deleting an Action Node
+
+To remove an action, click the delete (trash) icon on the action node and confirm the deletion.
+
+## Using Template Variables
+
+Template variables let you insert dynamic data from the trigger payload into any text field in your action configurations.
+
+### Syntax
+
+Template variables use double curly braces:
+
+```
+{{path.to.value}}
+```
+
+### Accessing Trigger Data
+
+Reference data from the event that triggered the workflow:
+
+- **`{{trigger.body.email}}`**: A field from the trigger event payload
+- **`{{trigger.body.user.name}}`**: Nested field access using dot notation
+- **`{{trigger.body.items.0.name}}`**: Array index access (zero-based)
+- **`{{trigger.headers.Content-Type}}`**: A request header (available for Webhook triggers)
+- **`{{trigger.query.utm_source}}`**: A query string parameter (available for Webhook triggers)
+
+### Variable Resolution
+
+- If a template variable path is not found, the original placeholder text is preserved in the output
+- `None` values are replaced with an empty string
+- Object and array values are serialized to JSON strings
+
+<Tip>Use the run details view to inspect the exact trigger payloads and step outputs. This helps you discover the available fields and verify that your template variables are resolving correctly.</Tip>
+
+## Publishing and Managing Workflows
+
+### Draft Changes
+
+All configuration changes in the workflow editor are saved as drafts automatically. Draft changes have no effect on live workflow behavior. The editor displays a banner ("This workflow has unpublished changes") whenever drafts exist.
+
+### Publishing
+
+Click **Publish Changes** to apply all your draft changes. Published changes take effect immediately for new trigger events. The workflow's "Last Published" timestamp is updated for reference.
+
+Before publishing, the checklist in the configuration panel must be fully resolved. Common checklist items include:
+
+- A trigger must be added
+- At least one action must follow the trigger
+- Required fields (URL, to, subject, body, channel, duration, etc.) must be filled in
+
+### Discarding Changes
+
+Click **Discard Changes** to revert all unpublished draft changes. The workflow returns to its last published configuration.
+
+<Warning>Discarding changes cannot be undone. All unpublished modifications are permanently removed.</Warning>
+
+### Enabling and Disabling
+
+Use the toggle in the workflow header to switch between **Live** (enabled) and **Paused** (disabled):
+
+- **Live**: The workflow responds to trigger events and new runs are created
+- **Paused**: Trigger events are ignored and no new runs are created. If a delay is in progress when the workflow is paused, the remaining steps are cancelled when the delay period ends.
+
+<Note>The toggle is only available when there are no unpublished changes. Publish or discard any pending changes before toggling the workflow status.</Note>
+
+### Deleting a Workflow
+
+To delete a workflow, open the actions dropdown on the workflow list page and select **Delete**. This permanently deletes the workflow, all its runs, and all execution history. Any inbox conversations that were initiated by the workflow are preserved, but their link to the workflow is removed.
+
+<Warning>Deleting a workflow is irreversible. All runs and execution history are permanently lost.</Warning>
+
+## Monitoring Workflow Runs
+
+### Run History
+
+The **Runs** tab on the workflow detail page shows all executions. Each run displays:
+
+- **Status**: Pending, Running, Completed, Failed, or Cancelled
+- **Trigger**: The trigger type that started the run
+- **Started**: When the run began
+- **Duration**: How long the run took to complete
+- **Steps**: Progress indicator (e.g., "2 of 3" steps completed)
+
+Click "View" on any run to open the full run details.
+
+### Run Details
+
+The run detail panel provides complete visibility into the execution:
+
+- **Error message**: If the run failed, the error is displayed prominently at the top
+- **Trigger data**: The full payload that started the workflow, displayed as JSON
+- **Step-by-step breakdown**: Each step is expandable, showing:
+  - The step's type and name
+  - Duration and status
+  - Input data (the execution context at that point)
+  - Output data (the step's result)
+  - Error message (if the step failed)
+
+This detailed view is essential for debugging workflows and understanding exactly what happened during each execution.
+
+### Analytics
+
+The **Overview** tab provides an analytics dashboard for your workflow:
+
+- **Runs Over Time**: A chart showing workflow executions over a selected period (Last 30 days, Last 6 months, or Last year)
+- **Total Runs**: The total number of executions in the selected period
+- **Success Rate**: The percentage of runs that completed successfully
+- **Average Duration**: The mean execution time for completed runs
+
+Each metric includes a trend indicator comparing the selected period to the previous equivalent period, helping you track how your workflow's performance changes over time.
+
+## Examples
+
+### Notify Your Team on Form Submission
+
+A workflow that sends an email notification to your sales team whenever a lead completes your contact form:
+
+1. Create a new workflow named "Notify Sales on Contact Form"
+2. Add a **Form Submission** trigger, filtered to your "Contact Us" form
+3. Add an **Email** action with:
+   - **From**: Default (Dimedove)
+   - **To**: `sales@yourcompany.com`
+   - **Subject**: `New lead: {{trigger.body.form_data.first_name}} {{trigger.body.form_data.last_name}}`
+   - **Body**: `A new lead submitted the Contact Us form.\n\nEmail: {{trigger.body.form_data.email}}\nPhone: {{trigger.body.form_data.phone}}\nMessage: {{trigger.body.form_data.message}}`
+4. Publish the workflow and enable it
+
+### Post to Slack When Human Help Is Needed
+
+A workflow that notifies a Slack channel whenever an agent requests human assistance:
+
+1. Create a new workflow named "Alert Team on Escalation"
+2. Add a **Human Required** trigger (no filters, to fire for any agent)
+3. Add a **Slack Message** action with:
+   - **Channel**: #support-escalations
+   - **Message**: `Agent {{trigger.body.agent_name}} needs human help in conversation {{trigger.body.chat_id}} (channel: {{trigger.body.channel_type}})`
+4. Publish the workflow and enable it
+
+### Delayed Follow-Up Call After Qualified Opportunity
+
+A workflow that waits 30 minutes after a qualified opportunity is recorded, then places a follow-up call:
+
+1. Create a new workflow named "Follow-Up Call After Qualification"
+2. Add a **Qualified Opportunity** trigger, optionally filtered to your sales agent
+3. Add a **Delay** action set to 30 minutes
+4. Add a **Call** action with:
+   - **From**: Your team phone number (with a voice-enabled agent)
+   - **To**: The contact's phone number from the trigger data
+   - **First Message**: A personalized greeting referencing the conversation
+   - **Context**: Background information about the qualified opportunity
+5. Publish the workflow and enable it
+
+### Forward Webhook Data to an External API
+
+A workflow that receives data from an external system via webhook and forwards it to another API:
+
+1. Create a new workflow named "Forward to CRM"
+2. Add a **Webhook** trigger and copy the webhook URL
+3. Add an **HTTP Request** action with:
+   - **Method**: POST
+   - **URL**: `https://api.yourcrm.com/contacts`
+   - **Headers**: `Authorization: Bearer your-api-key`
+   - **Body**: `{"email": "{{trigger.body.email}}", "name": "{{trigger.body.name}}", "source": "dimedove"}`
+4. Publish the workflow and enable it
+5. Configure your external system to POST data to the webhook URL

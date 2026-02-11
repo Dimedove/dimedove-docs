@@ -3,6 +3,46 @@ title: "Changelog"
 description: "Product updates and announcements from the Dimedove team"
 ---
 
+<Update label="February 11, 2026" description="Workflows: Automate Across Every Channel">
+    Workflows bring event-driven automation to Dimedove. Connect any platform event to a sequence of actions, without writing code or leaving the dashboard. When a form is submitted, an email arrives, a call comes in, an agent qualifies a lead, or a Slack message is received, workflows let you automatically respond with emails, SMS messages, outbound calls, Slack messages, or HTTP requests to external systems.
+
+    Each workflow starts with a trigger (the event that kicks things off) and executes up to two action steps in sequence. Nine trigger types cover every channel on the platform, and optional filters let you narrow triggers to specific agents, forms, phone numbers, email channels, or Slack agents. Six action types give you full cross-channel reach, including a Delay action for timed sequences like waiting before a follow-up call. When actions are sent through agent-assigned channels, they automatically create conversations in your Inbox, so your team has full visibility and agents can continue the interaction.
+
+    Template variables make workflows dynamic: reference any field from the trigger payload in your action configurations using `{{trigger.body.field_name}}` syntax, with dot notation and array index support for nested data. A built-in run history with step-by-step details and an analytics dashboard give you complete visibility into every execution.
+
+    - **Multiple trigger types** covering webhooks, manual runs, qualified opportunities, human assistance requests, form submissions, inbound emails, inbound calls, inbound SMS, and Slack messages
+    - **Multiple action types** including HTTP Request, Email, SMS, Call, Slack Message, and Delay
+    - **Optional trigger filters** to narrow events to specific agents, forms, phone numbers, email channels, or Slack agents
+    - **Template variables** for dynamic data in action configurations
+    - **Inbox integration** with automatic conversation creation from email, SMS, and call actions
+    - **Run history and analytics** with step-by-step execution details, success rate, and duration tracking
+
+    ### Features
+
+    - Create workflows from the dashboard with a visual editor showing triggers, actions, and connections
+    - Choose from multiple trigger types: Webhook, Manual, Qualified Opportunity, Human Required, Form Submission, Email Received, Inbound Call, Inbound SMS, and Slack Message Received
+    - Apply optional filters to narrow triggers to specific platform resources
+    - Webhook triggers generate a unique URL for receiving external HTTP POST requests
+    - Manual triggers add a Run button to the workflow for on-demand execution
+    - Configure multiple action nodes per workflow, with Delay supported for timed sequences
+    - HTTP Request action supports GET, POST, PUT, PATCH, DELETE with configurable headers, query parameters, and JSON body
+    - Email action with three sending modes: Default (Dimedove), Custom sender name, or through a configured Email Channel
+    - SMS action from a Dimedove number or a team phone number with agent-assigned inbox conversations
+    - Call action initiates outbound voice calls through team phone numbers with voice-enabled agents
+    - Slack Message action posts to any channel in your connected workspace
+    - Delay action pauses execution for a configurable duration in seconds, minutes, or hours
+    - Template variables (`{{trigger.body.field}}`) in all action text fields with dot notation and array index support
+    - Three workflow statuses: Draft, Live, and Paused
+    - Run history table with status, trigger type, duration, and step progress for every execution
+    - Detailed run view showing trigger data, step inputs, outputs, and error messages
+    - Analytics dashboard with runs over time, total runs, success rate, and average duration
+
+    ### Notes
+
+    - Workflows are available to teams on the Pro subscription
+
+</Update>
+
 <Update label="January 13, 2026" description="Emails: Forward, Respond, Repeat">
     Emails let your agents handle inbound email conversations. Forward emails from your business addresses to a Dimedove-generated inbound address, assign an agent, and responses go out automatically. You can verify your own domain to send replies from your business address instead of the Dimedove address, with DNS-based verification for DKIM authentication.
 

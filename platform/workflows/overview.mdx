@@ -1,0 +1,78 @@
+---
+title: Overview
+description: Automate multi-step processes by connecting platform events to actions
+---
+
+<Info>Workflows are available to teams on the Pro subscription.</Info>
+
+Workflows let you automate multi-step processes by connecting platform events to actions. When a specific event occurs, such as a form submission, an inbound email, a qualified opportunity, or an incoming phone call, a workflow automatically executes a sequence of actions like sending an email, making an HTTP request, placing an outbound call, or posting a Slack message.
+
+Workflows bring together your [agents](/platform/agents/overview), [forms](/platform/forms/overview), [email channels](/platform/emails/overview), [phone numbers](/platform/telephony/overview), and [Slack workspace](/platform/slack/overview) into a single automation layer, enabling you to build end-to-end processes without leaving the Dimedove dashboard.
+
+## Key Features
+
+### Event-Driven Triggers
+
+Every workflow starts with a trigger: the event that kicks off execution. Dimedove provides 9 trigger types that respond to real platform events, including webhook requests, form submissions, inbound emails, phone calls, SMS messages, Slack messages, qualified opportunities, and human assistance requests. You can also trigger workflows manually from the dashboard for testing or one-off runs.
+
+Each trigger connects to an existing platform resource, and you can optionally apply filters to narrow which specific resource fires the trigger (for example, only a specific form or a specific phone number).
+
+See [Triggers](/platform/workflows/triggers) for details on each trigger type and its available filters.
+
+### Configurable Actions
+
+After a trigger fires, workflows execute one or more actions. Dimedove provides 6 action types: HTTP Request, Email, SMS, Call, Slack Message, and Delay. Each action type has its own configuration fields, and all text fields support template variables for inserting dynamic data from the trigger payload.
+
+See [Actions](/platform/workflows/actions) for details on each action type and its configuration options.
+
+### Workflow Statuses
+
+Workflows have three statuses that control their behavior:
+
+- **Draft**: The workflow is being configured and will not run. This is the default status for new workflows.
+- **Live**: The workflow is active and responds to trigger events. You can enable a workflow using the toggle in the dashboard.
+- **Paused**: The workflow is temporarily disabled. Its configuration is preserved, but trigger events will not start new runs.
+
+### Template Variables
+
+Template variables let you pass dynamic data from triggers into action configurations. Use double curly braces to reference values from the trigger payload:
+
+- `{{trigger.body.field_name}}`: Access a field from the trigger event payload
+- `{{trigger.headers.Header-Name}}`: Access request headers (webhook triggers)
+- `{{trigger.query.param}}`: Access query string parameters (webhook triggers)
+
+Template variables support dot notation for nested access (e.g., `{{trigger.body.user.name}}`) and array index access (e.g., `{{trigger.body.items.0.name}}`).
+
+See [Configuration](/platform/workflows/configuration) for more details on using template variables when building workflows.
+
+### Run History and Analytics
+
+Every workflow execution is recorded as a run. The Runs tab provides full visibility into your workflow's activity:
+
+- **Run history**: View all executions with their status, trigger type, duration, and step progress
+- **Run details**: Inspect the complete trigger data, step-by-step inputs and outputs, and error messages for any run
+- **Analytics dashboard**: Track runs over time, total run count, success rate, and average duration with configurable time ranges and trend comparisons
+
+### Inbox Integration
+
+When Email, SMS, or Call actions are sent through agent-assigned channels, they automatically create conversations in your [Inbox](/platform/inbox/overview). These inbox conversations show the workflow origin, with a direct link back to the specific workflow run that created them. Your agents can then continue the conversation with the recipient through the Inbox, enabling workflows to seamlessly initiate outreach that transitions into agent-powered conversations.
+
+See [Inbox Chats](/platform/inbox/chats) for more on managing conversations.
+
+## Workflow Structure
+
+Each workflow follows a linear sequence of nodes:
+
+- **1 trigger node** (required): The event that starts the workflow
+- **Up to 2 action nodes**: The steps that execute after the trigger fires
+
+If you use 2 action nodes, the first must be a **Delay** action. This allows patterns like: trigger, wait for a specified duration, then execute an action.
+
+Each node can have a custom name and description for easy identification in the workflow editor and run history.
+
+## Benefits
+
+- **End-to-End Automation**: Connect platform events directly to outbound actions without leaving Dimedove
+- **Cross-Channel Orchestration**: Trigger actions across email, SMS, voice, Slack, and HTTP from any event source on your platform
+- **Real-Time Execution**: Workflows run immediately when triggered, with detailed run history for monitoring and debugging
+- **Inbox Visibility**: Actions that create conversations appear in your unified [Inbox](/platform/inbox/overview) alongside all other channels

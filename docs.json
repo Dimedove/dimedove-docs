@@ -156,6 +156,15 @@
               "platform/slack/overview",
               "platform/slack/configuration"
             ]
+          },
+          {
+            "group": "Workflows",
+            "pages": [
+              "platform/workflows/overview",
+              "platform/workflows/triggers",
+              "platform/workflows/actions",
+              "platform/workflows/configuration"
+            ]
           }
         ]
       },

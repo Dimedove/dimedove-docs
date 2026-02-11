@@ -1,0 +1,141 @@
+---
+title: Triggers
+description: Event types that start workflow execution
+---
+
+Triggers define the event that starts a workflow. Each workflow has exactly one trigger. When the specified event occurs, the workflow is queued for execution and your action nodes run in sequence.
+
+Many triggers accept optional filters to narrow which events fire the workflow. For example, a Form Submission trigger can be filtered to a specific form, or an Inbound Call trigger can be filtered to a specific phone number. When no filter is applied, the trigger fires for any matching event across your team.
+
+## Trigger Types
+
+### Webhook
+
+Triggered by an incoming HTTP POST request to a unique webhook URL. Use this to connect external systems, third-party services, or custom applications to your workflows.
+
+When you select the Webhook trigger, your workflow automatically receives a unique URL in the format:
+
+```
+https://hooks.dimedove.com/v1/w/{path}
+```
+
+This URL is displayed in the trigger configuration panel. Share it with the external system that should start your workflow. The system sends a POST request with a JSON body to this URL, and the workflow executes.
+
+**Available Filters**: None. The webhook URL is unique to your workflow.
+
+<Tip>You can test webhook triggers by sending a POST request with a JSON body using tools like curl, Postman, or any HTTP client.</Tip>
+
+For receiving events from Dimedove in your own external systems (the reverse direction), see [Webhooks](/developer/webhooks/overview).
+
+### Manual
+
+Triggered manually from the dashboard by clicking the **Run** button. This is useful for testing workflows, running one-off automations, or triggering processes that do not correspond to a platform event.
+
+When a workflow uses a Manual trigger, a **Run** button appears in the workflow header. Clicking it immediately queues the workflow for execution.
+
+**Available Filters**: None.
+
+### Qualified Opportunity
+
+Triggered when one of your agents records a qualified opportunity during a conversation. This connects your agent's [performance tracking](/platform/agents/performance) to downstream automations, allowing you to instantly act on high-value leads.
+
+Use cases include notifying your sales team, pushing qualified lead data to your CRM via an HTTP request, or initiating a follow-up call or email.
+
+**Available Filters**:
+
+- **Agent**: Restrict the trigger to qualified opportunities recorded by a specific agent. Leave unset to fire for any agent on your team.
+- **Channel Type**: Restrict the trigger to opportunities from a specific channel: Web, Form, Call, SMS, Slack, or Email. Leave unset to fire for any channel.
+
+See [Agent Performance](/platform/agents/performance) for details on how qualified opportunities are recorded.
+
+### Human Required
+
+Triggered when an agent requests human assistance during a conversation. Use this to notify your team immediately when a conversation needs human intervention, whether by sending an email alert, posting to a Slack channel, or triggering an external notification system.
+
+**Available Filters**:
+
+- **Agent**: Restrict the trigger to human assistance requests from a specific agent. Leave unset to fire for any agent.
+- **Channel Type**: Restrict the trigger to requests from a specific channel: Web, Form, Call, SMS, Slack, or Email. Leave unset to fire for any channel.
+
+See [Human Fallback](/platform/agents/behavior/human-fallback) for details on when and why agents escalate to humans.
+
+### Form Submission
+
+Triggered when a form submission is completed. Use this to send collected form data to external systems, notify your team, update your CRM, or trigger follow-up actions based on the submitted information.
+
+**Available Filters**:
+
+- **Form**: Restrict the trigger to submissions from a specific form. Leave unset to fire for any form on your team.
+
+<Note>The dashboard displays a warning indicator next to forms that are currently disabled. Disabled forms will not generate submissions, so the trigger will not fire for them.</Note>
+
+See [Forms](/platform/forms/overview) for details on form configuration and data collection.
+
+### Email Received
+
+Triggered when an inbound email arrives at one of your [email channels](/platform/emails/overview). Use this to trigger actions based on incoming customer emails, such as forwarding data to an external system, notifying a Slack channel, or initiating a follow-up workflow.
+
+**Available Filters**:
+
+- **Email Channel**: Restrict the trigger to emails received on a specific email channel. Leave unset to fire for any email channel on your team.
+
+<Note>The dashboard displays a warning if the selected email channel is currently disabled. Disabled channels will not receive emails, so the trigger will not fire.</Note>
+
+See [Email Channels](/platform/emails/overview) for details on email channel setup and configuration.
+
+### Inbound Call
+
+Triggered when an inbound phone call is received on one of your team [phone numbers](/platform/telephony/overview). Use this to trigger post-call actions such as sending a follow-up email, notifying your team, or logging call data to an external system.
+
+**Available Filters**:
+
+- **Phone Number**: Restrict the trigger to calls received on a specific phone number. Leave unset to fire for any phone number on your team.
+
+<Note>The dashboard displays warnings if the selected phone number is disabled or does not have calls enabled.</Note>
+
+See [Telephony](/platform/telephony/overview) for details on phone number configuration.
+
+### Inbound SMS
+
+Triggered when an inbound SMS message is received on one of your team [phone numbers](/platform/telephony/overview). Use this to trigger actions based on incoming text messages, such as forwarding the message content to a Slack channel or logging it in an external system.
+
+**Available Filters**:
+
+- **Phone Number**: Restrict the trigger to SMS received on a specific phone number. Leave unset to fire for any phone number on your team.
+
+<Note>The dashboard displays warnings if the selected phone number is disabled or does not have SMS enabled.</Note>
+
+See [Telephony](/platform/telephony/overview) for details on phone number configuration.
+
+### Slack Message Received
+
+Triggered when a Slack message is received in a channel where a [Slack Agent](/platform/slack/overview) is deployed. This includes both direct @mentions and messages in threads where the agent is participating. Use this to trigger actions based on Slack activity, such as logging messages or triggering external processes.
+
+**Available Filters**:
+
+- **Slack Agent**: Restrict the trigger to messages received by a specific Slack Agent. Leave unset to fire for any Slack Agent on your team.
+
+<Note>The dashboard displays a warning if the selected Slack Agent is currently disabled. Disabled agents will not receive messages, so the trigger will not fire until the agent is re-enabled.</Note>
+
+See [Slack Agents](/platform/slack/overview) for details on deploying agents to Slack channels.
+
+## How Trigger Filters Work
+
+Filters give you precise control over which events fire your workflow:
+
+- **Filter set**: The workflow only fires when the event comes from the specific resource you selected (e.g., a particular form, phone number, or agent)
+- **Filter unset ("Any")**: The workflow fires for every matching event across your entire team
+
+You can combine a trigger type with a filter to create targeted automations. For example:
+
+- "Fire only when the Sales Inquiry form is submitted"
+- "Fire when any agent on the team requests human help"
+- "Fire only when an email is received on the Support email channel"
+
+## Accessing Trigger Data
+
+All trigger data is available to your action nodes through template variables. Use `{{trigger.body.field_name}}` in your action configurations to reference data from the event payload. The specific fields available depend on the trigger type.
+
+You can inspect the exact payload for any workflow run by opening the run details in the Runs tab. This is especially useful when building your first workflow or discovering which fields are available for a given trigger type.
+
+<Tip>Use the Manual trigger to test your workflow with sample payloads and verify that your template variables resolve correctly before switching to an event-driven trigger.</Tip>
