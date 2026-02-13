@@ -99,6 +99,7 @@
               "platform/agents/design",
               "platform/agents/languages-timezone",
               "platform/agents/versions",
+              "platform/agents/evaluations",
               "platform/agents/preview",
               "platform/agents/install"
             ]

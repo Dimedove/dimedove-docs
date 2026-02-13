@@ -1,16 +1,56 @@
 ---
 title: Install
-description: Deploy your agent on your website or platform
+description: Deploy your agent on your website and configure security, country restrictions, and legal terms
 ---
 
 import MessengerInstallation from '/snippets/messenger-installation.mdx';
 
-Dimedove provides a JavaScript widget installation that is easy to implement. Businesses simply add this code to their website:
+The Install page is where you deploy your agent and configure its security and access settings. Add the messenger widget to your website, restrict which domains and countries can access it, and optionally require visitors to accept your legal terms before chatting.
+
+## Setup
+
+Dimedove provides a JavaScript widget that you add to your website. Copy the installation code from the Install page and paste it into your site's HTML:
 
 <MessengerInstallation />
 
-## Security
+The snippet includes your agent's unique ID and publishable key. The messenger script loads asynchronously so it does not block your page from rendering.
 
-It is recommended for businesses to also define **allowed origins** which are whitelisted domains that are allowed to host the messenger.
+For more advanced configuration options, consult the [Developer Guides](/developer/messenger/overview).
 
-For more information, consult the [Developer Guides](../../developer-guides/messenger/overview) page.
+## Allowed origins
+
+Allowed origins restrict which domains can host your messenger widget. This prevents unauthorized websites from embedding your agent.
+
+- Enter one or more domains (for example, `example.com` or `app.example.com`).
+- Wildcard subdomains are supported (for example, `*.example.com` matches any subdomain).
+- Subpages and directories on allowed domains are automatically permitted.
+- Leave the field empty to allow all domains.
+
+It is recommended to configure allowed origins for any production deployment.
+
+## Country restrictions
+
+Country restrictions let you control where your messenger is accessible based on the visitor's geographic location. This is useful for compliance, regional availability, or targeting specific markets.
+
+There are three modes:
+
+- **None** (default): No geographic restrictions. The messenger is accessible worldwide.
+- **Allow**: Only visitors from the selected countries can access the messenger. All other countries are blocked.
+- **Block**: Visitors from the selected countries are blocked. All other countries can access the messenger.
+
+When you select Allow or Block, a country selector appears where you can search and pick one or more countries.
+
+If you set the mode to Allow or Block but do not select any countries, the restriction automatically resets to None when you save.
+
+## Confidentiality
+
+Require visitors to accept your privacy policy and terms of service before starting a conversation. When enabled, the messenger displays a consent prompt linking to your legal documents.
+
+To configure:
+
+1. Toggle **Require accept terms** on.
+2. Enter your **Privacy Policy URL**, your **Terms of Service URL**, or both. At least one is required.
+3. Dimedove automatically generates a consent message that links to the URLs you provided. A preview of the message is displayed below the fields.
+
+The generated consent message uses your business name (if configured) and links directly to your legal documents.
+

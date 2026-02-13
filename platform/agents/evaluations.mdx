@@ -1,0 +1,104 @@
+---
+title: Evaluations
+description: Test your agent's performance with automated scenarios and AI-powered scoring
+---
+
+Evaluations let you create automated test scenarios for your agent so you can measure its performance before and after changes. You describe a user scenario, define what success looks like, and Dimedove simulates a full conversation, then scores the result against your criteria.
+
+## How evaluations work
+
+Each evaluation follows a three-step lifecycle:
+
+1. **Define** the scenario and success criteria for a test case.
+2. **Run** the evaluation. Dimedove simulates a realistic user conversation with your agent, then an independent AI judge scores the transcript.
+3. **Review** the results: an overall score, a pass/partial/fail verdict, and a per-criterion breakdown explaining exactly what worked and what did not.
+
+Evaluations run against your agent's current configuration (including the published version, instructions, knowledge base, and tasks). They do not affect your inbox, contacts, or production conversations.
+
+## Creating an evaluation
+
+1. Navigate to the **Evaluations** section in your agent workspace.
+2. Click **Add evaluation**.
+3. Dimedove creates a new evaluation and opens its configuration view.
+4. Fill in the fields described below, then save.
+
+You can create as many evaluations as your plan allows. A usage counter shows how many you have used out of your plan limit.
+
+## Configuring your scenario
+
+The **Scenario** field describes who the simulated user is and what they are trying to accomplish. Think of it as stage directions for a realistic visitor.
+
+Write your scenario in natural language. Be specific about the user's situation, needs, and behavior so the simulation produces a meaningful test. For example:
+
+- "A marketing manager at a mid-size SaaS company exploring Dimedove for the first time. They want to understand pricing, how the platform compares to their current solution, and whether it can handle their volume of 500 monthly leads."
+- "A small business owner who heard about Dimedove from a colleague. They are not very technical and want to know how quickly they can get started, what kind of results to expect, and whether there is a free trial."
+
+The simulated user stays in character throughout the conversation, writing naturally (including occasional typos or informal phrasing) and reacting realistically to your agent's responses.
+
+## Defining success criteria
+
+The **Success criteria** field tells the evaluation judge what a passing conversation looks like. The judge evaluates the full transcript against each criterion you define.
+
+Describe what a successful interaction looks like in your own words. Be concrete and specific so the judge has clear signals to assess. For example:
+
+- "The agent identifies the visitor's company size and use case within the first few exchanges."
+- "The agent recommends the correct plan based on the visitor's stated needs."
+- "The agent collects the visitor's name and email before the conversation ends."
+- "The agent maintains a friendly, consultative tone and avoids being pushy."
+
+Criteria can be high-level ("qualifies the lead properly") or specific ("asks about monthly lead volume before recommending a plan"). The judge evaluates at the appropriate level of specificity for each criterion.
+
+## Max turns
+
+The **Max turns** setting controls how many back-and-forth exchanges the simulated conversation can have, from 1 to 10 (default: 5). The simulated user may also end the conversation naturally before the maximum is reached if the interaction comes to a logical conclusion.
+
+Set a higher turn count for complex scenarios (multi-step troubleshooting, detailed qualification flows) and a lower count for simple ones (quick FAQ lookups, single-question tests).
+
+## Running evaluations
+
+**Run a single evaluation** by clicking the play button next to it in the list view, or the **Run** button at the top of the evaluation detail view.
+
+**Run all evaluations** at once from the list view. Dimedove queues every active evaluation and runs them in the background.
+
+An evaluation requires a scenario, success criteria, and a max turns value greater than zero before it can be run.
+
+## Understanding results
+
+When a run completes, the evaluation judge produces three things:
+
+### Score and verdict
+
+The judge assigns a score from 0 to 100 representing how well your agent performed against your success criteria:
+
+- **Pass** (70-100): Most or all criteria were met. Your agent handled the scenario well.
+- **Partial** (40-69): Some criteria were met, but there are noticeable gaps.
+- **Fail** (0-39): Few criteria were met. The agent needs significant improvement for this scenario.
+
+A colored status dot provides a quick visual indicator: green for pass, yellow for partial, red for fail.
+
+### Evaluation reasoning
+
+A detailed explanation of the judge's overall assessment. This section cites specific parts of the conversation to support its conclusions. You can expand or collapse the reasoning for easier scanning.
+
+### Criteria breakdown
+
+Each success criterion you defined is listed individually with a pass or fail status and a brief explanation of why it was or was not met. This breakdown makes it straightforward to identify exactly which aspects of your agent's behavior need attention.
+
+## Conversation transcript
+
+Every completed run includes the full conversation transcript between the simulated user and your agent. Open a run's details to read the exchange turn by turn. The transcript helps you understand the context behind each score, especially when a criterion was partially met or missed.
+
+## Run history
+
+The **Runs** tab on an evaluation's detail view shows every past run with its status, date, score, and verdict. Click **View** on any completed run to open its full results, including the evaluation reasoning, criteria breakdown, and conversation transcript.
+
+Use run history to track how your agent's performance evolves over time as you refine its configuration.
+
+## Best practices
+
+- Write scenarios that reflect your actual visitors. Base them on real conversations from your inbox to test the situations your agent encounters most.
+- Start with 3 to 5 core scenarios covering your most important use cases (lead qualification, pricing questions, support issues), then expand as you refine your agent.
+- After changing your agent's instructions, tone, or knowledge base, re-run your evaluations to verify the changes did not introduce regressions.
+- Use specific, measurable success criteria. "The agent is helpful" is hard to evaluate objectively. "The agent provides the correct return policy and offers to initiate a return" gives the judge clear signals to assess.
+- Review the conversation transcript when a criterion fails, not just the verdict. The transcript shows exactly where the conversation went off track.
+- Pair evaluations with [Versions](/platform/agents/versions) to test a draft configuration before publishing it to production.
