@@ -1,0 +1,1597 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Dimedove API",
+    "version": "1.0.0",
+    "description": "Programmatically manage conversations and interact with your AI agents through the Dimedove API."
+  },
+  "servers": [
+    {
+      "url": "https://api.dimedove.com/v1",
+      "description": "Production"
+    }
+  ],
+  "paths": {
+    "/apps/{app_id}/config": {
+      "get": {
+        "operationId": "apps_api_get_app_config",
+        "summary": "Get app config",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppConfigSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Returns the app's active configuration and agent settings.",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/metrics": {
+      "get": {
+        "operationId": "apps_api_get_app_metrics",
+        "summary": "Get app metrics",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AppMetricsSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Returns aggregated usage metrics for the app.",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/conversations": {
+      "post": {
+        "operationId": "apps_api_create_conversation",
+        "summary": "Create conversation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Creates a new conversation linked to your app's AI agent. Optionally associate an external user ID for tracking and set a custom title.",
+        "tags": [
+          "Conversations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationCreateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      },
+      "get": {
+        "operationId": "apps_api_list_conversations",
+        "summary": "List conversations",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 20,
+              "description": "Maximum number of conversations to return. Range: 1-100.",
+              "title": "Limit",
+              "type": "integer"
+            },
+            "required": false,
+            "description": "Maximum number of conversations to return. Range: 1-100."
+          },
+          {
+            "in": "query",
+            "name": "after",
+            "schema": {
+              "description": "A cursor for forward pagination. Returns conversations created after the conversation with this ID.",
+              "title": "After",
+              "type": "string"
+            },
+            "required": false,
+            "description": "A cursor for forward pagination. Returns conversations created after the conversation with this ID."
+          },
+          {
+            "in": "query",
+            "name": "before",
+            "schema": {
+              "description": "A cursor for backward pagination. Returns conversations created before the conversation with this ID.",
+              "title": "Before",
+              "type": "string"
+            },
+            "required": false,
+            "description": "A cursor for backward pagination. Returns conversations created before the conversation with this ID."
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "default": "desc",
+              "description": "Sort order by creation time. Either 'asc' or 'desc'.",
+              "title": "Order",
+              "type": "string"
+            },
+            "required": false,
+            "description": "Sort order by creation time. Either 'asc' or 'desc'."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationListSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Returns a paginated list of all conversations for the specified app. Supports cursor-based pagination with configurable sort order.",
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/users/{external_user_id}/conversations": {
+      "get": {
+        "operationId": "apps_api_list_user_conversations",
+        "summary": "List user conversations",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          },
+          {
+            "in": "path",
+            "name": "external_user_id",
+            "schema": {
+              "description": "The external user identifier to filter conversations by.",
+              "title": "External User Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The external user identifier to filter conversations by."
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "default": 20,
+              "description": "Maximum number of conversations to return. Range: 1-100.",
+              "title": "Limit",
+              "type": "integer"
+            },
+            "required": false,
+            "description": "Maximum number of conversations to return. Range: 1-100."
+          },
+          {
+            "in": "query",
+            "name": "after",
+            "schema": {
+              "description": "A cursor for forward pagination. Returns conversations created after the conversation with this ID.",
+              "title": "After",
+              "type": "string"
+            },
+            "required": false,
+            "description": "A cursor for forward pagination. Returns conversations created after the conversation with this ID."
+          },
+          {
+            "in": "query",
+            "name": "before",
+            "schema": {
+              "description": "A cursor for backward pagination. Returns conversations created before the conversation with this ID.",
+              "title": "Before",
+              "type": "string"
+            },
+            "required": false,
+            "description": "A cursor for backward pagination. Returns conversations created before the conversation with this ID."
+          },
+          {
+            "in": "query",
+            "name": "order",
+            "schema": {
+              "default": "desc",
+              "description": "Sort order by creation time. Either 'asc' or 'desc'.",
+              "title": "Order",
+              "type": "string"
+            },
+            "required": false,
+            "description": "Sort order by creation time. Either 'asc' or 'desc'."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationListSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Returns a paginated list of conversations belonging to a specific external user. Uses the same cursor-based pagination as the list conversations endpoint.",
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      }
+    },
+    "/apps/{app_id}/conversations/{conversation_id}": {
+      "get": {
+        "operationId": "apps_api_get_conversation",
+        "summary": "Get conversation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          },
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": {
+              "description": "The unique identifier of the conversation.",
+              "title": "Conversation Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the conversation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationDetailSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Retrieves a single conversation with its complete history of messages and function calls, sorted chronologically.",
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "apps_api_update_conversation",
+        "summary": "Update conversation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          },
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": {
+              "description": "The unique identifier of the conversation.",
+              "title": "Conversation Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the conversation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Updates the custom title of a conversation.",
+        "tags": [
+          "Conversations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ConversationUpdateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "apps_api_delete_conversation",
+        "summary": "Delete conversation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          },
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": {
+              "description": "The unique identifier of the conversation.",
+              "title": "Conversation Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the conversation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ConversationDeleteResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Soft-deletes a conversation. The conversation will no longer appear in list requests, but the underlying data remains accessible from the dashboard.",
+        "tags": [
+          "Conversations"
+        ],
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "apps_api_send_message",
+        "summary": "Send message",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          },
+          {
+            "in": "path",
+            "name": "conversation_id",
+            "schema": {
+              "description": "The unique identifier of the conversation.",
+              "title": "Conversation Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the conversation."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResponseSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Sends a user message to the conversation and returns the AI agent's response. Supports both streaming (Server-Sent Events) and non-streaming (JSON) response modes. This endpoint is rate-limited.",
+        "tags": [
+          "Conversations"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SendMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AppConfigSchema": {
+        "properties": {
+          "app_id": {
+            "description": "Unique identifier for the app.",
+            "title": "App Id",
+            "type": "string"
+          },
+          "stream": {
+            "description": "Whether streaming (Server-Sent Events) is enabled by default for this app's responses.",
+            "title": "Stream",
+            "type": "boolean"
+          },
+          "generative_ui": {
+            "description": "Whether generative UI is enabled. When true, responses may include 'data-spec' parts for dynamic UI rendering.",
+            "title": "Generative Ui",
+            "type": "boolean"
+          },
+          "agent": {
+            "$ref": "#/components/schemas/AppConfigAgentSchema",
+            "description": "The AI agent configuration for this app."
+          }
+        },
+        "required": [
+          "app_id",
+          "stream",
+          "generative_ui",
+          "agent"
+        ],
+        "title": "AppConfigSchema",
+        "type": "object"
+      },
+      "ConversationListSchema": {
+        "properties": {
+          "object": {
+            "default": "list",
+            "description": "The object type. Always 'list'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "data": {
+            "description": "The array of conversation objects for the current page.",
+            "items": {
+              "$ref": "#/components/schemas/ConversationSchema"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "first_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The ID of the first conversation in the returned page. Null if the list is empty.",
+            "title": "First Id"
+          },
+          "last_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The ID of the last conversation in the returned page. Null if the list is empty.",
+            "title": "Last Id"
+          },
+          "has_more": {
+            "default": false,
+            "description": "Whether there are additional conversations beyond this page. Use the 'after' or 'before' query parameters to paginate.",
+            "title": "Has More",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "ConversationListSchema",
+        "type": "object"
+      },
+      "ConversationUpdateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The new custom title for the conversation. Set to null to clear the custom title.",
+            "title": "Title"
+          }
+        },
+        "title": "ConversationUpdateRequest",
+        "type": "object"
+      },
+      "ResponseSchema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the response.",
+            "title": "Id",
+            "type": "string"
+          },
+          "object": {
+            "default": "response",
+            "description": "The object type. Always 'response'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Unix timestamp (in seconds) of when the response was generated.",
+            "title": "Created At",
+            "type": "integer"
+          },
+          "conversation_id": {
+            "description": "The ID of the conversation this response belongs to.",
+            "title": "Conversation Id",
+            "type": "string"
+          },
+          "output": {
+            "default": [],
+            "description": "The list of output items produced by the AI agent, including messages and function calls.",
+            "items": {
+              "$ref": "#/components/schemas/ResponseOutputItem"
+            },
+            "title": "Output",
+            "type": "array"
+          },
+          "status": {
+            "default": "completed",
+            "description": "The status of the response. Either 'completed' or 'failed'.",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "conversation_id"
+        ],
+        "title": "ResponseSchema",
+        "type": "object"
+      },
+      "OpenAIErrorSchema": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/OpenAIErrorDetail",
+            "description": "The error detail object."
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "OpenAIErrorSchema",
+        "type": "object"
+      },
+      "ConversationSchema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the conversation.",
+            "title": "Id",
+            "type": "string"
+          },
+          "object": {
+            "default": "conversation",
+            "description": "The object type. Always 'conversation'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Unix timestamp (in seconds) of when the conversation was created.",
+            "title": "Created At",
+            "type": "integer"
+          },
+          "external_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The external user identifier associated with this conversation, if one was provided at creation.",
+            "title": "External User Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The custom title set for this conversation, if any.",
+            "title": "Title"
+          },
+          "generated_title": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "AI-generated conversation title in supported locales. Keys are locale codes (e.g. 'en-ca', 'fr-ca').",
+            "example": {
+              "en-ca": "<generated title in English>",
+              "fr-ca": "<generated title in French>"
+            },
+            "title": "Generated Title"
+          }
+        },
+        "required": [
+          "id",
+          "created_at"
+        ],
+        "title": "ConversationSchema",
+        "type": "object"
+      },
+      "SendMessageRequest": {
+        "example": {
+          "message": {
+            "content": "Hello, I need help with my order.",
+            "role": "user"
+          },
+          "stream": true
+        },
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/MessageInput",
+            "description": "The message object to send."
+          },
+          "stream": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Override the app's default streaming setting for this request. When true, the response is delivered as Server-Sent Events (SSE). When false, a single JSON response is returned. If omitted, the app's configured default is used.",
+            "title": "Stream"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "title": "SendMessageRequest",
+        "type": "object"
+      },
+      "ConversationCreateRequest": {
+        "example": {
+          "external_user_id": "user_abc123",
+          "title": "Support inquiry"
+        },
+        "properties": {
+          "external_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Your application's unique identifier for the user. When provided, conversations are linked to this user for retrieval via the list user conversations endpoint.",
+            "title": "External User Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "A custom title for the conversation. If not provided, the system will auto-generate a title after the first exchange.",
+            "title": "Title"
+          }
+        },
+        "title": "ConversationCreateRequest",
+        "type": "object"
+      },
+      "ConversationDetailSchema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the conversation.",
+            "title": "Id",
+            "type": "string"
+          },
+          "object": {
+            "default": "conversation",
+            "description": "The object type. Always 'conversation'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Unix timestamp (in seconds) of when the conversation was created.",
+            "title": "Created At",
+            "type": "integer"
+          },
+          "external_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The external user identifier associated with this conversation, if one was provided at creation.",
+            "title": "External User Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The custom title set for this conversation, if any.",
+            "title": "Title"
+          },
+          "generated_title": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "AI-generated conversation title in supported locales. Keys are locale codes (e.g. 'en-ca', 'fr-ca').",
+            "example": {
+              "en-ca": "<generated title in English>",
+              "fr-ca": "<generated title in French>"
+            },
+            "title": "Generated Title"
+          },
+          "items": {
+            "default": [],
+            "description": "The list of messages in the conversation.",
+            "items": {
+              "$ref": "#/components/schemas/ConversationItemSchema"
+            },
+            "title": "Items",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "created_at"
+        ],
+        "title": "ConversationDetailSchema",
+        "type": "object"
+      },
+      "AppMetricsSchema": {
+        "properties": {
+          "total_conversations": {
+            "description": "The total number of conversations created through this app.",
+            "title": "Total Conversations",
+            "type": "integer"
+          },
+          "total_messages": {
+            "description": "The total number of messages exchanged across all conversations.",
+            "title": "Total Messages",
+            "type": "integer"
+          },
+          "total_users": {
+            "description": "The total number of unique users who have interacted with this app.",
+            "title": "Total Users",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "total_conversations",
+          "total_messages",
+          "total_users"
+        ],
+        "title": "AppMetricsSchema",
+        "type": "object"
+      },
+      "ConversationDeleteResponse": {
+        "properties": {
+          "id": {
+            "description": "The ID of the deleted conversation.",
+            "title": "Id",
+            "type": "string"
+          },
+          "object": {
+            "default": "conversation",
+            "description": "The object type. Always 'conversation'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "deleted": {
+            "default": true,
+            "description": "Indicates the conversation was successfully deleted. Always true.",
+            "title": "Deleted",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "title": "ConversationDeleteResponse",
+        "type": "object"
+      },
+      "ConversationItemSchema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the message.",
+            "title": "Id",
+            "type": "string"
+          },
+          "type": {
+            "default": "message",
+            "description": "The type of the item. Always 'message'.",
+            "title": "Type",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role of the message author (e.g. 'user', 'assistant').",
+            "title": "Role",
+            "type": "string"
+          },
+          "parts": {
+            "default": [],
+            "description": "The content parts of the message. Can be text, tool call, or data-spec parts.",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TextPartSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/ToolCallPartSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/DataSpecPartSchema"
+                }
+              ]
+            },
+            "title": "Parts",
+            "type": "array"
+          },
+          "created_at": {
+            "description": "Unix timestamp of when the message was created.",
+            "title": "Created At",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "created_at"
+        ],
+        "title": "ConversationItemSchema",
+        "type": "object"
+      },
+      "AppConfigAgentSchema": {
+        "properties": {
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The display name of the AI agent associated with this app.",
+            "title": "Name"
+          },
+          "config": {
+            "$ref": "#/components/schemas/AppConfigAgentConfigSchema",
+            "description": "The agent's UI configuration settings."
+          }
+        },
+        "required": [
+          "config"
+        ],
+        "title": "AppConfigAgentSchema",
+        "type": "object"
+      },
+      "MessageInput": {
+        "properties": {
+          "role": {
+            "default": "user",
+            "description": "The role of the message sender. Currently only 'user' is supported.",
+            "title": "Role",
+            "type": "string"
+          },
+          "content": {
+            "description": "The text content of the message to send to the AI agent.",
+            "title": "Content",
+            "type": "string"
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "title": "MessageInput",
+        "type": "object"
+      },
+      "OpenAIErrorDetail": {
+        "properties": {
+          "message": {
+            "description": "A human-readable description of the error.",
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "description": "The error type identifier (e.g. 'invalid_api_key', 'not_found', 'rate_limit_exceeded').",
+            "title": "Type",
+            "type": "string"
+          },
+          "param": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The parameter that caused the error, if applicable.",
+            "title": "Param"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "An error code providing additional detail, if applicable.",
+            "title": "Code"
+          }
+        },
+        "required": [
+          "message",
+          "type"
+        ],
+        "title": "OpenAIErrorDetail",
+        "type": "object"
+      },
+      "ResponseOutputItem": {
+        "properties": {
+          "type": {
+            "description": "The type of the output item. Either 'message' for text responses or 'function_call' for tool invocations.",
+            "title": "Type",
+            "type": "string"
+          },
+          "role": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The role of the output item author. Typically 'assistant'. Only present for 'message' type items.",
+            "title": "Role"
+          },
+          "content": {
+            "anyOf": [
+              {
+                "items": {
+                  "additionalProperties": true,
+                  "type": "object"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The content parts of the message. Each part is an object with a 'type' field and type-specific data. Only present for 'message' type items.",
+            "title": "Content"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The name of the function that was called. Only present for 'function_call' type items.",
+            "title": "Name"
+          },
+          "arguments": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The JSON-encoded arguments passed to the function. Only present for 'function_call' type items.",
+            "title": "Arguments"
+          },
+          "call_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The unique identifier for this function call. Only present for 'function_call' type items.",
+            "title": "Call Id"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "ResponseOutputItem",
+        "type": "object"
+      },
+      "DataSpecPartSchema": {
+        "properties": {
+          "type": {
+            "default": "data-spec",
+            "description": "The type of the part. Always 'data-spec' for generative UI spec parts. Only returned when generative UI is enabled on the application.",
+            "title": "Type",
+            "type": "string"
+          },
+          "data": {
+            "additionalProperties": true,
+            "description": "The spec data payload (e.g. patch operations for generative UI).",
+            "title": "Data",
+            "type": "object"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "DataSpecPartSchema",
+        "type": "object"
+      },
+      "ToolCallPartSchema": {
+        "properties": {
+          "type": {
+            "default": "tool-call",
+            "description": "The type of the part. Always 'tool-call' for tool call parts.",
+            "title": "Type",
+            "type": "string"
+          },
+          "toolCallId": {
+            "description": "Unique identifier for the tool call.",
+            "title": "Toolcallid",
+            "type": "string"
+          },
+          "toolName": {
+            "description": "The name of the tool that was called.",
+            "title": "Toolname",
+            "type": "string"
+          },
+          "input": {
+            "additionalProperties": true,
+            "default": {},
+            "description": "The input arguments passed to the tool.",
+            "title": "Input",
+            "type": "object"
+          },
+          "output": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The output returned by the tool.",
+            "title": "Output"
+          }
+        },
+        "required": [
+          "toolCallId",
+          "toolName"
+        ],
+        "title": "ToolCallPartSchema",
+        "type": "object"
+      },
+      "AppConfigAgentConfigSchema": {
+        "properties": {
+          "primary_color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The primary brand color for the agent's UI, as a hex code (e.g. '#0f0e0d').",
+            "title": "Primary Color"
+          },
+          "secondary_color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The secondary brand color for the agent's UI, as a hex code.",
+            "title": "Secondary Color"
+          }
+        },
+        "title": "AppConfigAgentConfigSchema",
+        "type": "object"
+      },
+      "TextPartSchema": {
+        "properties": {
+          "type": {
+            "default": "text",
+            "description": "The type of the part. Always 'text' for text parts.",
+            "title": "Type",
+            "type": "string"
+          },
+          "text": {
+            "description": "The text content.",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextPartSchema",
+        "type": "object"
+      }
+    },
+    "securitySchemes": {
+      "AppsApiKeyAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    }
+  }
+}

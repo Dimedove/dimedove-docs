@@ -1,0 +1,242 @@
+---
+title: Overview
+description: Build custom chat applications on top of Dimedove
+---
+
+The Dimedove API lets you programmatically create conversations, send messages, and receive AI agent responses. Use it to build custom lead qualification chat applications or embed conversational AI into your own applications.
+
+## Base URL
+
+All API requests are made to:
+
+```
+https://api.dimedove.com/v1/apps/{app_id}
+```
+
+## Authentication
+
+The API uses Bearer token authentication with your secret API key.
+
+```bash
+Authorization: Bearer sk_live_your_api_key
+```
+
+You can create and manage API keys from the [Manage Keys](/developer/api/manage-keys) page in your dashboard.
+
+<Info>
+Never expose your secret API key (`sk_live_*`) in client-side code. All API requests should be made from your server.
+</Info>
+
+## Error Handling
+
+The API returns errors in an OpenAI-compatible format:
+
+```json
+{
+  "error": {
+    "message": "Human-readable description",
+    "type": "error_type",
+    "param": null,
+    "code": null
+  }
+}
+```
+
+### Error Types
+
+| Type | Status | Description |
+|------|--------|-------------|
+| `invalid_api_key` | 401 | Invalid or missing API key |
+| `access_denied` | 403 | API key does not have access to this app |
+| `app_inactive` | 403 | App is disabled |
+| `agent_unavailable` | 403 | No active agent configured for this app |
+| `not_found` | 404 | App or conversation not found |
+| `rate_limit_exceeded` | 429 | Rate limit exceeded |
+| `internal_error` | 500 | Unexpected server error |
+
+## Rate Limits
+
+The API applies rate limits based on your plan. Limits are enforced per minute and per day. For more information, [contact us](https://cal.com/felixsimard/support).
+
+## Pagination
+
+List endpoints use cursor-based pagination with the following query parameters:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `limit` | integer | 20 | Number of results to return (1-100) |
+| `after` | string | - | Cursor for forward pagination (conversation ID) |
+| `before` | string | - | Cursor for backward pagination (conversation ID) |
+| `order` | string | `desc` | Sort order: `asc` or `desc` |
+
+Paginated responses include:
+
+```json
+{
+  "object": "list",
+  "data": [...],
+  "first_id": "first-conversation-id",
+  "last_id": "last-conversation-id",
+  "has_more": true
+}
+```
+
+Use `last_id` as the `after` parameter to fetch the next page.
+
+## Streaming
+
+The Send Message endpoint supports Server-Sent Events (SSE) for streaming responses. Set `stream: true` in the request body to enable streaming.
+
+Streaming responses use the `text/event-stream` content type with the following event format:
+
+```
+event: <event_type>
+data: <json_payload>
+```
+
+### Event Types
+
+| Event | Description |
+|-------|-------------|
+| `response.created` | Initial event with response metadata |
+| `response.output_text.delta` | Incremental text chunk from the agent |
+| `response.output_text.done` | Complete assembled text |
+| `response.function_call.start` | Agent initiated a tool call |
+| `response.function_call_arguments.delta` | Incremental tool call arguments |
+| `response.function_call_arguments.done` | Complete tool call arguments |
+| `response.data_spec` | Generative UI form patch (only when Generative UI is enabled) |
+| `response.completed` | Response finished successfully |
+| `response.failed` | Response encountered an error |
+
+### Streaming Example
+
+```
+event: response.created
+data: {"id":"resp_abc123","object":"response","status":"in_progress","conversation_id":"550e8400-e29b-41d4-a716-446655440000"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","delta":"Hello","output_index":0,"content_index":0}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","delta":"! How can I help?","output_index":0,"content_index":0}
+
+event: response.output_text.done
+data: {"type":"response.output_text.done","text":"Hello! How can I help?","output_index":0,"content_index":0}
+
+event: response.completed
+data: {"id":"resp_abc123","status":"completed"}
+```
+
+### Generative UI
+
+When [Generative UI](https://github.com/vercel-labs/json-render) is enabled on your app, the agent can generate interactive forms (radio buttons, selects, text inputs, and more) to collect structured user input during conversations. These forms are streamed as `response.data_spec` events containing JSON Patch (RFC 6902) operations that describe the UI components to render.
+
+You can enable Generative UI from your app's configuration page in the dashboard.
+
+Each `response.data_spec` event contains a JSON Patch operation describing a UI component:
+
+```json
+{
+  "type": "response.data_spec",
+  "data": {
+    "type": "patch",
+    "patch": {
+      "op": "add",
+      "path": "/root",
+      "value": "card-coverage"
+    }
+  },
+  "output_index": 0
+}
+```
+
+The `data.patch` field follows the RFC 6902 JSON Patch specification. Multiple `response.data_spec` events may be emitted during a single response to progressively build up a form.
+
+When Generative UI is enabled, `response.data_spec` events are interleaved with text events:
+
+```
+event: response.created
+data: {"id":"resp_def456","object":"response","status":"in_progress","conversation_id":"550e8400-e29b-41d4-a716-446655440000"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","delta":"Let me help you choose a plan.","output_index":0,"content_index":0}
+
+event: response.output_text.done
+data: {"type":"response.output_text.done","text":"Let me help you choose a plan.","output_index":0,"content_index":0}
+
+event: response.data_spec
+data: {"type":"response.data_spec","data":{"type":"patch","patch":{"op":"add","path":"/root","value":"card-plan-selection"}},"output_index":0}
+
+event: response.data_spec
+data: {"type":"response.data_spec","data":{"type":"patch","patch":{"op":"add","path":"/root/children/-","value":{"type":"radio-group","name":"plan","options":["Basic","Standard","Premium"]}}},"output_index":0}
+
+event: response.completed
+data: {"id":"resp_def456","status":"completed"}
+```
+
+<Info>
+Generative UI payloads use JSON Patch operations to describe UI components. Your frontend is responsible for rendering these patches into interactive form elements. You can use the [json-render](https://github.com/vercel-labs/json-render) library to render these components in React applications.
+</Info>
+
+## Non-Streaming
+
+When streaming is disabled (`stream: false` or omitted), the Send Message endpoint returns a single JSON response after the agent finishes processing. The response contains an `output` array with all items produced by the agent.
+
+Output items can be of the following types:
+
+| Type | Description |
+|------|-------------|
+| `message` | A text message from the assistant |
+| `function_call` | A tool call made by the agent |
+| `data_spec` | A Generative UI form patch (only when Generative UI is enabled) |
+
+### Non-Streaming Example
+
+```json
+{
+  "id": "resp_abc123",
+  "object": "response",
+  "created_at": 1709712000,
+  "conversation_id": "550e8400-e29b-41d4-a716-446655440000",
+  "output": [
+    {
+      "type": "message",
+      "role": "assistant",
+      "content": [{ "type": "text", "text": "Hello! How can I help?" }]
+    },
+    {
+      "type": "function_call",
+      "name": "lookup_policy",
+      "arguments": "{\"query\":\"coverage details\"}",
+      "call_id": "call_abc123"
+    }
+  ],
+  "status": "completed"
+}
+```
+
+When Generative UI is enabled, `data_spec` items appear alongside `message` and `function_call` items in the `output` array:
+
+```json
+{
+  "id": "resp_def456",
+  "object": "response",
+  "created_at": 1709712000,
+  "conversation_id": "550e8400-e29b-41d4-a716-446655440000",
+  "output": [
+    {
+      "type": "message",
+      "role": "assistant",
+      "content": [{ "type": "text", "text": "Let me help you choose a plan." }]
+    },
+    {
+      "type": "data_spec",
+      "data": {
+        "type": "patch",
+        "patch": { "op": "add", "path": "/root", "value": "card-plan-selection" }
+      }
+    }
+  ],
+  "status": "completed"
+}
+```

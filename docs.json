@@ -27,9 +27,24 @@
     "light": "#f4f4f5",
     "dark": "#27272a"
   },
+  "api": {
+    "mdx": {
+      "server": "https://api.dimedove.com/v1",
+      "auth": {
+        "method": "bearer"
+      }
+    },
+    "playground": {
+      "display": "none"
+    }
+  },
   "favicon": "/favicon.ico",
   "navbar": {
     "links": [
+      {
+        "label": "Status",
+        "href": "https://status.dimedove.com/"
+      },
       {
         "label": "Support",
         "href": "https://cal.com/felixsimard/support"
@@ -209,6 +224,40 @@
         ]
       },
       {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Getting Started",
+            "pages": ["api-reference/overview"]
+          },
+          {
+            "group": "API Reference",
+            "openapi": "/openapi/apps-api.json",
+            "pages": [
+              {
+                "group": "Applications",
+                "pages": [
+                  "GET /apps/{app_id}/config",
+                  "GET /apps/{app_id}/metrics"
+                ]
+              },
+              {
+                "group": "Conversations",
+                "pages": [
+                  "POST /apps/{app_id}/conversations",
+                  "GET /apps/{app_id}/conversations",
+                  "GET /apps/{app_id}/users/{external_user_id}/conversations",
+                  "GET /apps/{app_id}/conversations/{conversation_id}",
+                  "PATCH /apps/{app_id}/conversations/{conversation_id}",
+                  "DELETE /apps/{app_id}/conversations/{conversation_id}",
+                  "POST /apps/{app_id}/conversations/{conversation_id}"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
         "tab": "Integrations",
         "groups": [
           {
@@ -278,7 +327,8 @@
   },
   "footer": {
     "socials": {
-      "linkedin": "https://www.linkedin.com/company/dimedove"
+      "linkedin": "https://www.linkedin.com/company/dimedove",
+      "x": "https://x.com/dimedove"
     }
   },
   "seo": {
