@@ -1,0 +1,118 @@
+---
+title: Configuration
+description: Set up and configure an App in the Dimedove dashboard
+---
+
+<Info>Apps are available to teams on the Pro subscription.</Info>
+
+This guide walks you through creating and configuring an App to connect your custom frontend to a Dimedove agent.
+
+## Prerequisites
+
+Before setting up an App, ensure you have:
+
+- A Dimedove account with Pro subscription
+- At least one agent configured and published (live)
+- A secret API key (see [API Keys](/developer/apps/api-keys))
+
+## Setup Flow
+
+### Step 1: Navigate to App Settings
+
+1. Go to **Settings** in your Dimedove dashboard
+2. Click **Apps** in the sidebar
+
+You will see a list of any existing Apps, or an empty state if this is your first one.
+
+### Step 2: Create an App
+
+1. Click **Create App**
+2. Enter a name for your App (this is for your internal reference)
+
+Your App is now created in draft mode. You need to configure it before enabling.
+
+### Step 3: Assign an Agent
+
+1. In the **Agent** dropdown, select the agent you want to power this App
+2. Only published (live) agents can be assigned
+
+<Warning>If you select an agent that is not live, you will see a warning. The App cannot be enabled until the agent is published.</Warning>
+
+### Step 4: Configure Options
+
+#### Generative UI
+
+Toggle **Generative UI** to enable or disable interactive form generation. When enabled, your agent can generate UI components (radio buttons, selects, text inputs) during conversations. Your frontend is responsible for rendering these components using JSON Patch operations.
+
+See the [API Reference](/api-reference/overview) for details on handling Generative UI events in streaming and non-streaming responses.
+
+### Step 5: Copy Your App ID
+
+1. In your App configuration, find the **App ID** field
+2. Click the copy button to copy the `app_id` to your clipboard
+
+You will use this `app_id` in all API requests: `https://api.dimedove.com/v1/apps/{app_id}`
+
+### Step 6: Enable the App
+
+Once configured:
+
+1. Toggle the **Enable** switch at the top of the page
+2. The status changes from **Draft** to **Live**
+
+Your App is now active and ready to accept API requests.
+
+## Configuration Options
+
+### Name
+
+An internal identifier for this App. Use descriptive names like "Website Chat" or "Mobile App" to easily identify the App's purpose in your dashboard.
+
+### Agent Assignment
+
+The agent powering this App. You can only assign one agent per App. If you need different agents for different frontends, create separate Apps for each.
+
+### Generative UI
+
+When enabled, your agent can generate interactive form components during conversations. These are delivered as `response.data_spec` events (streaming) or `data_spec` output items (non-streaming). Your frontend renders these using JSON Patch (RFC 6902) operations. See the [API Reference](/api-reference/overview) for the full event format.
+
+### App ID
+
+The unique identifier for your App, used in API URLs. This is generated automatically when you create the App and cannot be changed.
+
+## Managing Apps
+
+### Disable an App
+
+Toggle the **Enable** switch off to disable an App. API requests to this App will return an error, but your configuration is preserved.
+
+### Delete an App
+
+1. First disable the App
+2. Open the actions menu and click **Delete**
+3. Confirm the deletion
+
+<Warning>Deleting an App is permanent. Any frontend integrations using this App's ID will stop working.</Warning>
+
+### Update Configuration
+
+You can update an App's configuration at any time:
+
+- Change the assigned agent
+- Toggle Generative UI
+- Update the name
+
+Changes take effect immediately for new requests.
+
+## Metrics
+
+You can view your App's usage metrics (conversations, messages) from the dashboard. Metrics are also available programmatically through the Get App Metrics API endpoint.
+
+<CardGroup cols={2}>
+  <Card title="Overview" icon="book-open" href="/developer/apps/overview">
+    Learn what Apps are and how they work
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/overview">
+    Full API documentation for endpoints and parameters
+  </Card>
+</CardGroup>

@@ -1,0 +1,53 @@
+---
+title: Overview
+description: Build custom experiences powered by your Dimedove agents
+---
+
+<Info>Apps are available to teams on the Pro subscription.</Info>
+
+Dimedove Apps let you build fully custom user experiences on top of your configured agents. Instead of using the built-in Messenger widget, you use the [Dimedove API](/api-reference/overview) to create conversations, send messages, and receive AI-powered responses in your own frontend. You own the UI; Dimedove handles the agentic backend.
+
+## What are Apps?
+
+An App is a programmatic interface to a Dimedove agent. When you create an App, Dimedove assigns it a unique `app_id` and connects it to one of your configured agents. You then use this `app_id` along with your secret API key to interact with the agent through the [REST API](/api-reference/overview).
+
+This means you can build any conversational experience you want: a branded chat widget, a multi-step lead qualification flow, an internal support tool, or a mobile app, all powered by the same agent you configure in the Dimedove dashboard. Your agent's knowledge, tasks, personality, and instructions all carry over automatically.
+
+## Key Features
+
+### Your UI, Our Backend
+
+You have full control over the user experience. Design any interface you want while Dimedove handles AI responses, conversation context, task execution, and knowledge retrieval behind the scenes. There is no dependency on the Messenger widget or any Dimedove UI component.
+
+### Agent-Powered Conversations
+
+Each App connects to a configured Dimedove agent. All of your agent's capabilities work through the API: knowledge base queries, task execution (API calls, calendar bookings, emails), personality and tone settings, human fallback rules, and more.
+
+### Streaming and Non-Streaming
+
+The API supports both real-time Server-Sent Events (SSE) streaming for responsive chat interfaces and traditional request/response patterns for simpler integrations. Choose the approach that fits your use case.
+
+### Generative UI
+
+Optionally enable Generative UI to let your agent generate interactive form components (radio buttons, selects, text inputs) during conversations. Your frontend renders these using JSON Patch operations, enabling structured data collection within the chat flow.
+
+### Full Dashboard Visibility
+
+Conversations created through your App appear in your Dimedove Inbox just like any other channel. Contact insights, attributes, and performance metrics are tracked automatically. You get the same monitoring and analytics as you would with the Messenger widget.
+
+## How It Works
+
+1. **Create an App** in the Dimedove dashboard under Settings
+2. **Assign an agent** to the App (the agent must be published)
+3. **Get your credentials**: the `app_id` and your secret API key
+4. **Build your frontend** using the API to create conversations and send messages
+5. **Monitor everything** from the Dimedove dashboard (Inbox, contacts, metrics)
+
+<CardGroup cols={2}>
+  <Card title="Configuration" icon="wrench" href="/developer/apps/configuration">
+    Set up and configure your App in the dashboard
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/overview">
+    Full API documentation for endpoints and parameters
+  </Card>
+</CardGroup>

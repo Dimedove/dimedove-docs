@@ -1,0 +1,50 @@
+---
+title: API Keys
+description: Create and manage API keys for secure access
+---
+
+Dimedove provides two types of keys for your team: a publishable (public) key and a secret API key. Each serves a different purpose and has different security requirements.
+
+## Publishable Key
+
+Your publishable key is a public key that is safe to include in client-side code.
+
+- **Purpose**: Used for [Messenger widget installation](/developer/messenger/installation)
+- **Where to find it**: Go to **Settings** > **API Keys** in your Dimedove dashboard
+- **Security**: This key only grants access to the Messenger embed functionality. It cannot be used to call the [REST API](/api-reference/overview) or access sensitive data.
+
+## Secret API Key
+
+Your secret API key (prefixed with `sk_live_*`) is a private key for server-side use only.
+
+- **Purpose**: Authenticating [API requests](/api-reference/overview) and verifying [webhook signatures](/developer/webhooks/security)
+- **Where to find it**: Go to **Settings** > **API Keys** in your Dimedove dashboard
+
+<Warning>Never expose your secret API key in client-side code, public repositories, or frontend bundles. All API requests should be made from your server.</Warning>
+
+## Using Your Secret Key
+
+Authenticate API requests by including your secret key as a Bearer token in the Authorization header:
+
+```bash
+curl -X GET https://api.dimedove.com/v1/apps/{app_id}/config \
+  -H "Authorization: Bearer sk_live_your_api_key"
+```
+
+See the [API Reference](/api-reference/overview) for the full list of available endpoints.
+
+## Key Management Best Practices
+
+- **Store keys in environment variables**: Never hardcode keys directly in your source code. Use environment variables or a secrets management service.
+- **Restrict access**: Only share secret keys with team members who need them for development or deployment.
+- **Use server-side calls**: Always make API requests from your backend server, never from the browser or client-side code.
+- **Monitor usage**: Review your API usage in the dashboard to detect any unexpected activity.
+
+<CardGroup cols={2}>
+  <Card title="Apps Overview" icon="book-open" href="/developer/apps/overview">
+    Learn how to build custom experiences with Apps
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/overview">
+    Full API documentation for endpoints and parameters
+  </Card>
+</CardGroup>

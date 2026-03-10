@@ -218,8 +218,12 @@
             ]
           },
           {
-            "group": "API",
-            "pages": ["developer/api/manage-keys"]
+            "group": "Apps",
+            "pages": [
+              "developer/apps/overview",
+              "developer/apps/configuration",
+              "developer/apps/api-keys"
+            ]
           }
         ]
       },
@@ -331,6 +335,12 @@
       "x": "https://x.com/dimedove"
     }
   },
+  "redirects": [
+    {
+      "source": "/developer/api/manage-keys",
+      "destination": "/developer/apps/api-keys"
+    }
+  ],
   "seo": {
     "metatags": {
       "charset": "UTF-8",
