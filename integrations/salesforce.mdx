@@ -3,6 +3,50 @@ title: Salesforce
 description: Connect Dimedove with Salesforce CRM for comprehensive customer data management
 ---
 
-<Note>Salesforce integration is coming soon.</Note>
+Dimedove's Salesforce integration connects your AI agents to your Salesforce org. Automatically create and update leads, contacts, accounts, and opportunities based on agent conversations, keeping your CRM data current and your sales team informed.
 
-Connect Dimedove with Salesforce to automatically sync leads, contacts, and conversation data. Keep your sales team updated with qualified opportunities and maintain a complete view of every customer interaction.
+## Integration Features
+
+### Supported Resources
+
+- **Leads**: Create and update lead records from qualified conversations
+- **Contacts**: Sync contact information gathered by your agents
+- **Accounts**: Manage company/account records
+- **Opportunities**: Create and update opportunities in your sales pipeline
+
+### Agent Actions
+
+Configure your Dimedove agents to perform CRM operations as part of their workflows:
+
+- **Create Records**: Automatically create new leads, contacts, accounts, or opportunities when an agent qualifies a prospect
+- **Update Records**: Update existing records with new information gathered during conversations
+- **Upsert Records**: Look up existing records and update them, or create new records if no match is found
+
+### Custom Connected App
+
+Salesforce integration uses your own Connected App for OAuth authentication. This gives your organization full control over permissions and security:
+
+1. Create a Connected App in your Salesforce org
+2. Configure the Consumer Key and Consumer Secret in your Dimedove integration settings
+3. Provide your Salesforce My Domain URL (e.g., `yourcompany.my.salesforce.com`)
+
+### Key Capabilities
+
+- **Customer-Controlled OAuth**: Use your own Salesforce Connected App for secure, organization-managed authentication
+- **PKCE Security**: OAuth flow uses Proof Key for Code Exchange for enhanced security
+- **Dynamic Schema Discovery**: Dimedove detects your Salesforce fields automatically, including custom fields
+- **Field Mapping**: Map agent conversation outputs to specific Salesforce fields for precise data entry
+- **Unified Inbox**: Conversations that trigger CRM actions appear alongside all other channels in your Dimedove dashboard
+
+## Getting Connected
+
+To connect your Salesforce org:
+
+1. Navigate to **Settings > Integrations** in your Dimedove dashboard
+2. Click **Configure** next to Salesforce
+3. Enter your Salesforce My Domain URL, Consumer Key, and Consumer Secret
+4. Click **Connect** and authorize Dimedove in your Salesforce org
+5. Your available objects (leads, contacts, accounts, opportunities) will be discovered automatically
+6. Configure agent actions to start syncing data
+
+<Info>Salesforce integration requires a Pro subscription with third-party integrations enabled.</Info>

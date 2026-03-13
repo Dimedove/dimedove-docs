@@ -3,6 +3,71 @@ title: "Changelog"
 description: "Product updates and announcements from the Dimedove team"
 ---
 
+<Update label="March 13, 2026" description="Apps API: Build Custom Experiences on Dimedove">
+    We are opening up the Dimedove platform to developers. The new Apps API lets you build fully custom chat applications powered by your configured agents. Instead of embedding the Messenger widget, you use a REST API to create conversations, send messages, and receive AI-powered responses in any frontend you design. You own the user experience; Dimedove handles the agentic backend, including AI responses, knowledge base queries, task execution, and conversation context.
+
+    The API supports real-time streaming (SSE) for responsive chat interfaces and traditional request/response patterns for simpler integrations. Enable Generative UI to let your agent produce interactive form components during conversations, and use tool name mappings to customize how agent tasks are exposed through each App for a clean, developer-friendly API surface.
+
+    Every App conversation appears in your Dimedove Inbox alongside all other channels, with automatic contact creation and tracking. Built-in metrics and per-app analytics are available directly in the dashboard. To help you get started, we have published an open-source cookbook with a production-ready Next.js chat application.
+
+    - **Custom chat applications** powered by your Dimedove agents through a REST API
+    - **Streaming and non-streaming** response modes for real-time or traditional integrations
+    - **Generative UI** for agent-generated interactive forms during conversations
+    - **Full dashboard visibility** with App conversations in your unified Inbox alongside all other channels
+    - **Tool name mappings** to customize how agent tasks are exposed through each App
+    - **Open-source cookbook** with a production-ready Next.js chat application template
+
+    ### Features
+
+    - Create Apps from the dashboard, assign a published agent, and get your app_id and secret API key
+    - REST API for creating conversations, sending messages, and managing conversation history with cursor-based pagination
+    - Server-Sent Events (SSE) streaming for real-time chat, configurable per App or overridden per request
+    - Non-streaming mode returns complete responses with output arrays for simpler integrations
+    - Generative UI renders interactive forms through JSON Patch (RFC 6902) operations during conversations
+    - Tool name mappings let you rename agent tasks per App for a clean, custom API surface
+    - External user ID support links conversations to your own user system with automatic contact creation
+    - Built-in analytics with request logs, conversation counts, message volume, and unique user tracking
+    - Open-source cookbook with a full Next.js chat application demonstrating streaming, Generative UI, and conversation management
+
+    ### Notes
+
+    - Apps are available to teams on the Pro subscription
+
+</Update>
+
+<Update label="March 5, 2026" description="Integrations: Native CRM Support and Instagram">
+    Your agents can now push qualified leads directly into the CRM your sales team already uses. We have rolled out native integrations with six of the most popular CRMs: HubSpot, Attio, Zoho CRM, Pipedrive, Close, and Salesforce. Connect your account through a secure OAuth flow, and your agents can create, update, or upsert records in real time as they qualify leads and gather information during conversations.
+
+    Each CRM integration automatically discovers your available resources and fields, including custom properties, so your agents always work with the latest schema. Configure agent actions to map conversation outputs to specific CRM fields, choose which resources to target (contacts, leads, deals, companies, opportunities), and select how records should be matched for updates. Salesforce customers can connect using their own Connected App for full control over permissions and security.
+
+    Alongside CRM support, Instagram is now available as a social channel. Connect your Instagram professional account, assign an agent, and start handling DMs and comment replies automatically. Every Instagram conversation appears in your unified Inbox alongside Messenger, Slack, email, phone, and web chat, giving your team complete visibility across every channel.
+
+    - **Native CRM integrations** with HubSpot, Attio, Zoho CRM, Pipedrive, Close, and Salesforce
+    - **Agent-driven CRM actions** to create, update, and upsert records directly from conversations
+    - **Automatic schema discovery** that detects your CRM fields, resources, and custom properties
+    - **Instagram social channel** with support for DMs and comment replies
+    - **Unified Inbox integration** with all CRM-linked conversations and Instagram messages alongside your other channels
+    - **OAuth-based setup** for all providers, with Salesforce supporting customer-managed Connected Apps
+
+    ### Features
+
+    - Connect any supported CRM provider through a secure OAuth flow from Settings > Integrations
+    - Automatic resource and field discovery, including custom properties, after connecting
+    - Configure agent actions to create, update, or upsert records based on conversation data
+    - Field mapping connects agent outputs to specific CRM fields with lookup support for matching existing records
+    - Supported CRM resources: contacts, leads, deals, companies, opportunities, and custom objects (varies by provider)
+    - Salesforce supports customer-managed Connected App authentication with My Domain and PKCE security
+    - Refresh schemas and re-sync at any time; scope validation prompts reconnection if permissions are missing
+    - Connect your Instagram professional account and assign an agent to handle DMs and comment replies
+    - All Instagram and CRM-linked conversations appear in your unified Inbox with automatic contact creation
+
+    ### Notes
+
+    - CRM integrations are available to teams on the Pro subscription with third-party integrations enabled
+    - Instagram is available to teams on the Pro subscription with the Social Channels feature enabled
+
+</Update>
+
 <Update label="February 26, 2026" description="Socials: Deploy Your Agents to Facebook Messenger">
     Social channels are here. Deploy the same agents you have configured on Dimedove to the social messaging platforms your customers already use. Connect your accounts, assign agents, and start qualifying leads and engaging customers beyond your website. Messenger is the first supported channel, with more social platforms coming soon.
 

@@ -73,7 +73,6 @@
             "pages": [
               "platform/agents/overview",
               "platform/agents/identity",
-
               {
                 "group": "Content",
                 "pages": [
@@ -121,7 +120,10 @@
           },
           {
             "group": "Inbox",
-            "pages": ["platform/inbox/overview", "platform/inbox/chats"]
+            "pages": [
+              "platform/inbox/overview",
+              "platform/inbox/chats"
+            ]
           },
           {
             "group": "Contacts",
@@ -232,7 +234,9 @@
         "groups": [
           {
             "group": "Getting Started",
-            "pages": ["api-reference/overview"]
+            "pages": [
+              "api-reference/overview"
+            ]
           },
           {
             "group": "API Reference",
@@ -268,24 +272,23 @@
             "group": "Integrations",
             "pages": [
               "integrations/slack",
+              "integrations/facebook-messenger",
+              "integrations/instagram",
               "integrations/hubspot",
               "integrations/salesforce",
               "integrations/attio",
               "integrations/pipedrive",
               "integrations/close",
               "integrations/zoho",
-              "integrations/google-drive",
+              "integrations/airtable",
               "integrations/notion",
-              "integrations/shopify",
-              "integrations/stripe",
-              "integrations/zapier",
+              "integrations/linear",
               "integrations/intercom",
               "integrations/zendesk",
-              "integrations/gumloop",
-              "integrations/telegram",
               "integrations/google-calendar",
-              "integrations/linear",
-              "integrations/monday"
+              "integrations/calendly",
+              "integrations/calcom",
+              "integrations/shopify"
             ]
           }
         ]
@@ -295,7 +298,9 @@
         "groups": [
           {
             "group": "Product Updates",
-            "pages": ["changelog/overview"]
+            "pages": [
+              "changelog/overview"
+            ]
           }
         ]
       },
@@ -319,7 +324,9 @@
         "groups": [
           {
             "group": "FAQs",
-            "pages": ["faqs/general"]
+            "pages": [
+              "faqs/general"
+            ]
           }
         ]
       }

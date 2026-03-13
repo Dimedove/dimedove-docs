@@ -1,5 +1,5 @@
-**Effective Date:** 2025-07-01  
-**Last Updated:** 2025-08-27
+**Effective Date:** 2025-07-01<br/>
+**Last Updated:** 2026-03-13
 
 ## Overview
 
@@ -48,7 +48,7 @@ Our infrastructure and security team includes experienced professionals who have
 
 **Customer Notification:**
 
-- Prompt written notification to customers upon verification of any security breach affecting customer data
+- Written notification to affected customers within seventy-two (72) hours of confirming a security breach affecting customer data
 - Notification includes nature of breach, affected data, and status of investigation
 - Guidance provided on any actions customers should take to protect their interests
 
@@ -316,6 +316,16 @@ Dimedove engages subprocessors to deliver services effectively. Our current subp
 - Authorized testing must be coordinated with our security team
 - Vulnerabilities must be reported via responsible disclosure
 
+### Vulnerability Disclosure
+
+If you discover a potential security vulnerability in Dimedove's platform, we encourage responsible disclosure:
+
+- Report vulnerabilities to **security@dimedove.com** with a detailed description of the issue, steps to reproduce, and any supporting evidence
+- We will acknowledge receipt of your report within two (2) business days
+- Our security team will investigate and work to address confirmed vulnerabilities promptly
+- We ask that you allow reasonable time for remediation before disclosing the vulnerability publicly
+- Please do not exploit vulnerabilities beyond what is necessary to demonstrate the issue
+
 ---
 
 ## Data Processing and AI Security
@@ -335,6 +345,13 @@ Dimedove engages subprocessors to deliver services effectively. Our current subp
 - Training data and parameters protected with access controls
 - Customer data not used to train AI models
 - Safeguards in place against adversarial prompts and injection attacks
+
+**Voice and Telephony Security:**
+
+- Voice audio for phone-based AI agents is processed in real-time by Twilio (telephony) and ElevenLabs (voice synthesis). Dimedove does not store voice recordings.
+- All telephony connections are encrypted in transit using industry-standard protocols
+- Only conversation transcripts are retained by Dimedove, encrypted at rest using AES-256
+- ElevenLabs receives text content for speech synthesis only, not raw audio
 
 ### Data Privacy Protection
 
@@ -361,8 +378,8 @@ Email: security@dimedove.com
 Montréal, QC H3B 2E7  
 Canada
 
-**General Support:** support@dimedove.com  
-**Legal Inquiries:** legal@dimedove.com
+**General Support:** support@dimedove.com<br/>
+**Legal Inquiries:** legal@dimedove.com<br/>
 **Security Inquiries:** security@dimedove.com
 
 ---
