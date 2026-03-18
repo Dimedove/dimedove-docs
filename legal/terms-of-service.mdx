@@ -22,6 +22,7 @@ This Agreement governs Customer's access to and use of Dimedove's AI agent build
 **"Affiliate"** means any entity that directly or indirectly controls, is controlled by, or is under common control with a party.
 **"API Key"** means the secret authentication credential issued by Dimedove to Customer for accessing the Dimedove API.
 **"Channel"** means any communication medium through which AI Agents may be deployed, including web chat, email, phone, SMS, Slack, Facebook Messenger, Instagram, and other supported platforms.
+**"Core Services"** means the Dimedove API, backend infrastructure, and server-side processing capabilities that enable Customer's Dimedove Apps and API integrations to operate, including API endpoints, authentication services, AI agent processing, and data storage. Core Services do not include the Platform (dashboard), frontend user interfaces, marketing materials, Documentation hosting, or any ancillary tools or features not essential to the programmatic operation of Customer's applications.
 **"Customer Data"** means all data, content, and information submitted to the Services by or on behalf of Customer, including configurations, conversation data, knowledge base content, workflow definitions, and other content. For the avoidance of doubt, data collected through Customer's use of Dimedove Apps is Customer Data.
 **"Customer Properties"** means Customer's websites, applications, platforms, or other digital properties through which Customer deploys AI Agents or Dimedove Apps.
 **"Dimedove Apps"** or **"Apps"** means custom applications built by Customer using the Dimedove API to create tailored experiences for Customer's end users.
@@ -228,7 +229,73 @@ If Customer decides to migrate away from the Dimedove platform, Dimedove will wo
 
 ### 6.4 Platform Discontinuation
 
-In the event that Dimedove discontinues the Services, Dimedove will provide at least ninety (90) days' advance notice to all active Customers and make Customer Data available for export during that notice period.
+In the event that Dimedove decides to discontinue the Services (a "Discontinuation Event"), the following provisions apply. For the avoidance of doubt, a Discontinuation Event does not include temporary service interruptions, planned maintenance, deprecation of individual features or API endpoints (which is governed by Section 2.6), or changes to Subscription Plans.
+
+#### 6.4.1 Notice
+
+Dimedove will provide at least ninety (90) days' advance written notice of a Discontinuation Event to all active Customers via email to the address associated with their Account (the "Discontinuation Notice"). The Discontinuation Notice will specify: (a) the effective date of discontinuation of non-Core Services; (b) the duration of the Core Services Continuation Period (as defined below); (c) a summary of data export options available to Customer; and (d) contact information for requesting off-boarding assistance.
+
+#### 6.4.2 Core Services Continuation Period
+
+The Core Services Continuation Period is intended to provide Customers with continued access to Core Services for a reasonable period following a Discontinuation Notice, during which Customers may undertake their own migration and off-boarding activities. This includes Customers operating Dimedove Apps through the API, who may use the continued availability of Core Services to transition their data, configurations, and functionalities to their own self-managed infrastructure or to alternative service providers at their own direction.
+
+Following the issuance of a Discontinuation Notice, Dimedove will continue to operate and maintain Core Services for a minimum period of twelve (12) months from the date of the Discontinuation Notice (the "Core Services Continuation Period"). During the Core Services Continuation Period:
+
+(a) Core Services will remain operational and available to Customer under substantially the same technical specifications in effect as of the date of the Discontinuation Notice, subject to reasonable adjustments necessary for security, compliance, or infrastructure stability;
+
+(b) Customer's existing API Keys and integrations will continue to function;
+
+(c) Customer Data will remain accessible and available for export in accordance with Section 6.1;
+
+(d) Dimedove will use commercially reasonable efforts to maintain backwards compatibility for the current version of the API during the Core Services Continuation Period;
+
+(e) Dimedove may, at its sole discretion, extend the Core Services Continuation Period up to a maximum of twenty-four (24) months from the date of the Discontinuation Notice, and will notify Customers of any such extension.
+
+#### 6.4.3 Basic Off-Boarding Assistance
+
+During the Core Services Continuation Period, Dimedove will provide the following off-boarding assistance to all active Customers at no additional charge beyond existing Subscription Plan fees:
+
+(a) Data export in standard, machine-readable formats (such as JSON or CSV) in accordance with Section 6.1;
+
+(b) Documentation of API structures, data schemas, and export formats made available to Customer;
+
+(c) Updated Documentation reflecting any changes to export procedures or data formats;
+
+(d) Reasonable responses to Customer inquiries regarding data export and platform functionality during the Core Services Continuation Period.
+
+Dimedove is not obligated under this Section 6.4.3 to provide custom development, integration work, data transformation into third-party proprietary formats, or hands-on migration engineering. Such services may be available under Section 6.4.4.
+
+#### 6.4.4 Migration and Off-Boarding Services
+
+Dimedove is committed to assisting Customers in migrating off the platform in a manner that is appropriate to each Customer's circumstances. Customers who require migration support, including those operating Dimedove Apps or API-dependent integrations, are encouraged to contact Dimedove to discuss their off-boarding needs.
+
+Migration and off-boarding engagements will be handled on a per-Customer basis and governed by a separate Statement of Work ("SOW") executed by both parties. Each SOW will be tailored to the Customer's specific requirements and may include, without limitation:
+
+(a) Custom data transformation and migration assistance;
+
+(b) Integration consulting and technical guidance for transitioning to alternative platforms or self-managed infrastructure;
+
+(c) Dedicated technical resources to support the migration process;
+
+(d) Extended access to Core Services beyond the Core Services Continuation Period, where technically feasible.
+
+Pricing, scope, timelines, and deliverables for migration services will be defined in the applicable SOW.
+
+#### 6.4.5 End of Core Services Continuation Period
+
+Upon expiration of the Core Services Continuation Period (including any extensions granted under Section 6.4.2(e) or any applicable SOW under Section 6.4.4):
+
+(a) Customer will have a final thirty (30) day period to complete any remaining data exports (the "Final Export Window");
+
+(b) After the Final Export Window, Dimedove may deactivate all remaining Customer access, API Keys, and integrations;
+
+(c) Customer Data will be deleted or destroyed in accordance with Section 5.5 and Dimedove's standard data retention and deletion practices, subject to any applicable legal retention requirements;
+
+(d) The survival provisions of Section 9.4 will apply.
+
+#### 6.4.6 Fees During Discontinuation
+
+During the Core Services Continuation Period, Customer's existing Subscription Plan fees and usage-based charges will continue to apply. Dimedove will not introduce new fees or increase existing fees solely in connection with a Discontinuation Event. If Customer elects to terminate this Agreement during the Core Services Continuation Period, Section 9.2 (Termination for Convenience) applies.
 
 ### 6.5 Post-Termination Export
 
@@ -277,7 +344,7 @@ Either party may terminate this Agreement for convenience by providing at least 
 Either party may terminate this Agreement immediately upon written notice if the other party:
 
 - Commits a material breach of this Agreement and fails to cure such breach within thirty (30) days after receiving written notice specifying the breach. This cure period does not apply to breaches of the Acceptable Use Policy (Section 3.2), security violations, or violations of applicable law, for which termination may be immediate.
-- Becomes insolvent, files for bankruptcy, or ceases to operate in the ordinary course of business.
+- Becomes insolvent, files for bankruptcy, or ceases to operate in the ordinary course of business; provided, however, that where Dimedove is the party subject to such event, the data export and Core Services continuation obligations set forth in Section 6.4 will apply to the extent commercially practicable and permitted by applicable law, any court of competent jurisdiction, or any appointed receiver, trustee, or similar officer.
 
 ### 9.4 Effect of Termination
 
@@ -285,8 +352,9 @@ Upon termination:
 
 - Customer's access to the Services, including all API Keys, will be deactivated.
 - Customer may export Customer Data in accordance with Section 6.5.
+- In the event of a Discontinuation Event, the provisions of Section 6.4 (Platform Discontinuation) supersede the general termination provisions of this Section 9.4 to the extent of any conflict. For clarity, the Core Services Continuation Period and associated data export rights under Section 6.4 take precedence over the thirty (30) day export window described in Section 6.5.
 - Each party will return or destroy the other party's Confidential Information upon request.
-- The following sections survive termination: Section 1 (Definitions), Section 5 (Data Ownership and Processing), Section 6 (Data Portability and Export), Section 7 (Intellectual Property), Section 10 (Warranties and Disclaimers), Section 11 (Limitation of Liability), Section 12 (Indemnification), Section 13 (Confidential Information), and Section 14 (General Provisions).
+- The following sections survive termination: Section 1 (Definitions), Section 5 (Data Ownership and Processing), Section 6 (Data Portability and Export, including Section 6.4), Section 7 (Intellectual Property), Section 10 (Warranties and Disclaimers), Section 11 (Limitation of Liability), Section 12 (Indemnification), Section 13 (Confidential Information), and Section 14 (General Provisions).
 
 ---
 
