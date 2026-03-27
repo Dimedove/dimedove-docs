@@ -46,6 +46,10 @@ Toggle **Generative UI** to enable or disable interactive form generation. When 
 
 See the [API Reference](/api-reference/overview) for details on handling Generative UI events in streaming and non-streaming responses.
 
+#### Custom Tools
+
+Configure custom tool names for your agent's existing tasks, or define client tools that signal your frontend to trigger UI actions during a conversation. See [Custom Tools](/developer/apps/custom-tools) for full setup instructions.
+
 ### Step 5: Copy Your App ID
 
 1. In your App configuration, find the **App ID** field
@@ -80,6 +84,15 @@ When enabled, your agent can generate interactive form components during convers
 
 The unique identifier for your App, used in API URLs. This is generated automatically when you create the App and cannot be changed.
 
+### Custom Tools
+
+Two related features that give your frontend visibility into agent tool calls during a conversation:
+
+- **Custom Tool Mappings**: assign custom names to your agent's existing tasks so your frontend can identify them in `function_call` response items.
+- **Client Tools**: blank tools with no server-side action that the agent can call to signal your frontend to take a specific UI action.
+
+See [Custom Tools](/developer/apps/custom-tools) for a full walkthrough on configuring and handling both.
+
 ## Managing Apps
 
 ### Disable an App
@@ -100,6 +113,7 @@ You can update an App's configuration at any time:
 
 - Change the assigned agent
 - Toggle Generative UI
+- Add, edit, or remove custom tools and client tools
 - Update the name
 
 Changes take effect immediately for new requests.

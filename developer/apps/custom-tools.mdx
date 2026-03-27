@@ -1,0 +1,151 @@
+---
+title: Custom Tools
+description: Intercept agent tool calls in your frontend to build richer, more interactive experiences
+---
+
+<Info>Apps are available to teams on the Pro subscription.</Info>
+
+Custom tools give your frontend visibility into what your agent is doing mid-conversation. When the agent calls a tool, a `function_call` item appears in the API response. Your frontend reads this item and reacts accordingly: updating the UI, showing a custom component, navigating to a new view, or anything else your application needs to do.
+
+There are two types of custom tools, both configured in the **Configuration** tab of your App:
+
+- **Custom Tool Mappings**: assign custom names to your agent's existing tasks (API calls, calendar bookings, email sends, etc.) so your frontend can identify them.
+- **Client Tools**: blank tools with no server-side action. The agent calls them purely as signals for your frontend to act on.
+
+Both types appear identically in the API response as `function_call` items.
+
+---
+
+## Custom Tool Mappings
+
+Your agent can have tasks configured in the Dimedove dashboard (HTTP API calls, MCP tool calls, calendar bookings, etc.). By default, these tasks surface in the API response under internal names. Custom tool mappings let you assign your own names to them, so your frontend can reliably identify which task ran.
+
+### Configuring Tool Mappings
+
+1. In the **Configuration** tab of your App, scroll to the **Custom Tools** section.
+2. You will see a list of all active tasks assigned to the app's agent.
+3. For each task you want to intercept, enter a custom name in the input field next to it.
+4. Save the App.
+
+The custom name must start with a lowercase letter and can contain lowercase letters, digits, and underscores only (e.g. `check_inventory`, `book_appointment`, `update_crm`).
+
+### How They Appear in Responses
+
+When the agent runs a mapped task, the `function_call` item in the response uses your custom name:
+
+```json
+{
+  "type": "function_call",
+  "name": "check_inventory",
+  "arguments": "{\"product_id\": \"sku_123\"}",
+  "call_id": "call_abc456"
+}
+```
+
+The `arguments` field contains the JSON-encoded inputs the agent passed to the task.
+
+---
+
+## Client Tools
+
+Client tools are blank tools you define that produce no server-side side effects. You give each one a name, a key, and a description. The description is injected into the agent's system prompt so the agent knows when to call the tool. When it does, a `function_call` item appears in the response, and your frontend handles it.
+
+Use client tools for things like: opening a modal, redirecting to a pricing page, switching to a different view, or prompting the user for additional input outside the chat flow.
+
+### Configuring Client Tools
+
+1. In the **Configuration** tab of your App, scroll to the **Client Tools** section (below Custom Tool Mappings).
+2. Click **Add Tool**.
+3. Fill in the fields:
+   - **Tool name**: a human-readable label for your reference (e.g. "Open Quote Form").
+   - **Key**: the unique slug returned in the `function_call` response. Must start with a lowercase letter, lowercase letters, digits, and underscores only (e.g. `open_quote_form`).
+   - **Description**: tells the agent when to call this tool. Be specific about the trigger condition. The agent uses this text to decide whether invoking the tool is appropriate at any point in the conversation.
+4. Click **Create**.
+
+### How They Appear in Responses
+
+When the agent decides to call a client tool, the `function_call` item uses the tool's key as the `name`:
+
+```json
+{
+  "type": "function_call",
+  "name": "open_quote_form",
+  "arguments": null,
+  "call_id": "call_def789"
+}
+```
+
+The `arguments` field is always `null` for client tools.
+
+### Writing Good Descriptions
+
+The agent's decision to call a client tool depends entirely on the description you provide. Be specific about the user intent or situation that should trigger the tool.
+
+| Tool | Weak description | Strong description |
+|------|-----------------|-------------------|
+| `open_quote_form` | "Opens the quote form" | "Call this when the user wants to get a pricing estimate, start a quote, or asks how much something costs." |
+| `transfer_to_agent` | "Transfers to a human" | "Call this when the user is frustrated, asks to speak with a person, or has a complex issue the agent cannot resolve." |
+| `show_video_demo` | "Shows a demo video" | "Call this when the user asks to see the product in action, wants a walkthrough, or asks how the product works." |
+
+---
+
+## Handling `function_call` Items
+
+Both custom tool mappings and client tools produce `function_call` items in the same place in the response. Your frontend handles them the same way.
+
+### Non-Streaming
+
+In a non-streaming response, iterate over the `output` array and check each item's `type`:
+
+```javascript
+const response = await sendMessage(conversationId, message);
+
+for (const item of response.output) {
+  if (item.type === "function_call") {
+    switch (item.name) {
+      case "check_inventory":
+        displayInventoryStatus(JSON.parse(item.arguments));
+        break;
+      case "open_quote_form":
+        openQuoteModal();
+        break;
+      case "transfer_to_agent":
+        initiateHumanHandoff();
+        break;
+    }
+  }
+}
+```
+
+### Streaming
+
+In streaming mode (Server-Sent Events), `function_call` items are delivered via the `response.output_item.done` event. Listen for this event and inspect the `item` payload:
+
+```javascript
+eventSource.addEventListener("response.output_item.done", (event) => {
+  const { item } = JSON.parse(event.data);
+
+  if (item.type === "function_call") {
+    switch (item.name) {
+      case "check_inventory":
+        displayInventoryStatus(JSON.parse(item.arguments));
+        break;
+      case "open_quote_form":
+        openQuoteModal();
+        break;
+      case "transfer_to_agent":
+        initiateHumanHandoff();
+        break;
+    }
+  }
+});
+```
+
+<CardGroup cols={2}>
+  <Card title="Configuration" icon="wrench" href="/developer/apps/configuration">
+    Manage all App configuration options in the dashboard
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference/overview">
+    Full API documentation for response output formats
+  </Card>
+</CardGroup>

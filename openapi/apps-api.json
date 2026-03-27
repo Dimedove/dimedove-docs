@@ -1046,6 +1046,24 @@
               "fr-ca": "<generated title in French>"
             },
             "title": "Generated Title"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The latest metadata snapshot associated with this conversation, if any has been provided.",
+            "example": {
+              "first_name": "John",
+              "last_name": "Doe",
+              "city": "Montreal"
+            },
+            "title": "Metadata"
           }
         },
         "required": [
@@ -1061,7 +1079,13 @@
             "content": "Hello, I need help with my order.",
             "role": "user"
           },
-          "stream": true
+          "stream": true,
+          "metadata": {
+            "first_name": "John",
+            "last_name": "Doe",
+            "age": 34,
+            "city": "Montreal"
+          }
         },
         "properties": {
           "message": {
@@ -1079,6 +1103,19 @@
             ],
             "description": "Override the app's default streaming setting for this request. When true, the response is delivered as Server-Sent Events (SSE). When false, a single JSON response is returned. If omitted, the app's configured default is used.",
             "title": "Stream"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Arbitrary key-value context to enrich the AI agent's response. Pass the latest snapshot on any message, and the agent will use this fresh context for the current response and persist it as the conversation's latest metadata. Maximum 16KB.",
+            "title": "Metadata"
           }
         },
         "required": [
@@ -1090,7 +1127,11 @@
       "ConversationCreateRequest": {
         "example": {
           "external_user_id": "user_abc123",
-          "title": "Support inquiry"
+          "title": "Support inquiry",
+          "metadata": {
+            "first_name": "John",
+            "plan_type": "term_life"
+          }
         },
         "properties": {
           "external_user_id": {
@@ -1116,6 +1157,19 @@
             ],
             "description": "A custom title for the conversation. If not provided, the system will auto-generate a title after the first exchange.",
             "title": "Title"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Arbitrary key-value context to enrich the AI agent's responses for this conversation. Injected into the agent's runtime context on every response. Can be updated by passing metadata on subsequent message requests. Maximum 16KB.",
+            "title": "Metadata"
           }
         },
         "title": "ConversationCreateRequest",
@@ -1181,6 +1235,24 @@
               "fr-ca": "<generated title in French>"
             },
             "title": "Generated Title"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The latest metadata snapshot associated with this conversation, if any has been provided.",
+            "example": {
+              "first_name": "John",
+              "last_name": "Doe",
+              "city": "Montreal"
+            },
+            "title": "Metadata"
           },
           "items": {
             "default": [],

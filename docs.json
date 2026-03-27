@@ -224,6 +224,7 @@
             "pages": [
               "developer/apps/overview",
               "developer/apps/configuration",
+              "developer/apps/custom-tools",
               "developer/apps/api-keys"
             ]
           }
