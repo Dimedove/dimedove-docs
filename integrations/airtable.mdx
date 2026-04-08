@@ -1,8 +1,40 @@
 ---
 title: Airtable
-description: Connect Dimedove with Airtable for flexible data management
+description: Connect Dimedove with Airtable to sync records across your bases and tables
 ---
 
-<Note>Airtable integration is coming soon.</Note>
+Dimedove's Airtable integration connects your AI agents to the bases and tables you already use to run your business. Automatically create, update, and upsert records in any Airtable table as part of your agent's conversations, keeping your workflows and source-of-truth data in sync.
 
-Integrate Dimedove with Airtable to sync conversation data and contacts with your bases. Automatically create and update records, keeping your workflows and databases in sync with your agent interactions.
+## Integration Features
+
+### Supported Resources
+
+Dimedove automatically discovers the Airtable bases you have write access to and every table inside them. Each resource is presented as a "Base Name · Table Name" pair, so you can point agent actions at the exact table you want to write to. Read-only bases are automatically skipped.
+
+### Agent Actions
+
+Configure your Dimedove agents to perform Airtable operations as part of their workflows:
+
+- **Create Records**: Automatically add new rows to a table when an agent gathers qualifying information
+- **Update Records**: Update existing records with new details captured during conversations
+- **Upsert Records**: Look up existing records by one or more fields and update them, or create new records if no match is found. Dimedove uses Airtable's native upsert support when the matching fields are compatible, and falls back to a lookup-then-update-or-create flow for more complex field types
+
+### Key Capabilities
+
+- **Dynamic Schema Discovery**: Dimedove queries your Airtable workspace to detect all available bases, tables, and fields automatically, including custom fields
+- **Smart Field Handling**: Field types are introspected so read-only fields (like formulas, rollups, and autoNumbers) are excluded from writes, and complex fields (like linked records and attachments) are written safely
+- **Lookup Field Matching**: Choose up to three fields as lookup keys for upserts, so your agent can reliably find and update the right record
+- **Field Mapping**: Map agent conversation outputs to specific Airtable fields, with automatic type coercion for numbers, dates, and selects
+- **Unified Inbox**: Conversations that trigger Airtable actions appear alongside all other channels in your Dimedove dashboard
+
+## Getting Connected
+
+To connect your Airtable account:
+
+1. Navigate to **Settings > Integrations** in your Dimedove dashboard
+2. Click **Configure** next to Airtable
+3. Authorize Dimedove with your Airtable account and select the bases you want to share
+4. Your available bases, tables, and fields will be discovered automatically
+5. Configure agent actions to start syncing data
+
+<Info>Airtable integration requires a Pro subscription with third-party integrations enabled.</Info>
