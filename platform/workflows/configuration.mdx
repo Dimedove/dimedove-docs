@@ -205,6 +205,8 @@ The run detail panel provides complete visibility into the execution:
 
 This detailed view is essential for debugging workflows and understanding exactly what happened during each execution.
 
+<Note>If a run is automatically retried due to a transient infrastructure issue, any messages (SMS, calls, emails, Slack messages) that were already successfully sent are not sent a second time. You will not see duplicate outbound activity from a retried run.</Note>
+
 ### Analytics
 
 The **Overview** tab provides an analytics dashboard for your workflow:

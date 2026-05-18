@@ -25,6 +25,43 @@ This URL is displayed in the trigger configuration panel. Share it with the exte
 
 <Tip>You can test webhook triggers by sending a POST request with a JSON body using tools like curl, Postman, or any HTTP client.</Tip>
 
+#### Response
+
+The webhook endpoint responds asynchronously: it queues the workflow for execution and returns immediately. The actual action steps run in the background.
+
+| Status | Meaning |
+| --- | --- |
+| `202 Accepted` | The workflow run was created and queued. The response body includes `workflow_run_id`. |
+| `400 Bad Request` | The workflow is not configured to run, or it references outbound channels (such as SMS) that are not available on your team. |
+| `404 Not Found` | No workflow exists at the given webhook path. |
+| `429 Too Many Requests` | The team is sending triggers faster than allowed. Wait for the duration in the `Retry-After` response header, then retry. |
+
+A successful response looks like:
+
+```json
+{
+  "success": true,
+  "workflow_run_id": "...",
+  "status": "accepted",
+  "idempotent_replay": false
+}
+```
+
+#### Idempotency
+
+To make retries safe, include an `Idempotency-Key` header on your POST request. If the same key is replayed against the same workflow, Dimedove returns the original run instead of creating a new one, and the response body sets `idempotent_replay: true`.
+
+Keys are scoped per workflow: the same key sent to two different workflows produces two distinct runs. Use any opaque string your script can regenerate deterministically (a UUID, a hash of the payload, etc.).
+
+```bash
+curl -X POST https://hooks.dimedove.com/v1/w/{path} \
+  -H "Content-Type: application/json" \
+  -H "Idempotency-Key: order-12345" \
+  -d '{"email": "lead@example.com"}'
+```
+
+Including this header is strongly recommended for any script that may retry on network failures. Omitting it preserves the previous behavior (no deduplication).
+
 For receiving events from Dimedove in your own external systems (the reverse direction), see [Webhooks](/developer/webhooks/overview).
 
 ### Manual

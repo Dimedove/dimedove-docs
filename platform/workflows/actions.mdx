@@ -5,6 +5,12 @@ description: Action types that workflows can execute after a trigger fires
 
 Actions define what a workflow does after its trigger fires. Each workflow can have up to 2 action nodes. If you use 2 action nodes, the first must be a Delay action, enabling patterns like: trigger, wait, then execute. All text fields in action configurations support [template variables](/platform/workflows/configuration#using-template-variables) for inserting dynamic data from the trigger payload.
 
+## Throughput and Pacing
+
+Outbound actions (HTTP Request, Email, SMS, Call, Slack Message, and Execute Tasks) are automatically paced to respect downstream provider limits and protect overall system stability. There is nothing to configure.
+
+During bursts of activity, a workflow run may take longer than the sum of its individual action durations: the run is paused and resumed transparently until each action can be dispatched safely. The run still completes; you'll see the elapsed time reflected in the [Run History](/platform/workflows/configuration#run-history).
+
 ## Action Types
 
 ### HTTP Request
