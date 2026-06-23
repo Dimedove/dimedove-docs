@@ -1,8 +1,41 @@
 ---
 title: Calendly
-description: Connect Dimedove with Calendly for seamless meeting scheduling
+description: Connect Dimedove with Calendly so your agents can share booking links or schedule meetings directly in the conversation.
 ---
 
-<Note>Calendly integration is coming soon.</Note>
+Dimedove's Calendly integration lets your AI agents help visitors book meetings without leaving the chat. Share a Calendly link for a quick setup, or connect your account so the agent can check availability and book meetings directly.
 
-Integrate Dimedove with Calendly to enable your agents to check availability and schedule meetings directly. Streamline the booking process for qualified leads without leaving the conversation.
+## Integration features
+
+### Scheduling modes
+
+- **Event link**: the agent shares a link to a specific Calendly event type, and the visitor books on your Calendly page.
+- **Live calendar**: the agent reads your real availability and creates bookings inside the conversation.
+
+### Agent actions
+
+In live calendar mode, you choose which actions your agent can perform:
+
+- **Check availability**: present real open time slots from your Calendly calendar.
+- **Book a meeting**: confirm the visitor's details and schedule the appointment.
+- **Reschedule a meeting**: help a visitor move an existing meeting to a new time.
+
+### Key capabilities
+
+- **Multiple event types**: offer different meeting types and tell the agent when to use each one.
+- **Permission control**: enable availability, booking, and rescheduling independently per task.
+- **Unified inbox**: every conversation appears in your Dimedove dashboard alongside all other channels, and any bookings made during a conversation are tracked right within it.
+
+## Getting connected
+
+To connect your Calendly account:
+
+1. Navigate to your agent's **Tasks** and add a **Calendar** task.
+2. Select **Calendly** as the provider.
+3. Choose **event link** mode and paste a booking URL, or choose **live calendar** mode and enter your Calendly token.
+4. Add the event type(s) visitors can book, with a label and an optional condition for each.
+5. Choose which actions the agent can perform, then save and test.
+
+<Info>
+  Live calendar mode requires a Calendly plan that provides API access. Calendar tasks are part of Dimedove's agent task capabilities. See the [Calendar task documentation](/platform/agents/tasks/calendar) for full setup details.
+</Info>
