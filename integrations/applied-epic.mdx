@@ -1,0 +1,49 @@
+---
+title: Applied Epic
+description: Connect Dimedove with Applied Epic so your agents can look up client records and log activities in your agency management system.
+---
+
+Applied Epic is an insurance agency management system (AMS) by Applied Systems, used by independent agencies and brokerages as their system of record for clients, policies, and day-to-day servicing work. Dimedove's Applied Epic integration connects your AI agents to your Epic database so they can look up records and write back the outcomes of a conversation, such as logging an activity against a client.
+
+## Integration features
+
+### Supported resources
+
+Once connected, Dimedove discovers the resources available in your Epic database, including:
+
+- **Clients**: the core customer/account records.
+- **Contacts**: the people associated with clients, prospects, carriers, and vendors.
+- **Activities**: the logged tasks, follow-ups, and servicing notes tied to a client.
+- **Companies, opportunities, policies, and accounts**: additional records your agents can read.
+
+### Agent actions
+
+Configure your Dimedove agents to perform record operations as part of their tasks. For each task you choose the operation the agent is allowed to perform:
+
+- **Get**: look up a record by fields such as email, phone, or ID (for example, find a client before logging work against it).
+- **Create**: create a new record, such as an activity logging a call outcome.
+- **Update**: update an existing record with information gathered during the conversation.
+- **Upsert**: look up a record and update it, or create one if no match is found.
+
+A common pattern is a two-step sequence: the agent first looks up the client, then creates an activity against that client using the returned client ID.
+
+### Key capabilities
+
+- **Per-agency connection**: connect your own Epic database using credentials issued to your agency.
+- **Field mapping**: map agent conversation outputs to specific Epic fields for precise data entry.
+- **Unified inbox**: conversations that trigger Applied Epic actions appear alongside all other channels in your Dimedove dashboard.
+
+## Getting connected
+
+Applied Epic connects with API credentials rather than an OAuth sign-in. You provision an application in the Applied Dev Center, which issues a consumer key and consumer secret scoped to your Epic database, then enter those credentials in Dimedove.
+
+To connect your Applied Epic database:
+
+1. Provision an application in the [Applied Dev Center](https://devcenter.myappliedproducts.com/home) to obtain a consumer key and consumer secret.
+2. Navigate to **Settings > Integrations** in your Dimedove dashboard.
+3. Click **Configure** next to Applied Epic.
+4. Enter your **consumer key**, **consumer secret**, and **database name**.
+5. Click **Save and Connect**. Dimedove verifies the credentials and discovers your available resources.
+6. Configure agent actions to start looking up records and logging activities.
+
+<Info>Applied Epic integration requires a Pro subscription with third-party integrations enabled.</Info>

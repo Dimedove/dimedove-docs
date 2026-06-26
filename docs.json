@@ -166,7 +166,8 @@
             "group": "Telephony",
             "pages": [
               "platform/telephony/overview",
-              "platform/telephony/configuration"
+              "platform/telephony/configuration",
+              "platform/telephony/outbound"
             ]
           },
           {
@@ -283,8 +284,10 @@
               "integrations/close",
               "integrations/zoho",
               "integrations/airtable",
+              "integrations/applied-epic",
               "integrations/calendly",
               "integrations/calcom",
+              "integrations/outlook-calendar",
               "integrations/acuity",
               "integrations/notion",
               "integrations/linear",

@@ -1,0 +1,65 @@
+---
+title: Outlook Calendar
+description: Connect Dimedove with your Microsoft 365 Outlook calendars so your agents can check availability, book, and reschedule meetings directly in the conversation.
+---
+
+Dimedove's Outlook Calendar integration lets your AI agents manage meetings on your organization's Microsoft 365 calendars without leaving the chat. Connect your Microsoft 365 organization once, choose which mailboxes (hosts) agents may book against, and your agents can read real availability, book meetings, and reschedule them based on the conversation.
+
+## Integration features
+
+### Live calendar
+
+Outlook Calendar connects in live calendar mode, so the agent works directly with your Microsoft 365 calendars inside the conversation. Availability is read from each host's real free/busy and working hours, and meetings are written straight to their Outlook calendar.
+
+### Agent actions
+
+You choose which actions your agent can perform:
+
+- **Check availability**: present real open time slots from a host's Outlook calendar.
+- **Book a meeting**: confirm the visitor's details and create the event on the host's calendar, adding the visitor as an attendee.
+- **Reschedule a meeting**: move an existing meeting to a new time the visitor chooses.
+
+### Hosts and mailboxes
+
+Instead of event-type links, Outlook routes on **hosts**. A host is a Microsoft 365 mailbox whose calendar the agent is allowed to book. For each host you can set:
+
+- **Mailbox**: the Microsoft 365 address the agent books against (picked from your organization's directory, or entered directly).
+- **Label**: a friendly name for the host.
+- **Condition**: an optional rule that tells the agent when to route to this host (shown when you configure more than one host).
+- **Meeting length and buffers**: per-host duration, buffer time before and after, and minimum advance notice.
+- **Subject template**: the title applied to the event in Outlook.
+
+The agent can only book mailboxes you have configured as hosts, which keeps booking scoped to the calendars you intend to expose.
+
+### Key capabilities
+
+- **Organization-wide connection**: connect your Microsoft 365 organization once, then expose any of its mailboxes as hosts.
+- **Real availability**: slots are carved from each host's Outlook free/busy and working hours, with buffers and minimum-notice rules applied.
+- **Permission control**: enable availability, booking, and rescheduling independently per task.
+- **Unified inbox**: every conversation appears in your Dimedove dashboard alongside all other channels, and any bookings made during a conversation are tracked right within it.
+
+## Getting connected
+
+Connecting Outlook Calendar is a two-part setup: connect your Microsoft 365 organization, then configure the hosts your agent can book.
+
+To connect your Microsoft 365 organization:
+
+1. Navigate to **Settings > Integrations** in your Dimedove dashboard, or open the connection card from within a **Calendar** task.
+2. Click **Connect Microsoft**.
+3. Sign in as a Microsoft 365 administrator and grant Dimedove consent for your organization. Dimedove requests permission to read and write calendars and read mailbox settings (working hours).
+4. You are returned to the dashboard, where the integration shows as connected.
+
+To set up the calendar task:
+
+1. Navigate to your agent's **Tasks** and add a **Calendar** task.
+2. Select **Outlook** as the provider.
+3. Add the host(s) the agent can book. For each host, choose a mailbox, give it a label, and set the meeting length, buffers, minimum notice, and subject template. Add a condition when you use more than one host.
+4. Choose which actions the agent can perform, then save and test.
+
+<Info>
+  Outlook Calendar connects in live calendar mode. Calendar tasks are part of Dimedove's agent task capabilities. See the [Calendar task documentation](/platform/agents/tasks/calendar) for full setup details.
+</Info>
+
+<Info>
+  Admin consent is required to connect your Microsoft 365 organization. If your organization later needs to re-grant a newly added permission, the integration prompts you to reconnect.
+</Info>

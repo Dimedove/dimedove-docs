@@ -1,0 +1,61 @@
+---
+title: Outbound
+description: Reach contacts proactively with outbound calls and SMS
+---
+
+<Info>Outbound is a Pro feature and requires telephony. Telephony add-on charges apply. See [pricing](https://www.dimedove.com/pricing) for details.</Info>
+
+While inbound telephony lets your agents answer calls and texts, outbound lets you reach contacts proactively. Your agents can place outbound calls and send outbound SMS, either one at a time from a workflow or to a list of recipients as a batch.
+
+## Outbound channels
+
+Outbound works for both telephony channels:
+
+- **Calls**: your agent places a call and opens with a spoken first message, then handles the conversation just as it would an inbound call, including any tasks you have configured.
+- **SMS**: your agent sends a text message and continues the conversation over two-way SMS.
+
+Both channels use the phone numbers you have already set up under [Telephony](/platform/telephony/overview). A number must have the matching service (calls or SMS) enabled to be used for outbound.
+
+## Batch outbound
+
+Batch outbound sends the same call or SMS campaign to a list of recipients.
+
+### Recipients
+
+Upload your recipients as a CSV or spreadsheet file. Each row is one recipient:
+
+- **Phone number**: a `phone_number` column is required and is normalized automatically.
+- **Additional columns**: any other columns (such as `first_name`) become per-recipient variables you can reference in your message and that are passed to the agent as context.
+
+You can download a template from the batch editor to get the expected format.
+
+### Calls
+
+For a call batch you configure:
+
+- **Phone number**: which of your call-enabled numbers places the calls.
+- **Agent**: the agent that handles each conversation.
+- **First message**: the spoken opener the agent uses when the call connects. You can reference recipient columns in it.
+- **Additional context**: optional batch-level context passed to the agent for every call.
+
+### SMS
+
+For an SMS batch you configure:
+
+- **Phone number**: which of your SMS-enabled numbers sends the messages.
+- **Agent**: the agent that handles replies.
+- **Message**: the text sent to each recipient. You can reference recipient columns in it (for example, `{{first_name}}`). Outbound SMS messages are kept short to fit within a single message segment.
+
+### Sending and scheduling
+
+You can run a batch immediately or schedule it for a later date and time. Recipients are dispatched at a steady pace appropriate to your phone number, and every conversation appears in your [Inbox](/platform/inbox/overview) like any other call or SMS thread. You can follow each recipient's status (queued, sent, answered, no answer, voicemail, failed, and so on) from the batch view.
+
+## Outbound from workflows
+
+Outbound calls and SMS can also be triggered from [Workflows](/platform/workflows/overview) as workflow actions, so a single contact can be called or texted in response to an event rather than as part of a batch. See [Workflow actions](/platform/workflows/actions) for details.
+
+## Compliance
+
+Recipients can opt out of outbound SMS at any time by replying with a standard keyword such as STOP. Once a contact has opted out, that opt-out is respected everywhere outbound calls or SMS are initiated, including batches and workflows, so the contact is not reached again through those paths. Contacts can opt back in by replying START.
+
+You are responsible for ensuring your outbound messaging complies with the regulations that apply to you, including obtaining the consent required to contact your recipients.
