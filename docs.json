@@ -135,6 +135,13 @@
             ]
           },
           {
+            "group": "Ask Dimedove",
+            "pages": [
+              "platform/ask-dimedove/overview",
+              "platform/ask-dimedove/how-to"
+            ]
+          },
+          {
             "group": "Team",
             "pages": [
               "platform/team/overview",
