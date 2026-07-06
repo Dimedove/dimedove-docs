@@ -820,359 +820,124 @@
           }
         ]
       }
+    },
+    "/apps/{app_id}/completions": {
+      "post": {
+        "operationId": "apps_api_create_completion",
+        "summary": "Create completion",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "app_id",
+            "schema": {
+              "description": "The unique identifier of the app.",
+              "title": "App Id",
+              "type": "string"
+            },
+            "required": true,
+            "description": "The unique identifier of the app."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompletionResponseSchema"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OpenAIErrorSchema"
+                }
+              }
+            }
+          }
+        },
+        "description": "Generates a one-shot text completion using the app's agent configuration. Unlike the conversation endpoints, this does not create or belong to a conversation. It produces a single piece of text from your instruction, grounded in the agent's business context. Supports both streaming (Server-Sent Events) and non-streaming (JSON) modes.",
+        "tags": [
+          "Completions"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CompletionRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "security": [
+          {
+            "AppsApiKeyAuth": []
+          }
+        ]
+      }
     }
   },
   "components": {
     "schemas": {
-      "AppConfigSchema": {
+      "AppMetricsSchema": {
         "properties": {
-          "app_id": {
-            "description": "Unique identifier for the app.",
-            "title": "App Id",
-            "type": "string"
-          },
-          "stream": {
-            "description": "Whether streaming (Server-Sent Events) is enabled by default for this app's responses.",
-            "title": "Stream",
-            "type": "boolean"
-          },
-          "generative_ui": {
-            "description": "Whether generative UI is enabled. When true, responses may include 'data-spec' parts for dynamic UI rendering.",
-            "title": "Generative Ui",
-            "type": "boolean"
-          },
-          "agent": {
-            "$ref": "#/components/schemas/AppConfigAgentSchema",
-            "description": "The AI agent configuration for this app."
-          }
-        },
-        "required": [
-          "app_id",
-          "stream",
-          "generative_ui",
-          "agent"
-        ],
-        "title": "AppConfigSchema",
-        "type": "object"
-      },
-      "ConversationListSchema": {
-        "properties": {
-          "object": {
-            "default": "list",
-            "description": "The object type. Always 'list'.",
-            "title": "Object",
-            "type": "string"
-          },
-          "data": {
-            "description": "The array of conversation objects for the current page.",
-            "items": {
-              "$ref": "#/components/schemas/ConversationSchema"
-            },
-            "title": "Data",
-            "type": "array"
-          },
-          "first_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The ID of the first conversation in the returned page. Null if the list is empty.",
-            "title": "First Id"
-          },
-          "last_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The ID of the last conversation in the returned page. Null if the list is empty.",
-            "title": "Last Id"
-          },
-          "has_more": {
-            "default": false,
-            "description": "Whether there are additional conversations beyond this page. Use the 'after' or 'before' query parameters to paginate.",
-            "title": "Has More",
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "title": "ConversationListSchema",
-        "type": "object"
-      },
-      "ConversationUpdateRequest": {
-        "properties": {
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The new custom title for the conversation. Set to null to clear the custom title.",
-            "title": "Title"
-          }
-        },
-        "title": "ConversationUpdateRequest",
-        "type": "object"
-      },
-      "ResponseSchema": {
-        "properties": {
-          "id": {
-            "description": "Unique identifier for the response.",
-            "title": "Id",
-            "type": "string"
-          },
-          "object": {
-            "default": "response",
-            "description": "The object type. Always 'response'.",
-            "title": "Object",
-            "type": "string"
-          },
-          "created_at": {
-            "description": "Unix timestamp (in seconds) of when the response was generated.",
-            "title": "Created At",
+          "total_conversations": {
+            "description": "The total number of conversations created through this app.",
+            "title": "Total Conversations",
             "type": "integer"
           },
-          "conversation_id": {
-            "description": "The ID of the conversation this response belongs to.",
-            "title": "Conversation Id",
-            "type": "string"
-          },
-          "output": {
-            "default": [],
-            "description": "The list of output items produced by the AI agent, including messages and function calls.",
-            "items": {
-              "$ref": "#/components/schemas/ResponseOutputItem"
-            },
-            "title": "Output",
-            "type": "array"
-          },
-          "status": {
-            "default": "completed",
-            "description": "The status of the response. Either 'completed' or 'failed'.",
-            "title": "Status",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "conversation_id"
-        ],
-        "title": "ResponseSchema",
-        "type": "object"
-      },
-      "OpenAIErrorSchema": {
-        "properties": {
-          "error": {
-            "$ref": "#/components/schemas/OpenAIErrorDetail",
-            "description": "The error detail object."
-          }
-        },
-        "required": [
-          "error"
-        ],
-        "title": "OpenAIErrorSchema",
-        "type": "object"
-      },
-      "ConversationSchema": {
-        "properties": {
-          "id": {
-            "description": "Unique identifier for the conversation.",
-            "title": "Id",
-            "type": "string"
-          },
-          "object": {
-            "default": "conversation",
-            "description": "The object type. Always 'conversation'.",
-            "title": "Object",
-            "type": "string"
-          },
-          "created_at": {
-            "description": "Unix timestamp (in seconds) of when the conversation was created.",
-            "title": "Created At",
+          "total_messages": {
+            "description": "The total number of messages exchanged across all conversations.",
+            "title": "Total Messages",
             "type": "integer"
           },
-          "external_user_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The external user identifier associated with this conversation, if one was provided at creation.",
-            "title": "External User Id"
-          },
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The custom title set for this conversation, if any.",
-            "title": "Title"
-          },
-          "generated_title": {
-            "anyOf": [
-              {
-                "additionalProperties": {
-                  "type": "string"
-                },
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "AI-generated conversation title in supported locales. Keys are locale codes (e.g. 'en-ca', 'fr-ca').",
-            "example": {
-              "en-ca": "<generated title in English>",
-              "fr-ca": "<generated title in French>"
-            },
-            "title": "Generated Title"
-          },
-          "metadata": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The latest metadata snapshot associated with this conversation, if any has been provided.",
-            "example": {
-              "first_name": "John",
-              "last_name": "Doe",
-              "city": "Montreal"
-            },
-            "title": "Metadata"
+          "total_users": {
+            "description": "The total number of unique users who have interacted with this app.",
+            "title": "Total Users",
+            "type": "integer"
           }
         },
         "required": [
-          "id",
-          "created_at"
+          "total_conversations",
+          "total_messages",
+          "total_users"
         ],
-        "title": "ConversationSchema",
-        "type": "object"
-      },
-      "SendMessageRequest": {
-        "example": {
-          "message": {
-            "content": "Hello, I need help with my order.",
-            "role": "user"
-          },
-          "stream": true,
-          "metadata": {
-            "first_name": "John",
-            "last_name": "Doe",
-            "age": 34,
-            "city": "Montreal"
-          }
-        },
-        "properties": {
-          "message": {
-            "$ref": "#/components/schemas/MessageInput",
-            "description": "The message object to send."
-          },
-          "stream": {
-            "anyOf": [
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Override the app's default streaming setting for this request. When true, the response is delivered as Server-Sent Events (SSE). When false, a single JSON response is returned. If omitted, the app's configured default is used.",
-            "title": "Stream"
-          },
-          "metadata": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Arbitrary key-value context to enrich the AI agent's response. Pass the latest snapshot on any message, and the agent will use this fresh context for the current response and persist it as the conversation's latest metadata. Maximum 16KB.",
-            "title": "Metadata"
-          }
-        },
-        "required": [
-          "message"
-        ],
-        "title": "SendMessageRequest",
-        "type": "object"
-      },
-      "ConversationCreateRequest": {
-        "example": {
-          "external_user_id": "user_abc123",
-          "title": "Support inquiry",
-          "metadata": {
-            "first_name": "John",
-            "plan_type": "term_life"
-          }
-        },
-        "properties": {
-          "external_user_id": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Your application's unique identifier for the user. When provided, conversations are linked to this user for retrieval via the list user conversations endpoint.",
-            "title": "External User Id"
-          },
-          "title": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "A custom title for the conversation. If not provided, the system will auto-generate a title after the first exchange.",
-            "title": "Title"
-          },
-          "metadata": {
-            "anyOf": [
-              {
-                "additionalProperties": true,
-                "type": "object"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "Arbitrary key-value context to enrich the AI agent's responses for this conversation. Injected into the agent's runtime context on every response. Can be updated by passing metadata on subsequent message requests. Maximum 16KB.",
-            "title": "Metadata"
-          }
-        },
-        "title": "ConversationCreateRequest",
+        "title": "AppMetricsSchema",
         "type": "object"
       },
       "ConversationDetailSchema": {
@@ -1247,11 +1012,6 @@
               }
             ],
             "description": "The latest metadata snapshot associated with this conversation, if any has been provided.",
-            "example": {
-              "first_name": "John",
-              "last_name": "Doe",
-              "city": "Montreal"
-            },
             "title": "Metadata"
           },
           "items": {
@@ -1271,30 +1031,213 @@
         "title": "ConversationDetailSchema",
         "type": "object"
       },
-      "AppMetricsSchema": {
+      "CompletionResponseSchema": {
+        "example": {
+          "created_at": 1717027200,
+          "id": "cmpl_a1b2c3d4e5f6a7b8c9d0e1f2",
+          "object": "completion",
+          "status": "completed",
+          "text": "Welcome aboard, Alex. We're thrilled to have you and are here to help whenever you need us."
+        },
         "properties": {
-          "total_conversations": {
-            "description": "The total number of conversations created through this app.",
-            "title": "Total Conversations",
+          "id": {
+            "description": "Unique identifier for the completion, prefixed with 'cmpl_'.",
+            "title": "Id",
+            "type": "string"
+          },
+          "object": {
+            "default": "completion",
+            "description": "The object type. Always 'completion'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Unix timestamp (in seconds) of when the completion was generated.",
+            "title": "Created At",
             "type": "integer"
           },
-          "total_messages": {
-            "description": "The total number of messages exchanged across all conversations.",
-            "title": "Total Messages",
-            "type": "integer"
+          "text": {
+            "description": "The generated completion text.",
+            "title": "Text",
+            "type": "string"
           },
-          "total_users": {
-            "description": "The total number of unique users who have interacted with this app.",
-            "title": "Total Users",
-            "type": "integer"
+          "status": {
+            "default": "completed",
+            "description": "The status of the completion. Either 'completed' or 'failed'.",
+            "title": "Status",
+            "type": "string"
           }
         },
         "required": [
-          "total_conversations",
-          "total_messages",
-          "total_users"
+          "id",
+          "created_at",
+          "text"
         ],
-        "title": "AppMetricsSchema",
+        "title": "CompletionResponseSchema",
+        "type": "object"
+      },
+      "ConversationCreateRequest": {
+        "example": {
+          "external_user_id": "user_abc123",
+          "metadata": {
+            "first_name": "John",
+            "plan_type": "term_life"
+          },
+          "title": "Support inquiry"
+        },
+        "properties": {
+          "external_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Your application's unique identifier for the user. When provided, conversations are linked to this user for retrieval via the list user conversations endpoint.",
+            "title": "External User Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "A custom title for the conversation. If not provided, the system will auto-generate a title after the first exchange.",
+            "title": "Title"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Arbitrary key-value context to enrich the AI agent's responses for this conversation. Injected into the agent's runtime context on every response. Can be updated by passing metadata on subsequent message requests. Maximum 16KB.",
+            "title": "Metadata"
+          }
+        },
+        "title": "ConversationCreateRequest",
+        "type": "object"
+      },
+      "AppConfigSchema": {
+        "properties": {
+          "app_id": {
+            "description": "Unique identifier for the app.",
+            "title": "App Id",
+            "type": "string"
+          },
+          "stream": {
+            "description": "Whether streaming (Server-Sent Events) is enabled by default for this app's responses.",
+            "title": "Stream",
+            "type": "boolean"
+          },
+          "generative_ui": {
+            "description": "Whether generative UI is enabled. When true, responses may include 'data-spec' parts for dynamic UI rendering.",
+            "title": "Generative Ui",
+            "type": "boolean"
+          },
+          "agent": {
+            "$ref": "#/components/schemas/AppConfigAgentSchema",
+            "description": "The AI agent configuration for this app."
+          }
+        },
+        "required": [
+          "app_id",
+          "stream",
+          "generative_ui",
+          "agent"
+        ],
+        "title": "AppConfigSchema",
+        "type": "object"
+      },
+      "ConversationSchema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the conversation.",
+            "title": "Id",
+            "type": "string"
+          },
+          "object": {
+            "default": "conversation",
+            "description": "The object type. Always 'conversation'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "Unix timestamp (in seconds) of when the conversation was created.",
+            "title": "Created At",
+            "type": "integer"
+          },
+          "external_user_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The external user identifier associated with this conversation, if one was provided at creation.",
+            "title": "External User Id"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The custom title set for this conversation, if any.",
+            "title": "Title"
+          },
+          "generated_title": {
+            "anyOf": [
+              {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "AI-generated conversation title in supported locales. Keys are locale codes (e.g. 'en-ca', 'fr-ca').",
+            "example": {
+              "en-ca": "<generated title in English>",
+              "fr-ca": "<generated title in French>"
+            },
+            "title": "Generated Title"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The latest metadata snapshot associated with this conversation, if any has been provided.",
+            "title": "Metadata"
+          }
+        },
+        "required": [
+          "id",
+          "created_at"
+        ],
+        "title": "ConversationSchema",
         "type": "object"
       },
       "ConversationDeleteResponse": {
@@ -1323,55 +1266,247 @@
         "title": "ConversationDeleteResponse",
         "type": "object"
       },
-      "ConversationItemSchema": {
+      "SendMessageRequest": {
+        "example": {
+          "message": {
+            "content": "Hello, I need help with my order.",
+            "role": "user"
+          },
+          "metadata": {
+            "age": 34,
+            "first_name": "John",
+            "plan_type": "term_life"
+          },
+          "stream": true
+        },
+        "properties": {
+          "message": {
+            "$ref": "#/components/schemas/MessageInput",
+            "description": "The message object to send."
+          },
+          "stream": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Override the app's default streaming setting for this request. When true, the response is delivered as Server-Sent Events (SSE). When false, a single JSON response is returned. If omitted, the app's configured default is used.",
+            "title": "Stream"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Arbitrary key-value context to enrich the AI agent's response. Pass the latest snapshot on any message \u2014 the agent will use this fresh context for the current response and it will be persisted as the conversation's latest metadata. Maximum 16KB.",
+            "title": "Metadata"
+          }
+        },
+        "required": [
+          "message"
+        ],
+        "title": "SendMessageRequest",
+        "type": "object"
+      },
+      "CompletionRequest": {
+        "example": {
+          "fast": false,
+          "knowledge_search": true,
+          "metadata": {
+            "first_name": "Alex",
+            "page": "pricing"
+          },
+          "prompt": "Write a friendly one-sentence welcome message for a new customer.",
+          "stream": false
+        },
+        "properties": {
+          "prompt": {
+            "description": "The instruction describing the text to generate. The completion is produced in your app's agent voice, grounded in its configured business context. Treated strictly as a generation instruction, not as a command that can change the agent's behavior. Maximum 32,000 characters.",
+            "minLength": 1,
+            "title": "Prompt",
+            "type": "string"
+          },
+          "stream": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "When true, the completion is delivered as Server-Sent Events (SSE). When false or omitted, a single JSON response is returned.",
+            "title": "Stream"
+          },
+          "knowledge_search": {
+            "default": true,
+            "description": "Whether the agent may search its knowledge base to ground the completion. Set to false for lower latency when the completion does not need business-specific facts. Has no effect if the agent has no knowledge base configured.",
+            "title": "Knowledge Search",
+            "type": "boolean"
+          },
+          "fast": {
+            "default": false,
+            "description": "When true, the model skips its internal reasoning step for the lowest latency. When false, the model does light planning before generating, which can improve quality on complex instructions.",
+            "title": "Fast",
+            "type": "boolean"
+          },
+          "metadata": {
+            "anyOf": [
+              {
+                "additionalProperties": true,
+                "type": "object"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "Arbitrary key-value context to inform the completion (for example the form field being completed, or details about the user). Injected into the agent's runtime context as data, never as instructions. Maximum 16KB.",
+            "title": "Metadata"
+          }
+        },
+        "required": [
+          "prompt"
+        ],
+        "title": "CompletionRequest",
+        "type": "object"
+      },
+      "ConversationListSchema": {
+        "properties": {
+          "object": {
+            "default": "list",
+            "description": "The object type. Always 'list'.",
+            "title": "Object",
+            "type": "string"
+          },
+          "data": {
+            "description": "The array of conversation objects for the current page.",
+            "items": {
+              "$ref": "#/components/schemas/ConversationSchema"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "first_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The ID of the first conversation in the returned page. Null if the list is empty.",
+            "title": "First Id"
+          },
+          "last_id": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The ID of the last conversation in the returned page. Null if the list is empty.",
+            "title": "Last Id"
+          },
+          "has_more": {
+            "default": false,
+            "description": "Whether there are additional conversations beyond this page. Use the 'after' or 'before' query parameters to paginate.",
+            "title": "Has More",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "ConversationListSchema",
+        "type": "object"
+      },
+      "OpenAIErrorSchema": {
+        "properties": {
+          "error": {
+            "$ref": "#/components/schemas/OpenAIErrorDetail",
+            "description": "The error detail object."
+          }
+        },
+        "required": [
+          "error"
+        ],
+        "title": "OpenAIErrorSchema",
+        "type": "object"
+      },
+      "ResponseSchema": {
         "properties": {
           "id": {
-            "description": "Unique identifier for the message.",
+            "description": "Unique identifier for the response.",
             "title": "Id",
             "type": "string"
           },
-          "type": {
-            "default": "message",
-            "description": "The type of the item. Always 'message'.",
-            "title": "Type",
+          "object": {
+            "default": "response",
+            "description": "The object type. Always 'response'.",
+            "title": "Object",
             "type": "string"
-          },
-          "role": {
-            "description": "The role of the message author (e.g. 'user', 'assistant').",
-            "title": "Role",
-            "type": "string"
-          },
-          "parts": {
-            "default": [],
-            "description": "The content parts of the message. Can be text, tool call, or data-spec parts.",
-            "items": {
-              "anyOf": [
-                {
-                  "$ref": "#/components/schemas/TextPartSchema"
-                },
-                {
-                  "$ref": "#/components/schemas/ToolCallPartSchema"
-                },
-                {
-                  "$ref": "#/components/schemas/DataSpecPartSchema"
-                }
-              ]
-            },
-            "title": "Parts",
-            "type": "array"
           },
           "created_at": {
-            "description": "Unix timestamp of when the message was created.",
+            "description": "Unix timestamp (in seconds) of when the response was generated.",
             "title": "Created At",
             "type": "integer"
+          },
+          "conversation_id": {
+            "description": "The ID of the conversation this response belongs to.",
+            "title": "Conversation Id",
+            "type": "string"
+          },
+          "output": {
+            "default": [],
+            "description": "The list of output items produced by the AI agent, including messages and function calls.",
+            "items": {
+              "$ref": "#/components/schemas/ResponseOutputItem"
+            },
+            "title": "Output",
+            "type": "array"
+          },
+          "status": {
+            "default": "completed",
+            "description": "The status of the response. Either 'completed' or 'failed'.",
+            "title": "Status",
+            "type": "string"
           }
         },
         "required": [
           "id",
-          "role",
-          "created_at"
+          "created_at",
+          "conversation_id"
         ],
-        "title": "ConversationItemSchema",
+        "title": "ResponseSchema",
+        "type": "object"
+      },
+      "ConversationUpdateRequest": {
+        "properties": {
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The new custom title for the conversation. Set to null to clear the custom title.",
+            "title": "Title"
+          }
+        },
+        "title": "ConversationUpdateRequest",
         "type": "object"
       },
       "AppConfigAgentSchema": {
@@ -1397,70 +1532,6 @@
           "config"
         ],
         "title": "AppConfigAgentSchema",
-        "type": "object"
-      },
-      "MessageInput": {
-        "properties": {
-          "role": {
-            "default": "user",
-            "description": "The role of the message sender. Currently only 'user' is supported.",
-            "title": "Role",
-            "type": "string"
-          },
-          "content": {
-            "description": "The text content of the message to send to the AI agent.",
-            "title": "Content",
-            "type": "string"
-          }
-        },
-        "required": [
-          "content"
-        ],
-        "title": "MessageInput",
-        "type": "object"
-      },
-      "OpenAIErrorDetail": {
-        "properties": {
-          "message": {
-            "description": "A human-readable description of the error.",
-            "title": "Message",
-            "type": "string"
-          },
-          "type": {
-            "description": "The error type identifier (e.g. 'invalid_api_key', 'not_found', 'rate_limit_exceeded').",
-            "title": "Type",
-            "type": "string"
-          },
-          "param": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The parameter that caused the error, if applicable.",
-            "title": "Param"
-          },
-          "code": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "An error code providing additional detail, if applicable.",
-            "title": "Code"
-          }
-        },
-        "required": [
-          "message",
-          "type"
-        ],
-        "title": "OpenAIErrorDetail",
         "type": "object"
       },
       "ResponseOutputItem": {
@@ -1541,6 +1612,171 @@
         "title": "ResponseOutputItem",
         "type": "object"
       },
+      "OpenAIErrorDetail": {
+        "properties": {
+          "message": {
+            "description": "A human-readable description of the error.",
+            "title": "Message",
+            "type": "string"
+          },
+          "type": {
+            "description": "The error type identifier (e.g. 'invalid_api_key', 'not_found', 'rate_limit_exceeded').",
+            "title": "Type",
+            "type": "string"
+          },
+          "param": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The parameter that caused the error, if applicable.",
+            "title": "Param"
+          },
+          "code": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "An error code providing additional detail, if applicable.",
+            "title": "Code"
+          }
+        },
+        "required": [
+          "message",
+          "type"
+        ],
+        "title": "OpenAIErrorDetail",
+        "type": "object"
+      },
+      "MessageInput": {
+        "properties": {
+          "role": {
+            "default": "user",
+            "description": "The role of the message sender. Currently only 'user' is supported.",
+            "title": "Role",
+            "type": "string"
+          },
+          "content": {
+            "description": "The text content of the message to send to the AI agent.",
+            "title": "Content",
+            "type": "string"
+          }
+        },
+        "required": [
+          "content"
+        ],
+        "title": "MessageInput",
+        "type": "object"
+      },
+      "ConversationItemSchema": {
+        "properties": {
+          "id": {
+            "description": "Unique identifier for the message.",
+            "title": "Id",
+            "type": "string"
+          },
+          "type": {
+            "default": "message",
+            "description": "The type of the item. Always 'message'.",
+            "title": "Type",
+            "type": "string"
+          },
+          "role": {
+            "description": "The role of the message author (e.g. 'user', 'assistant').",
+            "title": "Role",
+            "type": "string"
+          },
+          "parts": {
+            "default": [],
+            "description": "The content parts of the message. Can be text, tool call, or data-spec parts.",
+            "items": {
+              "anyOf": [
+                {
+                  "$ref": "#/components/schemas/TextPartSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/ToolCallPartSchema"
+                },
+                {
+                  "$ref": "#/components/schemas/DataSpecPartSchema"
+                }
+              ]
+            },
+            "title": "Parts",
+            "type": "array"
+          },
+          "created_at": {
+            "description": "Unix timestamp of when the message was created.",
+            "title": "Created At",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "created_at"
+        ],
+        "title": "ConversationItemSchema",
+        "type": "object"
+      },
+      "TextPartSchema": {
+        "properties": {
+          "type": {
+            "default": "text",
+            "description": "The type of the part. Always 'text' for text parts.",
+            "title": "Type",
+            "type": "string"
+          },
+          "text": {
+            "description": "The text content.",
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "TextPartSchema",
+        "type": "object"
+      },
+      "AppConfigAgentConfigSchema": {
+        "properties": {
+          "primary_color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The primary brand color for the agent's UI, as a hex code (e.g. '#0f0e0d').",
+            "title": "Primary Color"
+          },
+          "secondary_color": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "description": "The secondary brand color for the agent's UI, as a hex code.",
+            "title": "Secondary Color"
+          }
+        },
+        "title": "AppConfigAgentConfigSchema",
+        "type": "object"
+      },
       "DataSpecPartSchema": {
         "properties": {
           "type": {
@@ -1606,56 +1842,6 @@
           "toolName"
         ],
         "title": "ToolCallPartSchema",
-        "type": "object"
-      },
-      "AppConfigAgentConfigSchema": {
-        "properties": {
-          "primary_color": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The primary brand color for the agent's UI, as a hex code (e.g. '#0f0e0d').",
-            "title": "Primary Color"
-          },
-          "secondary_color": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "description": "The secondary brand color for the agent's UI, as a hex code.",
-            "title": "Secondary Color"
-          }
-        },
-        "title": "AppConfigAgentConfigSchema",
-        "type": "object"
-      },
-      "TextPartSchema": {
-        "properties": {
-          "type": {
-            "default": "text",
-            "description": "The type of the part. Always 'text' for text parts.",
-            "title": "Type",
-            "type": "string"
-          },
-          "text": {
-            "description": "The text content.",
-            "title": "Text",
-            "type": "string"
-          }
-        },
-        "required": [
-          "text"
-        ],
-        "title": "TextPartSchema",
         "type": "object"
       }
     },

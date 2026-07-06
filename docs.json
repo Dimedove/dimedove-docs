@@ -270,6 +270,12 @@
                   "DELETE /apps/{app_id}/conversations/{conversation_id}",
                   "POST /apps/{app_id}/conversations/{conversation_id}"
                 ]
+              },
+              {
+                "group": "Completions",
+                "pages": [
+                  "POST /apps/{app_id}/completions"
+                ]
               }
             ]
           }

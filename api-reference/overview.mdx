@@ -240,3 +240,59 @@ When Generative UI is enabled, `data_spec` items appear alongside `message` and 
   "status": "completed"
 }
 ```
+
+## Completions
+
+The Create Completion endpoint (`POST /apps/{app_id}/completions`) generates a single piece of text from a prompt, without creating or belonging to a conversation. Use it for one-shot generation tasks such as autocompleting a form field, drafting a message, or summarizing content, where you want the output written in your agent's voice and grounded in its business context.
+
+Unlike the conversation endpoints, completions:
+
+- Do not create a conversation and keep no history (each request is independent)
+- Use knowledge-base search as their only tool (no other agent tools or tasks run)
+- Are billed in Work Credits based on token usage, shown in your dashboard under Usage
+
+Send a `prompt` and receive the generated `text`:
+
+```bash
+curl https://api.dimedove.com/v1/apps/{app_id}/completions \
+  -H "Authorization: Bearer sk_live_your_api_key" \
+  -H "Content-Type: application/json" \
+  -d '{"prompt": "Write a friendly one-sentence welcome message for a new customer."}'
+```
+
+```json
+{
+  "id": "cmpl_a1b2c3d4e5f6a7b8c9d0e1f2",
+  "object": "completion",
+  "created_at": 1709712000,
+  "text": "Welcome aboard! We're thrilled to have you and are here to help whenever you need us.",
+  "status": "completed"
+}
+```
+
+Optional parameters let you tune each request:
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `stream` | boolean | `false` | Stream the completion as Server-Sent Events (see below) |
+| `knowledge_search` | boolean | `true` | Allow the agent to search its knowledge base to ground the completion |
+| `fast` | boolean | `false` | Skip the model's internal reasoning step for the lowest latency |
+| `metadata` | object | - | Key-value context to inform the completion (maximum 16KB) |
+
+### Streaming Completions
+
+Set `stream: true` to receive the completion as Server-Sent Events. Completions emit only text events, ending with a `response.completed` event:
+
+```
+event: response.created
+data: {"id":"cmpl_abc123","object":"completion","status":"in_progress"}
+
+event: response.output_text.delta
+data: {"type":"response.output_text.delta","delta":"Welcome","output_index":0,"content_index":0}
+
+event: response.output_text.done
+data: {"type":"response.output_text.done","text":"Welcome aboard!","output_index":0,"content_index":0}
+
+event: response.completed
+data: {"id":"cmpl_abc123","status":"completed"}
+```
