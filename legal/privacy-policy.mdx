@@ -11,6 +11,8 @@ Dimedove Technologies Inc., operating as "Dimedove" ("we," "us," "our," or "Comp
 
 **Scope:** This Policy applies to personal information collected through our Services, including information collected from business customers who use our platform, end users who interact with AI agents created through our platform, and external users who interact with Dimedove Apps built by our business customers.
 
+This Policy governs the collection, use, processing, disclosure, retention, and security of personal information, and the privacy rights available to individuals. It does not allocate ownership. Contractual ownership of data and the allocation of intellectual property rights between Dimedove and its Business Customers are governed by our [Terms of Service](https://docs.dimedove.com/legal/terms-of-service). Where this Policy and the Terms of Service both address a category of data, this Policy does not grant broader ownership or export rights than the Terms of Service.
+
 ---
 
 ## 2. DEFINITIONS
@@ -25,6 +27,9 @@ For purposes of this Privacy Policy:
 - **"Services"** means our AI agent building platform, APIs, Dimedove Apps, website, and all related services and features
 - **"De-identified Information"** means personal information that no longer allows an individual to be directly identified
 - **"Anonymized Information"** means information that irreversibly no longer allows an individual to be identified, directly or indirectly, in accordance with recognized best practices under Quebec law
+- **"Customer Data"** and **"Customer Materials"** have the meanings given in the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service). In summary, Customer Data is data and content submitted to the Services by or on behalf of a Business Customer, or collected from End Users and External Users on the Business Customer's behalf, including CRM and contact data, identifiable conversation content, knowledge base content, and Customer Materials uploaded to the Services
+- **"Provider Materials"** has the meaning given in the Terms of Service, and covers Dimedove's platform technology and implementation artifacts, including the Platform, APIs, software, models, schemas, system and developer prompts, orchestration logic, workflow engine, reusable components, and Documentation
+- **"Service Data"** means data generated from the operation, performance, security, administration, support, or use of the Services, including telemetry, usage measurements, diagnostic information, security and audit logs, performance data, evaluation and quality measurements, system metadata, and aggregated, anonymized, or de-identified analytics and benchmarks. Service Data excludes identifiable Customer Data. Where Service Data contains personal information, that personal information remains subject to this Policy and applicable law
 
 ---
 
@@ -70,7 +75,7 @@ For purposes of this Privacy Policy:
 
 **Voice and Telephony Data:**
 
-- For phone-based AI agent interactions, audio is processed in real-time by our telephony provider (Twilio) and voice synthesis provider (ElevenLabs). Dimedove does not store voice recordings. Only conversation transcripts are retained.
+- For phone-based AI agent interactions, call audio is carried by our telephony provider (Twilio) and processed in real time by our voice agent provider (ElevenLabs), which performs speech recognition, speech synthesis, and call handling. Dimedove does not store voice recordings, and voice recording is disabled on our voice agent configuration. Only conversation transcripts are retained.
 - For SMS-based interactions, phone numbers and message content are processed and retained as part of conversation data.
 
 **Email Data:**
@@ -90,7 +95,7 @@ When Business Customers build applications using the Dimedove API, the following
 - Request metadata, including origin information, token usage, and response performance data
 - Any personal information that External Users share during interactions
 
-Business Customers using Dimedove Apps are the data controllers for personal information collected through their applications. Dimedove processes this data on behalf of the Business Customer in its capacity as a data processor.
+Business Customers using Dimedove Apps are the data controllers for personal information collected through their applications. Dimedove processes this data on behalf of the Business Customer in its capacity as a data processor. See Section 13.3 for a fuller description of our privacy roles.
 
 ### 3.4 Information Collected Automatically
 
@@ -99,11 +104,12 @@ Business Customers using Dimedove Apps are the data controllers for personal inf
 - Page views, navigation patterns, time spent
 - Referring websites and search terms
 - Geographic location (general region, derived from IP address)
+- Analytics collected through Google Analytics on our websites and platform, subject to your cookie consent choices as described in our [Cookie Policy](https://docs.dimedove.com/legal/cookie-policy)
 
 **Visitor Identification:**
 
-- Browser fingerprint data (including user agent, accept encoding headers, and similar technical attributes) used for cross-session visitor identification and profile continuity
-- IP address, used for geographic location approximation (country-level) and security purposes
+- A visitor fingerprint derived from technical request attributes (including the browser user agent, the client IP address, and accept encoding headers), stored as a salted hash and used for cross-session visitor identification and profile continuity
+- IP address, also used for geographic location approximation (country-level) and security purposes
 - Session identifiers for tracking individual browsing sessions
 
 **Security and Fraud Prevention:**
@@ -119,6 +125,15 @@ Business Customers using Dimedove Apps are the data controllers for personal inf
 **Workflow and Automation Data:**
 
 - When Business Customers configure workflows, execution data (including HTTP request and response metadata and action results) is logged for debugging and audit purposes.
+
+### 3.5 How These Categories Map to Customer Data and Service Data
+
+The categories described in this Section 3 are disclosed for transparency about what we collect. They are not all Customer Data as defined in the Terms of Service:
+
+- **Generally Customer Data:** identifiable conversation content and transcripts across all channels, contact and CRM data, information voluntarily provided by End Users and External Users, knowledge base content and other materials uploaded by a Business Customer, and customer-authored configuration values and settings.
+- **Generally Service Data:** platform usage patterns and feature utilization, request and API telemetry (including origin information, token usage, and response performance data), diagnostic and system performance data, security and authentication logs, workflow and webhook execution logs, evaluation and quality measurements, internal schemas and system metadata, aggregated or de-identified analytics, and the metrics, patterns, evaluations, benchmarks, and aggregated insights derived from the internal analysis described in Section 4.6.
+
+Service Data is owned by Dimedove under the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service). Where Service Data contains personal information, that personal information remains protected by this Policy and applicable law, including the rights described in Section 8. Collecting a category of data as Service Data does not give Dimedove ownership of any identifiable Customer Data reflected in or associated with it.
 
 ---
 
@@ -137,6 +152,11 @@ Business Customers using Dimedove Apps are the data controllers for personal inf
 - Developing new features and improving Services
 - Conducting research and data analysis
 - Managing business relationships and communications
+- Generating and using Service Data for billing, security, fraud prevention, support, capacity planning, analytics, benchmarking, and developing and improving the Services, subject to this Policy and applicable law
+- Creating and using aggregated, anonymized, or properly de-identified information for the purposes described in Section 5.6
+- Internally analyzing Customer Data, including conversation content, individually and in combination with data from other customer environments, to measure and improve the quality, accuracy, safety, and performance of the Services, and to produce metrics, patterns, evaluations, benchmarks, and aggregated insights (see Section 4.6)
+
+We do not use identifiable conversation content to train third-party or general-purpose AI models. See Section 7.1 for the safeguards applied to data transmitted to AI providers.
 
 ### 4.3 Legal and Compliance
 
@@ -159,6 +179,20 @@ Business Customers using Dimedove Apps are the data controllers for personal inf
 - Ensuring network and information security
 - Internal administrative purposes and business operations
 
+### 4.6 Internal Analysis and Platform Intelligence
+
+Business Customers grant us a contractual right, described in Section 5.6 of the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service), to internally process and analyze Customer Data, including conversation content, individually and in combination with data from other customer environments. We use this analysis to measure and improve the quality, accuracy, safety, and performance of the Services, to develop and tune platform features and safeguards, and to produce metrics, patterns, evaluations, benchmarks, and aggregated insights.
+
+The outputs of this analysis are Service Data owned by Dimedove. The underlying Customer Data, including raw conversation content, continues to belong to the Business Customer, and this analysis creates no joint ownership of personal information.
+
+This analysis is internal and is subject to the following limits:
+
+- We do not disclose, publish, sell, or license identifiable data from one customer environment to another customer or to any third party, other than to subprocessors acting on our instructions or where disclosure is required by law.
+- Cross-customer analysis is aggregated, anonymized, or properly de-identified before it is presented to any customer or third party, and we do not present it in a form that identifies, or can reasonably be used to identify, another customer, an individual, an End User, or an External User.
+- We do not use identifiable conversation content to train third-party or general-purpose AI models. Any model development, tuning, or evaluation we carry out uses aggregated, anonymized, or properly de-identified data.
+- Analysis of personal information in identifiable form is limited to purposes consistent with providing, securing, supporting, and improving the Services. Cross-customer benchmarking and generalized product development rely on aggregated, anonymized, or properly de-identified data.
+- Personal information analyzed in this way remains subject to this Policy, applicable law, any written agreement signed with the Business Customer, and the rights described in Section 8.
+
 ---
 
 ## 5. INFORMATION SHARING AND DISCLOSURE
@@ -173,21 +207,23 @@ Business Customers using Dimedove Apps are the data controllers for personal inf
 
 - Cloud hosting and infrastructure providers (Amazon Web Services)
 - Payment processing services (Stripe)
-- AI model and technology providers (OpenAI, Google, Anthropic, Groq, Meta), as selected by the Business Customer's agent configuration
+- AI model and technology providers (OpenAI, Google, Anthropic, Groq), as selected by the Business Customer's agent configuration
 - Voice synthesis services (ElevenLabs) for phone-based AI agents
 - Telephony and messaging services (Twilio) for phone and SMS-based AI agents
 - Authentication and identity management services (Kinde)
 - Web content processing services (Spider Cloud Technologies) for knowledge base features
-- Email delivery services (Resend) for transactional email
+- Web search and research services (Exa) for contact and company enrichment
+- Email delivery services (Resend) for transactional email and email marketing services (Loops) for campaign delivery
 - Analytics and performance monitoring providers
-- Customer support and communication tools (Intercom)
+- Customer support and communication tools
 - Security and fraud prevention services
 - Other consultants and vendors engaged to support our business operations
 
 **Customer-Initiated Integrations:**
 
-- When Business Customers connect third-party integrations (such as CRM platforms including HubSpot, Attio, Zoho CRM, Pipedrive, Close, or Salesforce), data sharing with those services is initiated and controlled by the Business Customer. Dimedove facilitates the connection, but the Business Customer determines what data is shared and how it is used.
-- Similarly, when Business Customers connect Slack workspaces, Facebook pages, or Instagram accounts, interaction data flows to those platforms as configured by the Business Customer.
+- When Business Customers connect third-party integrations (such as CRM and business platforms including HubSpot, Attio, Zoho CRM, Pipedrive, Close, Salesforce, Airtable, or Applied Epic), data sharing with those services is initiated and controlled by the Business Customer. Dimedove facilitates the connection, but the Business Customer determines what data is shared and how it is used.
+- Similarly, when Business Customers connect Slack workspaces, Facebook pages, Instagram accounts, or TikTok accounts, interaction data flows to those platforms as configured by the Business Customer.
+- When Business Customers connect a calendar or scheduling provider (Microsoft 365 or Outlook, Cal.com, Calendly, or Acuity Scheduling), availability queries and booking details, including attendee contact information, are exchanged with that provider as configured by the Business Customer.
 
 **Professional Advisors:**
 
@@ -239,6 +275,8 @@ In the event of a merger, acquisition, bankruptcy, dissolution, or other busines
 
 We may share aggregated, anonymized, or de-identified information with third parties for research, analytics, and business improvement purposes. Such information does not identify you individually and may include usage patterns, performance metrics, and statistical data about how our Services are used. If we are required under applicable law to treat such information as personal information, then we will only disclose it as described in this Privacy Policy.
 
+We may also retain and use Service Data, aggregated information, anonymized information, and properly de-identified analytics for legitimate operational and improvement purposes, including billing, security, fraud prevention, support, capacity planning, benchmarking, and improving the Services, in each case subject to applicable law. This includes insights produced by the internal analysis described in Section 4.6. De-identification and anonymization are carried out in accordance with recognized practices, and we do not attempt to re-identify anonymized information. We do not share identifiable data from one customer environment with another customer, and any cross-customer insight we share externally is aggregated, anonymized, or properly de-identified first.
+
 ### 5.7 Third-Party Websites
 
 Our Services may contain links to third-party websites, applications, or services that are not owned or controlled by Dimedove. This Privacy Policy applies solely to information processed by us. We are not responsible for the privacy practices of third-party websites or services. We encourage you to review the privacy policies of any third-party services before providing them with your personal information.
@@ -271,7 +309,7 @@ We retain personal information for reasonable periods as necessary to:
 
 ### 6.3 Data Anonymization and Deletion
 
-Where possible, personal information is anonymized or pseudonymized to protect individual privacy while allowing us to derive insights for service improvement. Some non-personal metadata may be retained indefinitely for internal audit, compliance, or performance tracking purposes.
+Where possible, personal information is anonymized or pseudonymized to protect individual privacy while allowing us to derive insights for service improvement. Some non-personal metadata, including aggregated, anonymized, or de-identified Service Data, may be retained indefinitely for internal audit, compliance, or performance tracking purposes. Retention of Service Data does not extend the retention of identifiable Customer Data beyond the periods described in Section 6.2.
 
 Upon expiration of retention periods, personal information is securely deleted or destroyed using industry-standard data destruction methods. However, please note that some content you create or share through our Services (such as AI agent configurations) may remain visible to your team members even after individual account changes, unless specifically deleted by an authorized team administrator.
 
@@ -287,9 +325,9 @@ We implement commercially reasonable and industry-standard security controls to 
 
 **Encryption:**
 
-- End-to-end encryption for data in transit and at rest
-- Advanced encryption standards (AES-256) for data storage
-- Encrypted transmission protocols (TLS 1.3)
+- Encryption of personal information in transit and at rest using commercially reasonable, industry-standard controls, where appropriate
+- Managed encryption keys and encrypted database backups
+- Encrypted transport protocols for platform, API, and administrative access
 
 **Access Controls:**
 
@@ -311,13 +349,13 @@ We implement commercially reasonable and industry-standard security controls to 
 
 **Data Sent to AI Providers:**
 
-- Dimedove implements technical safeguards to minimize the exposure of personally identifiable information when transmitting data to third-party AI or foundation model providers (such as OpenAI, Anthropic, Google, Groq, and Meta). The specific AI provider that processes data depends on the Business Customer's agent configuration.
-- All transmissions to AI providers occur over encrypted channels, and data is encrypted in transit following industry best practices.
-- Our AI provider agreements include provisions that prohibit the use of customer conversation data for model training purposes.
+- Dimedove implements technical safeguards to minimize the exposure of personally identifiable information when transmitting data to third-party AI or foundation model providers (such as OpenAI, Anthropic, Google, and Groq). The specific AI provider that processes data depends on the Business Customer's agent configuration.
+- Transmissions to AI providers occur over encrypted channels using industry-standard controls.
+- Our AI provider agreements include provisions that prohibit the use of customer conversation data for model training purposes. Dimedove does not use identifiable customer conversation data to train third-party or general-purpose AI models.
 
 **Voice and Telephony Data:**
 
-- Voice audio for phone-based AI agents is processed in real-time by Twilio (telephony) and ElevenLabs (voice synthesis). Dimedove does not store voice recordings. ElevenLabs receives only text content for speech synthesis.
+- Voice audio for phone-based AI agents is carried by Twilio (telephony) and processed in real time by ElevenLabs, which performs speech recognition, speech synthesis, and call handling for the voice agent. Dimedove does not store voice recordings, and voice recording is disabled on our voice agent configuration.
 - Only conversation transcripts are retained by Dimedove.
 
 ### 7.2 Security Limitations
@@ -339,9 +377,15 @@ You have the right to:
 
 ### 8.2 Data Export and Portability Rights
 
-Business Customers may request a full copy of their Customer Data at any time during the Subscription Term by contacting us at support@dimedove.com. This includes conversation data, contact data, usage logs, and configurations, including data collected through Dimedove Apps. Dimedove will use commercially reasonable efforts to provide the requested data in a standard, machine-readable format (such as JSON or CSV) within thirty (30) business days of receiving a verified request.
+Business Customers may request a copy of their Customer Data, as defined in the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service), at any time during the Subscription Term by contacting us at support@dimedove.com. Dimedove will use commercially reasonable efforts to provide the requested data in a standard, machine-readable format (such as JSON or CSV) within thirty (30) business days of receiving a verified request.
 
-For additional details about data export and portability, please refer to the Data Portability and Export section of our [Terms of Service](https://docs.dimedove.com/legal/terms-of-service).
+**Generally included:** identifiable conversation data across supported channels, contact and CRM data, customer-supplied content such as knowledge base materials, and customer-visible settings and customer-authored configuration values where supported by the Platform, including data collected through Dimedove Apps.
+
+**Generally excluded:** platform telemetry, internal operational and diagnostic logs, security-sensitive information, Provider Materials, proprietary platform configurations and configuration artifacts, system and developer prompts, internal schemas, orchestration logic, reusable workflow components, and internal evaluation information. These exclusions do not apply where disclosure is required by applicable law.
+
+**Statutory rights are unaffected.** Nothing in this Section limits an individual's statutory rights of access to, or portability of, their personal information under applicable privacy law, including where such personal information is contained in Service Data. Requests of that nature are handled under Sections 8.1 and 8.5.
+
+For additional details about data export and portability, please refer to the Data Portability and Export section of our Terms of Service. This Policy does not grant export rights broader than those set out in the Terms of Service.
 
 ### 8.3 Deletion Rights
 
@@ -385,7 +429,7 @@ Dimedove uses cookies and similar tracking technologies for:
 
 **Visitor Identification:**
 
-- Browser fingerprinting data (user agent, accept encoding, and similar technical attributes) is used for cross-session visitor identification, allowing returning visitors to be recognized for a consistent experience
+- A visitor fingerprint derived from technical request attributes (user agent, client IP address, and accept encoding headers) is used for cross-session visitor identification, allowing returning visitors to be recognized for a consistent experience
 - IP-based geographic identification for content localization and security
 - Fraud prevention and security monitoring
 
@@ -418,7 +462,7 @@ We ensure such international transfers meet high standards of security and regul
 - **Secure cross-border networking** and data protection measures
 - **Trusted vendors** with appropriate privacy certifications and contractual safeguards
 - **Adequacy determinations** or appropriate safeguards as required by law
-- **Privacy Impact Assessments (PIAs):** We conduct PIAs for cross-border transfers of personal information, including transfers to service providers located in the United States and other regions around the world where our technology providers may process data. These PIAs are available upon request for the relevant entities.
+- **Privacy Impact Assessments (PIAs):** We conduct PIAs for cross-border transfers of personal information, including transfers to service providers located in the United States and other regions around the world where our technology providers may process data. We may provide appropriate information or summaries concerning relevant PIAs where appropriate, subject to confidentiality, privilege, security considerations, and applicable law.
 
 ### 10.3 Data Localization
 
@@ -439,11 +483,11 @@ For privacy inquiries related to specific jurisdictional requirements, please co
 
 ### 11.1 Eligibility
 
-**Minimum Age Requirement:** By using Dimedove, you confirm that you are at least **13 years old** or meet the minimum legal age required in your local jurisdiction.
+**Minimum Age Requirement:** By using Dimedove, you confirm that you are at least **13 years old** (or at least **14 years old** in Quebec, where the collection of personal information from a minor under 14 requires the consent of a parent or guardian unless it is clearly for the minor's benefit) or meet the minimum legal age required in your local jurisdiction.
 
 ### 11.2 Underage Use
 
-We do not knowingly collect personal information from children under 13 years of age. If we become aware of underage use of our Services, we will:
+We do not knowingly collect personal information from children under 13 years of age, or from minors under 14 in Quebec without the required parental consent. If we become aware of underage use of our Services, we will:
 
 - Terminate the account promptly
 - Delete any personal information collected from the minor
@@ -469,15 +513,15 @@ In compliance with Quebec's Act Respecting the Protection of Personal Informatio
 
 **Governance Rules:**
 
-- We have implemented governance rules and practices regarding personal information, including rules for retention, destruction, complaint handling, and staff awareness. These rules are available upon request.
+- We have implemented governance rules and practices regarding personal information, including rules for retention, destruction, complaint handling, and staff awareness. A summary of these rules is published on our [Personal Information Governance](https://docs.dimedove.com/legal/personal-information-governance) page, and further details are available upon request.
 
 **Privacy Impact Assessments (PIAs):**
 
-- We conduct PIAs for projects involving the collection, use, communication, or cross-border transfer of personal information. These PIAs are available upon request to relevant entities, such as regulators, business customers, or other appropriate parties, subject to confidentiality and security considerations.
+- We conduct PIAs for projects involving the collection, use, communication, or cross-border transfer of personal information. We may provide appropriate information or summaries concerning relevant PIAs to regulators, Business Customers, or other appropriate parties where appropriate, subject to confidentiality, privilege, security considerations, and applicable law.
 
 **Automated Decision-Making:**
 
-- Our AI agents are designed to support lead qualification and engagement. While they may generate automated outputs, Dimedove does not use AI to make binding or solely automated decisions that produce legal or significant effects on individuals.
+- Our AI agents generate conversational outputs, recommendations, and qualification signals that are made available to the Business Customer, who remains responsible for any resulting decisions. Dimedove does not use these outputs to render decisions based exclusively on automated processing that produce legal or similarly significant effects on individuals.
 - If any automated processing is used to render a decision, individuals will be informed and have the right to request human review.
 
 **Data Sent to AI Providers:**
@@ -486,7 +530,7 @@ In compliance with Quebec's Act Respecting the Protection of Personal Informatio
 
 **Data Breach Notification:**
 
-- Notification to the Commission d'acces a l'information du Quebec and affected individuals within seventy-two (72) hours of confirming a data breach that presents a real risk of serious harm
+- Notification to the Commission d'acces a l'information du Quebec and affected individuals of a confidentiality incident that presents a real risk of serious harm. Dimedove will provide notifications with diligence and within the time required by applicable law. Any shorter notification period expressly agreed in a Data Processing Agreement or Statement of Work continues to apply
 - Individual notification where there is a real risk of serious harm
 - Maintenance of breach registers and incident documentation in accordance with Bill 25 requirements
 
@@ -516,12 +560,21 @@ Business Customers who use our platform to collect personal information through 
 
 ### 13.2 Data Processing Agreements
 
-Where Dimedove processes personal information on behalf of Business Customers, we enter into appropriate data processing agreements that outline:
+Where required by applicable law or agreed with a Business Customer, Dimedove enters into written data processing terms that outline:
 
 - Scope and purpose of processing activities
 - Data security and protection measures
 - Data retention and deletion procedures
 - Incident response and breach notification protocols
+
+### 13.3 Our Privacy Roles
+
+Dimedove acts in two distinct capacities, depending on the processing activity:
+
+- **Processor / service provider.** For personal information processed from AI agent interactions, Dimedove Apps, and other Customer Data handled on a Business Customer's behalf, the Business Customer determines the purposes and means of processing and is the controller. Dimedove processes that personal information on the Business Customer's documented instructions, as a processor or service provider.
+- **Controller.** For account administration, billing, security, fraud prevention, legal and regulatory compliance, service improvement, and Dimedove's own legitimate business operations, including the internal analysis described in Section 4.6 and the generation and use of Service Data, Dimedove determines the relevant processing purposes and acts in the corresponding legal capacity under applicable law.
+
+These roles are about privacy responsibility, not ownership. Ownership of Customer Data, Customer Materials, Provider Materials, and Service Data is governed by the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service). Nothing in this Policy creates joint ownership of personal information between Dimedove and a Business Customer.
 
 ---
 

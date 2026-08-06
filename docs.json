@@ -100,6 +100,7 @@
                   "platform/agents/knowledge/domain-expertise"
                 ]
               },
+              "platform/agents/procedures",
               {
                 "group": "Tasks",
                 "pages": [
@@ -332,6 +333,7 @@
               "legal/privacy-policy",
               "legal/cookie-policy",
               "legal/security-policy",
+              "legal/personal-information-governance",
               "legal/subprocessors-list"
             ]
           }

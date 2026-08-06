@@ -48,7 +48,7 @@ Our infrastructure and security team includes experienced professionals who have
 
 **Customer Notification:**
 
-- Written notification to affected customers within seventy-two (72) hours of confirming a security breach affecting customer data
+- Written notification to affected customers of a confirmed security breach affecting customer data, provided with diligence and within the time required by applicable law. Any shorter notification period agreed in writing with a customer continues to apply
 - Notification includes nature of breach, affected data, and status of investigation
 - Guidance provided on any actions customers should take to protect their interests
 
@@ -130,19 +130,18 @@ Our infrastructure and security team includes experienced professionals who have
 
 **Encryption Standards:**
 
-- TLS 1.3 with 256-bit encryption for all transmitted data
-- API and application endpoints are TLS/SSL only
-- HTTP Strict Transport Security (HSTS) and Perfect Forward Secrecy implemented
+- Data in transit is encrypted using commercially reasonable, industry-standard transport encryption
+- API and application endpoints are TLS/SSL only, with HTTP requests redirected to HTTPS
+- HTTP Strict Transport Security (HSTS) is enforced, including on subdomains
 - Regular SSL/TLS testing ensures optimal security ratings
 
 ### Data at Rest
 
 **Storage Encryption:**
 
-- All customer data encrypted at rest using AES-256
-- Encryption keys managed via AWS Key Management Service (KMS)
+- Customer data is encrypted at rest using commercially reasonable, industry-standard controls, where appropriate
+- Encryption keys are managed through our cloud provider's managed key services
 - Database encryption includes both data files and backups
-- AI agent conversation data receives additional encryption protections
 
 **Backup Security:**
 
@@ -228,7 +227,7 @@ Our infrastructure and security team includes experienced professionals who have
 - Google: Cloud, authentication, AI capabilities
 - Anthropic: Advanced AI services
 - Groq: High-performance AI inference
-- Meta: AI research and model services
+- ElevenLabs: Voice synthesis and text-to-speech
 
 **Service Provider Security:**
 
@@ -343,15 +342,15 @@ If you discover a potential security vulnerability in Dimedove's platform, we en
 
 - Encrypted API access for AI models
 - Training data and parameters protected with access controls
-- Customer data not used to train AI models
+- Identifiable customer conversation content is not used to train third-party or general-purpose AI models, and our AI provider agreements prohibit the use of customer conversation data for model training. Any model development, tuning, or evaluation carried out by Dimedove uses aggregated, anonymized, or properly de-identified data, as described in Section 5.6 of the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service)
 - Safeguards in place against adversarial prompts and injection attacks
 
 **Voice and Telephony Security:**
 
-- Voice audio for phone-based AI agents is processed in real-time by Twilio (telephony) and ElevenLabs (voice synthesis). Dimedove does not store voice recordings.
+- Voice audio for phone-based AI agents is carried by Twilio (telephony) and processed in real time by ElevenLabs, which provides speech recognition, speech synthesis, and call handling for the voice agent. Dimedove does not store voice recordings.
 - All telephony connections are encrypted in transit using industry-standard protocols
-- Only conversation transcripts are retained by Dimedove, encrypted at rest using AES-256
-- ElevenLabs receives text content for speech synthesis only, not raw audio
+- Only conversation transcripts are retained by Dimedove, encrypted at rest using industry-standard controls
+- Voice recording is disabled on Dimedove's voice agent configuration
 
 ### Data Privacy Protection
 

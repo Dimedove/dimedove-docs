@@ -1,0 +1,62 @@
+---
+title: Procedures
+description: Give your agent scenario-specific playbooks it loads only when the situation calls for them.
+---
+
+<Info>Procedures are available to teams on the Pro subscription.</Info>
+
+Procedures are playbooks you write for specific situations. Instead of packing every rule, exception, and edge case into your agent's instructions, you describe the scenario once and the steps your agent should follow when it comes up. Your agent keeps a short list of the procedures you have created and pulls up the full playbook only when a conversation matches one.
+
+This keeps your core instructions short and focused while letting your agent handle a long tail of situations precisely: discount requests, refund rules, warranty questions, after-hours calls, escalation paths, compliance scripts, and anything else that only applies some of the time.
+
+## What a procedure contains
+
+Each procedure has three fields:
+
+- **Name**: a short, recognizable label such as "Discount requests". Your agent uses it internally to load the right playbook. Up to 200 characters.
+- **When to use**: a description of the situation that should trigger the procedure, for example "When a customer asks for a discount or a lower price". This is what your agent reads to decide whether the procedure applies, so be specific. Up to 500 characters.
+- **What to do**: the full instructions your agent follows once the procedure is loaded. This is where the detail goes. Up to 5,000 characters.
+
+Each procedure also has an on/off switch. A procedure only reaches your agent when it is turned on, and you need a name and a trigger before you can enable it.
+
+<Tip>
+  Write the trigger from the visitor's point of view: describe what the person says or asks, not what you want to happen. Your agent matches on the situation, so "When someone asks about returning an item after 30 days" works better than "Return policy".
+</Tip>
+
+## How your agent uses them
+
+Your agent never carries every procedure in full. It sees a compact index of the procedures you have enabled, listing each name alongside its "when to use" description.
+
+1. Your agent reads the conversation and compares it against the triggers in that index.
+2. When a message matches, it loads that procedure before it replies.
+3. It then answers using those instructions on top of its normal behavior.
+
+Because procedures are loaded on demand, you can write long, detailed playbooks without slowing your agent down or diluting its main instructions.
+
+The whole mechanism stays invisible to the person your agent is talking to. Visitors never see procedure names or contents. In chat, they briefly see a "Strategizing" indicator while your agent looks one up, and you can see exactly which procedure was loaded in the Events timeline of any conversation in your [Inbox](/platform/inbox/overview).
+
+Procedures work across every channel your agent runs on, including chat, forms, email, SMS, and voice calls.
+
+<Note>
+  Procedures complement your agent's [Instructions](/platform/agents/behavior/instructions), they never override them. Your core instructions, personality, and guardrails always apply. Use procedures for situational detail, not to contradict how your agent is meant to behave.
+</Note>
+
+## Writing effective procedures
+
+- **One scenario per procedure**: keep each playbook focused on a single situation. Several small procedures with sharp triggers outperform one large one with a vague trigger.
+- **Make triggers distinct**: if two procedures describe overlapping situations, your agent has to guess between them. Make the boundary between them explicit in the "when to use" text.
+- **Give unique names**: two procedures with the same name are ambiguous, so your agent may load the wrong one.
+- **Be concrete in the body**: spell out what to say, what to ask for, what to offer, and what to refuse. Include the exact wording when it matters, such as a required disclaimer.
+- **Point to what the agent already has**: a procedure can tell your agent which task to use or what information to collect first, for example "check availability and offer the next three open slots before proposing a call".
+
+## Activating and publishing
+
+Procedures follow the same versioning flow as the rest of your agent's configuration. Edits are saved as changes to the version you are working on, and become live once you publish that version. See [Versions](/platform/agents/versions) for how versions and publishing work. When you duplicate an agent or create a new version, your procedures come along with it.
+
+On the Procedures screen, each row shows whether the procedure is **Live** (turned on) or **Draft** (turned off). You can turn a procedure on or off at any time without touching the rest of your agent's configuration, which makes it easy to retire a seasonal playbook or pause one you are still refining.
+
+Deleting a procedure is permanent and cannot be undone.
+
+## Building procedures with Ask Dimedove
+
+You do not have to write procedures by hand. [Ask Dimedove](/platform/ask-dimedove/overview) can read your existing procedures and draft new ones from a plain description of the scenario. It proposes the change as a before and after comparison that you approve or reject, so nothing reaches your agent without your review.

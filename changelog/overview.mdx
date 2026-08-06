@@ -3,8 +3,282 @@ title: "Changelog"
 description: "Product updates and announcements from the Dimedove team"
 ---
 
+<Update label="August 4, 2026" description="Voice: Voicemail Handling and Québec French">
+    Your voice agents now know what to do when nobody picks up. Voicemail detection is on for every voice agent, and the default behavior is to hang up rather than keep talking into an answering machine. If you would rather leave a message, you do not need to configure anything new: describe what your agent should say in a voicemail anywhere in its instructions or in one of its Procedures, and your agent uses it, in whichever language the call is running in.
+
+    French voice agents also sound noticeably more local. Agents speaking French now use a Québécois accent rather than a Parisian one, including how names, numbers, and regional terms are pronounced, which makes calls to Quebec contacts feel considerably less foreign.
+
+    - **Voicemail detection on every voice agent**, with hanging up as the safe default
+    - **Voicemail messages taken from your existing instructions or Procedures**, with nothing new to configure
+    - **Language-aware voicemail** so an English call leaves an English message even on a French-first agent
+    - **Québec French for voice agents**, covering accent and pronunciation
+    - **Cleaner call transcripts** in your Inbox
+    - **Infinite scroll** on the sidebar Inbox and Contacts lists
+
+    ### Features
+
+    - Voicemail detection is enabled automatically for all voice agents, inbound and outbound
+    - Describe your voicemail message in your agent's instructions or in a Procedure and your agent leaves it when it reaches an answering machine
+    - Voicemail messages are available in every language your agent publishes, and the right one is chosen per call
+    - French voice agents use a Québécois accent and pronunciation rather than defaulting to Parisian French
+    - The sidebar Inbox and Contacts lists load continuously as you scroll instead of stopping at a fixed number of conversations
+
+    ### Bug Fixes
+
+    - Outbound calls now use the first message and the language configured for the batch
+    - Voice control tags no longer appear in call transcripts in the Inbox
+    - The agent publish button no longer stays disabled after a slow publish
+
+</Update>
+
+<Update label="July 11, 2026" description="Procedures: Playbooks, Contact Timelines, and Enrichment">
+    Not every rule your agent needs belongs in its instructions. Discount requests, refund rules, warranty questions, after-hours calls, escalation paths, compliance scripts: each one matters, but each one only applies some of the time, and packing them all into one set of instructions dilutes every conversation. Procedures solve this. You describe a situation once and the steps your agent should follow when it comes up, and your agent pulls up that playbook only when a conversation actually matches it.
+
+    Your agent keeps a short index of the procedures you have written and loads the full playbook on demand, so you can write long, detailed instructions for a long tail of scenarios without slowing anything down. The mechanism stays invisible to the person your agent is talking to, and you can see exactly which procedure was used in the Events timeline of any conversation.
+
+    Contacts also became a great deal more transparent. Every contact now has an activity timeline showing what happened to them and when, and attribute values show where they came from. Workflows can react to contacts directly through new Contact Created and Contact Updated triggers, and a new Enrichment action fills in missing contact attributes from external data.
+
+    - **Procedures**, scenario-specific playbooks your agent loads only when the situation calls for them
+    - **Contact activity timeline** covering insights collected, attribute changes, and every interaction
+    - **Contact triggers for workflows**, so a new or updated contact can start a workflow
+    - **Enrichment action** to fill in missing contact attributes from external data
+    - **Workflow run costs** visible on the runs table, and node messages that can be written as a prompt
+    - **Completions endpoint** for the Apps API, for one-shot generation with no conversation
+    - **New Input design** for the Messenger widget
+
+    ### Features
+
+    - Your agent loads a procedure only when a conversation matches it, and never reveals procedure names or contents to visitors
+    - The Events timeline of any conversation shows which procedure was loaded
+    - Procedures work on every channel, including chat, forms, email, SMS, and voice calls
+    - Procedures follow the same draft and publish lifecycle as the rest of your agent's configuration
+    - Ask Dimedove can read your existing procedures and draft new ones for your approval
+    - Contact activity timelines cover contact creation, blocking, insights collected, attribute updates with their previous value and source, and each interaction per channel
+    - Existing contacts have a populated activity timeline from day one
+    - Attribute values now show their source, including values filled in by enrichment
+    - New Contact Created and Contact Updated workflow triggers, plus a Facebook Message Received trigger, with contact attributes available to downstream nodes
+    - The Enrichment action lets you choose which attributes to enrich, add optional guidance per field, and decide whether to overwrite existing values, and runs in the background so your workflow does not wait on it
+    - Workflow node message bodies can be written as a prompt and composed at run time from the trigger data, instead of written out literally
+    - A new completions endpoint at `POST /apps/{app_id}/completions` generates a single piece of text with no conversation and no history, for autocompleting a field, drafting a message, or summarizing content in your agent's voice, with support for streaming, knowledge base grounding, a low-latency mode, and metadata
+    - The Messenger widget gained an Input design alongside Compact, Wide, and Full screen, rendering as a slim composer that expands into the chat panel, with a placeholder that cycles your agent's conversation starters
+    - Credit alerts let you set your own thresholds and receive an email when your team's credit usage crosses one
+
+    ### Notes
+
+    - Procedures require a paid plan
+    - The Enrichment action consumes credits based on the data retrieved
+
+</Update>
+
+<Update label="July 1, 2026" description="Ask Dimedove: Your Workspace, in Conversation">
+    Everything your agents do lands somewhere in Dimedove: conversations across every channel, contacts and the insights collected about them, agent configurations, workflow runs. Ask Dimedove lets you interrogate all of it by asking. Search and read across conversations, look up a contact and what your agents learned about them, count and group by channel or period or status, check how an agent is configured, and get the answer back as a chart when a chart is what you need.
+
+    It also changes things for you, but never on its own. When you ask Ask Dimedove to rewrite an agent's instructions, adjust its tone, or update how it moderates comments, it comes back with a before and after comparison that you approve or reject. Approved changes to an agent land as a draft and go live through the normal versions flow, so nothing reaches your customers without you publishing it. If your request is ambiguous across several agents, it asks which one you meant rather than guessing.
+
+    You can also take your workspace with you. A new Ask Dimedove connector exposes your workspace to an external MCP client such as Claude Desktop or Cursor, so you can query your Dimedove data from inside the tools you already work in. The connector is read-only by design: the tools that propose or write changes are not exposed through it.
+
+    - **Ask questions about your workspace** across conversations, contacts, agents, and channels
+    - **Charts on request** for counts, groupings, and trends
+    - **Configuration changes proposed, never applied**, with a before and after comparison you approve
+    - **Approved agent changes land as a draft**, published through the normal versions flow
+    - **Mentions for agents, channels, and labels** to disambiguate a request in the composer
+    - **Saved prompts and conversation history**, plus custom context you provide once
+    - **Read-only MCP connector** to query your workspace from Claude Desktop, Cursor, or a similar client
+
+    ### Features
+
+    - Available from the home page prompt box, a launcher in the top navigation on most screens, and a dedicated full chat view in the sidebar
+    - Searches and reads across all your conversations, contacts, collected insights, agents, and channels
+    - Counts and groups conversations by channel, time period, or status, and renders the result as a chart when useful
+    - Inspects how any agent is configured, including instructions, tone, personality, channels, and comment moderation settings
+    - Proposes rewrites to agent instructions, tone, and personality, and updates to social comment moderation instructions, each as a before and after comparison you approve or reject
+    - Approved agent changes are saved as a draft on your agent, so they go live only when you publish that version
+    - Mention agents, channels, and labels in the composer to make a request unambiguous
+    - Save prompts you use often, and provide custom context that applies to every conversation
+    - Long conversations are summarized automatically so you can keep going without losing the thread
+    - A dedicated settings page at Settings, Ask Dimedove, covering custom context, saved prompts, and credit usage
+    - Connect Ask Dimedove to an external MCP client to query your workspace from your own tools, with one connector per team and access always scoped to your own workspace
+
+    ### Notes
+
+    - Ask Dimedove is available on all plans and consumes credits per request
+    - The Ask Dimedove MCP connector is read-only and requires authorization
+    - MCP servers are available to teams on the Pro subscription
+
+</Update>
+
+<Update label="June 26, 2026" description="Outbound: Reach Your Contacts First">
+    Until now your agents answered. Now they can also reach out. The new Outbound section lets you upload a list of contacts and have an agent call or text every one of them, then carry on the conversation exactly as it would have if the contact had come to you. Upload recipients as CSV or Excel. Only a phone number column is required, and every other column in your file becomes a variable you can drop into your message and that your agent receives as context for that specific person.
+
+    Outbound calls open with a spoken first message and then run like any other call, including your agent's configured tasks. Outbound SMS continues as a normal two-way conversation. You can schedule a batch for later in a specific timezone or run it immediately, duplicate it, cancel it, or retry it, and watch per-recipient status as it happens. Every conversation lands in your Inbox alongside all your other channels, linked back to the batch that started it.
+
+    Reaching out carries obligations, so the guardrails are built in rather than left to you. Scheduling outside 8 AM to 9 PM in the recipient's timezone requires an explicit acknowledgement, which is recorded on the batch. Recipients can opt out of your SMS at any time with a standard keyword, and opt-outs are honored across SMS batches, call batches, and workflow-triggered outbound alike.
+
+    - **Outbound calls and SMS** from your agents, individually or in batches
+    - **CSV and Excel upload**, with every column available as a variable
+    - **Scheduling with timezones**, plus duplicate, cancel, and retry
+    - **Live per-recipient status** and batch totals, with every conversation in your Inbox
+    - **Calling window guard** requiring an explicit acknowledgement outside 8 AM to 9 PM
+    - **SMS opt-out handling** honored everywhere your agents reach out
+    - **Outlook Calendar and Applied Epic** join the integrations lineup
+
+    ### Features
+
+    - A new Outbound section in the dashboard for creating, scheduling, and monitoring batches
+    - Upload recipients as CSV or Excel, with a downloadable template and a validation preview before you send
+    - A phone number column is required; every other column becomes a variable usable in your message and passed to your agent as context for that recipient
+    - Outbound calls open with a spoken first message, with an optional setting to wait for the person to speak first
+    - Outbound SMS continues as a normal two-way conversation handled by your agent
+    - Add batch-level context, and post-actions that run after each recipient's conversation resolves
+    - Draft, schedule for a specific date, time, and timezone, or run now, and duplicate, cancel, or retry a batch
+    - Per-recipient status covering queued, calling, answered, voicemail, no answer, sent, opted out, failed, completed, and cancelled, alongside batch totals
+    - Every recipient conversation appears in your Inbox, linked back to the batch that started it
+    - Scheduling outside 8 AM to 9 PM in the selected timezone requires an explicit acknowledgement, which is recorded on the batch
+    - Recipients opt out with STOP, STOPALL, UNSUBSCRIBE, CANCEL, END, QUIT, or OPTOUT, and opt back in with START, UNSTOP, or YES; only a message that is just the keyword counts, so "stop by later" is not an opt-out
+    - Opt-outs are enforced across SMS batches, call batches, and workflow-triggered outbound, and suppressed recipients are shown as "Opted out"
+    - Outlook Calendar: connect your Microsoft 365 organization once, choose which mailboxes are bookable, and let your agent check availability, book, and reschedule against real free/busy and Outlook working hours
+    - Each Outlook host has its own meeting duration, buffers before and after, minimum advance notice, event subject template, and an optional condition telling your agent when to route to them
+    - Applied Epic: connect the agency management system used by independent insurance agencies, so your agents can look up Clients, Contacts, Companies, Opportunities, Policies, and Accounts, and log Activities against a client
+    - Integration field mappings can now combine fixed text with values your agent collected, and a new Get operation reads a record without writing to it
+    - On asynchronous channels, your agent may now stay silent when the last message is a simple acknowledgement and nothing is outstanding, rather than manufacturing a reply
+
+    ### Notes
+
+    - Outbound calls and SMS require the Pro subscription with the telephony add-on, and telephony fees are billed separately from any configured monthly limit
+    - Outlook Calendar and Applied Epic require the Pro subscription with third-party integrations enabled
+    - Staying silent applies to SMS, Slack, Facebook Messenger, Instagram, and TikTok only, never to voice calls, live chat, forms, or email, and it does not end the conversation
+    - You remain responsible for consent and for the regulations that apply when you contact people
+
+</Update>
+
+<Update label="June 23, 2026" description="Credits: A Second Measure of the Work Your Agents Do">
+    Not all agent work looks the same. A conversation that turns into a qualified lead is one kind of outcome. Moderating a hundred comments across your social channels is another: high volume, routine, and genuinely useful, but not something a Qualified Opportunity was ever meant to measure. Credits are the second layer that measures that work.
+
+    Every plan includes a pool of credits that refreshes each billing cycle, and heavier actions cost more credits than lighter ones, so your usage reflects the real effort involved rather than a flat count. You are never cut off when you reach your allowance: your agents keep working, and anything beyond what your plan includes is billed at your plan rate.
+
+    Everything is recorded. A new Credits view under Settings shows how much of your allowance you have used, when it resets, a 12-month history, and a full ledger of the actions that consumed credits, so you can always trace usage back to the channels and activities driving it.
+
+    - **A second usage layer** alongside Qualified Opportunities, measuring routine high-volume agent work
+    - **An included pool per billing cycle**, refreshing each period
+    - **Weighted by effort**, so heavier actions cost more credits than lighter ones
+    - **No interruption at your limit**, with usage beyond your allowance billed at your plan rate
+    - **A full ledger** of every action that consumed credits
+    - **Inline visibility** of what individual actions cost, right where they happened
+
+    ### Features
+
+    - Credits sit alongside Qualified Opportunities as a second usage layer and are billed separately
+    - Each plan includes a pool of credits that refreshes every billing cycle
+    - Actions are weighted, so more involved work draws down more credits than lighter work
+    - Your agents keep working past your included credits, with the overage billed at your plan rate
+    - Included credits do not roll over; each billing cycle starts with your plan's full allowance
+    - A Credits view under Settings, Usage shows credits used against credits included, your reset date, and a 12-month history
+    - A paginated ledger records every action that consumed credits, with its date, activity, and what consumed it
+    - Individual social comment actions show their credit cost inline in the comment thread view
+
+    ### Notes
+
+    - Included credits per billing cycle are 100 on Pay As You Go, 2,000 on Pro, and custom on Enterprise
+    - Enterprise plans can be configured with a custom credit allowance to match your volume
+    - If you believe credits were counted incorrectly, contact billing@dimedove.com for review
+
+</Update>
+
+<Update label="June 22, 2026" description="Channels and Scheduling: TikTok and Live Calendars">
+    TikTok joins your social channels. Connect a TikTok business account, assign an agent, and your agent handles direct messages end to end and moderates the comments on your videos, taking exactly one action per comment: replying publicly, hiding it, unhiding it, or leaving it alone. Instagram caught up in the same release: public replies, hiding, and unhiding are now available there too, where previously only private replies were.
+
+    Scheduling changed more fundamentally. Calendar tasks used to mean sharing a booking link and hoping the visitor followed it. Now Cal.com, Calendly, and Acuity Scheduling can be read live: your agent checks real availability, books the meeting, and reschedules it without the conversation ever leaving your channel. In chat and forms the visitor picks from an interactive scheduling widget; on voice and SMS your agent offers the same slots as text.
+
+    - **TikTok as a social channel**, with direct messages and comment moderation
+    - **Instagram comment parity**, adding public replies, hiding, and unhiding
+    - **Live calendars** for Cal.com, Calendly, and Acuity Scheduling
+    - **Availability, booking, and rescheduling** inside the conversation, on every channel
+    - **An interactive scheduling widget** in chat and forms
+    - **SMS sent from your own team phone number** when the conversation is already on one
+    - **Clearer spoken numbers, dates, and confirmation codes** on voice calls
+
+    ### Features
+
+    - Connect a TikTok business account and assign an agent to handle direct messages and comments
+    - Your agent takes exactly one action per comment: public reply, hide, unhide, or leave it alone
+    - Instagram now supports public replies, hiding, and unhiding on comments, alongside private replies
+    - Every TikTok conversation appears in your unified Inbox with automatic contact creation
+    - Calendar tasks can run in live mode for Cal.com, Calendly, and Acuity Scheduling, reading real availability rather than sharing a link
+    - Toggle checking availability, booking, and rescheduling independently for each calendar task
+    - Configure several event types per task, each with a label, a default, and an optional condition telling your agent when to use it
+    - Visitors in chat and forms pick a slot from an interactive scheduling widget; voice and SMS conversations get the same slots offered as text
+    - Agent-sent SMS goes out from the team phone number the conversation is happening on, when that number is SMS enabled
+    - On voice calls, numbers, currency, dates, times, ordinals, symbols, abbreviations, and units are spoken as full words in the language being spoken
+    - Phone numbers, postal codes, email addresses, and confirmation numbers are read back one character at a time with pauses, so callers can write them down
+
+    ### Bug Fixes
+
+    - A one-off platform hiccup on a comment action no longer flags a social channel as needing attention
+    - Your "Store call audio" preference is preserved when you publish an agent
+    - Calendar tasks created before live calendars existed now open in the correct mode
+    - Adding or changing a phone add-on no longer puts it on its own billing cycle, so your plan and add-ons stay on a single invoice
+
+    ### Notes
+
+    - Social channels are available to teams on the Pro subscription
+    - TikTok has no path from a comment to a direct message, so private replies are not available there, and TikTok public replies are limited to 150 characters
+    - Like Facebook Messenger and Instagram, TikTok direct messages are inbound only, so your agent does not open the conversation
+    - Cancelling a booking is deliberately not something your agent can do
+
+</Update>
+
+<Update label="May 18, 2026" description="Integrations and Reliability: Airtable, MCP OAuth, and Workflows at Scale">
+    Two new ways to connect your agents to the systems you already run on. Airtable joins the record integrations: connect with OAuth and Dimedove discovers every base and table you can write to, along with their fields, so your agents can create, update, and upsert records as they qualify leads and gather information. And MCP servers that require authorization no longer mean managing tokens by hand. Dimedove handles discovery, registration, and refresh for you, and shows you connection status, granted permissions, and expiry at a glance.
+
+    Voice agents gained transfers, and you configure them by writing them down. Describe your routing rules in plain language anywhere in your agent's instructions or human fallback text, along the lines of "for billing, transfer to this number; for technical support, route to that one, extension 5", and they become live transfers on calls. It handles several rules at once, extensions in English and French, and international formatting, and it deliberately does not guess: a number mentioned in passing does not silently become a transfer rule.
+
+    Workflows also got considerably more dependable under load. Webhook triggers accept an idempotency key so a replay returns the original run instead of starting a duplicate, outbound actions are paced automatically against provider limits with nothing to configure, and a run that gets retried never re-sends a message it already sent.
+
+    - **Airtable integration** with automatic discovery of your bases, tables, and fields
+    - **OAuth support for MCP servers**, with automatic token refresh and per-tool control
+    - **Voice call transfers** configured in plain language in your agent's instructions
+    - **Execute Tasks workflow action** that picks the right agent task at run time
+    - **Idempotent webhook triggers**, automatic pacing, and no duplicate sends on retry
+    - **Agent deletion** from the dashboard, with your conversations preserved
+    - **Threaded social comment view** showing the full thread, outcome, and reason
+
+    ### Features
+
+    - Connect Airtable through OAuth from Settings, Integrations, and Dimedove discovers every base and table you have write access to
+    - Computed fields such as formulas and rollups are excluded from writes automatically, and you can match on up to three fields when updating existing records
+    - MCP servers requiring authorization can be connected without managing tokens by hand, with automatic refresh and clear connection status, granted permissions, and expiry
+    - Where an MCP server needs its own client credentials, the setup screen shows you the redirect URI and takes your client ID and secret
+    - Re-authorize, request additional permissions, or disconnect an MCP server at any time
+    - Enable or disable individual tools on an MCP server, which both hides them from your agent and prevents them from being called
+    - Describe voice call transfer rules in plain language in your agent's instructions or human fallback text, and they become live transfers on publish
+    - Transfer rules handle several destinations at once, extensions in English and French, and international number formatting
+    - A new Execute Tasks workflow action lets you choose an agent, pick which of its tasks are available, add context, and have the workflow decide which task to run and with what inputs
+    - Send an idempotency key with a webhook trigger and a replay returns the original run instead of starting a duplicate
+    - Outbound workflow actions are paced automatically against provider limits, with nothing to configure
+    - Delete an agent from the dashboard with a typed confirmation; live agents must be disabled first, and your conversations are preserved
+    - Open any social comment to see the whole thread, the reply your agent sent, the moderation outcome, and the reason, with pagination on the activity list
+    - API tasks support genuinely nested request bodies, including objects inside array items
+    - Slack agents show a thinking indicator while composing a reply, instead of silence
+    - The Messenger widget gained a dismiss button on the wide-mode preview that collapses it to the bubble for the session, and formatted text now renders cleanly in the last message preview
+    - Inbox and Contacts load progressively instead of blocking on a full render, and chat and tab selection live in the URL so deep links and browser navigation work
+
+    ### Bug Fixes
+
+    - Agents keep the full results of recent task executions in context, so they no longer forget a list they have just retrieved
+    - API tasks were sending empty input values
+    - Agents hold the visitor's language more consistently through a conversation
+    - The agent Design form no longer overwrites a saved widget size
+    - A workflow run that is retried after a transient issue no longer re-sends messages it had already sent
+
+    ### Notes
+
+    - Airtable requires the Pro subscription with third-party integrations enabled
+    - The Messenger widget improvements require SDK version 0.1.7 or later
+
+</Update>
+
 <Update label="March 28, 2026" description="Apps API: Build Custom Experiences on Dimedove">
-    We are opening up the Dimedove platform to developers. The new Apps API lets you build fully custom chat applications powered by your configured agents. Instead of embedding the Messenger widget, you use a REST API to create conversations, send messages, and receive AI-powered responses in any frontend you design. You own the user experience; Dimedove handles the agentic backend, including AI responses, knowledge base queries, task execution, and conversation context.
+    We are opening up the Dimedove platform to developers. The new Apps API lets you build fully custom chat applications powered by your configured agents. Instead of embedding the Messenger widget, you use a REST API to create conversations, send messages, and receive agent responses in any frontend you design. You own the user experience; Dimedove handles the agentic backend, including agent responses, knowledge base queries, task execution, and conversation context.
 
     The API supports real-time streaming (SSE) for responsive chat interfaces and traditional request/response patterns for simpler integrations. Enable Generative UI to let your agent produce interactive form components during conversations, and use tool name mappings to customize how agent tasks are exposed through each App for a clean, developer-friendly API surface.
 
@@ -109,7 +383,7 @@ description: "Product updates and announcements from the Dimedove team"
     Run evaluations individually or all at once after making changes. Every run is saved with its score, verdict, and full conversation transcript, so you can track how your agent's performance evolves over time. Pair evaluations with Versions to test a draft configuration before publishing it to production.
 
     - **Scenario-based testing** with realistic, natural user simulation
-    - **AI-powered scoring** with an independent judge evaluating each success criterion
+    - **Automated scoring** with an independent judge evaluating each success criterion
     - **Pass, partial, and fail verdicts** with scoring for granular insight
     - **Full conversation transcripts** for every run, viewable turn by turn
     - **Run individually or all at once** to validate your agent after any change
@@ -270,7 +544,7 @@ description: "Product updates and announcements from the Dimedove team"
 </Update>
 
 <Update label="December 12, 2025" description="Slack Agents: Qualify Leads Where Work Already Happens">
-    We're excited to introduce Slack Agents, a powerful new channel that brings your Dimedove agents directly into your Slack workspace. Qualify leads right where your team already works, with consistent AI-powered responses that keep everyone aligned.
+    We're excited to introduce Slack Agents, a powerful new channel that brings your Dimedove agents directly into your Slack workspace. Qualify leads right where your team already works, with consistent agent responses that keep everyone aligned.
 
     Connect your Slack workspace through a secure OAuth flow, then create Slack Agents and deploy them to public and private channels. Choose whether your agent responds only when @mentioned (recommended for busy channels) or participates in all thread conversations. All responses are organized in threads, keeping your channels clean while enabling rich, contextual discussions.
 

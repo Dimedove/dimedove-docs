@@ -23,14 +23,17 @@ This Agreement governs Customer's access to and use of Dimedove's AI agent build
 **"API Key"** means the secret authentication credential issued by Dimedove to Customer for accessing the Dimedove API.
 **"Channel"** means any communication medium through which AI Agents may be deployed, including web chat, email, phone, SMS, Slack, Facebook Messenger, Instagram, and other supported platforms.
 **"Core Services"** means the Dimedove API, backend infrastructure, and server-side processing capabilities that enable Customer's Dimedove Apps and API integrations to operate, including API endpoints, authentication services, AI agent processing, and data storage. Core Services do not include the Platform (dashboard), frontend user interfaces, marketing materials, Documentation hosting, or any ancillary tools or features not essential to the programmatic operation of Customer's applications.
-**"Customer Data"** means all data, content, and information submitted to the Services by or on behalf of Customer, including configurations, conversation data, knowledge base content, workflow definitions, and other content. For the avoidance of doubt, data collected through Customer's use of Dimedove Apps is Customer Data.
+**"Customer Data"** means data, content, and information submitted to the Services by or on behalf of Customer, or collected from End Users or External Users on Customer's behalf, including CRM and contact data, identifiable conversation content, knowledge base content, and Customer Materials uploaded to the Services. Customer Data excludes Provider Materials and Service Data.
+**"Customer Materials"** means materials, information, content, trademarks, documentation, business rules, and other intellectual property supplied by or on behalf of Customer independently of the Services.
 **"Customer Properties"** means Customer's websites, applications, platforms, or other digital properties through which Customer deploys AI Agents or Dimedove Apps.
 **"Dimedove Apps"** or **"Apps"** means custom applications built by Customer using the Dimedove API to create tailored experiences for Customer's end users.
 **"Documentation"** means technical documentation, user guides, and help materials for the Services.
 **"End Users"** means individuals who interact with AI Agents created by Customer.
 **"External Users"** means end users of a Customer's Dimedove App who interact with the Services through the Dimedove API.
-**"Order Form"** means any document (including online registration) that references this Agreement and specifies Services, pricing, and terms.
+**"Order Form"** means any document, including a statement of work ("SOW"), online registration, or other ordering document, that references this Agreement and specifies Services, pricing, or terms.
 **"Platform"** means Dimedove's proprietary platform accessible at https://dashboard.dimedove.com and successor URLs.
+**"Provider Materials"** means the Services, Platform, APIs, software, source and object code, models, architecture, connectors, templates, schemas, system and developer prompts, prompt structures, orchestration and routing logic, workflow engine, configuration methods, platform-native configuration artifacts, evaluation methods, Documentation, tools, methodologies, reusable components and configurations, improvements, and generalized know-how developed or used by Dimedove, together with all intellectual property rights in the foregoing. Provider Materials exclude Customer Data and Customer Materials.
+**"Service Data"** means data generated from the operation, performance, security, administration, support, or use of the Services, including telemetry, usage measurements, diagnostic information, security and audit logs, performance data, evaluation and quality measurements, system metadata, aggregated, anonymized, or de-identified analytics and benchmarks, and the metrics, patterns, evaluations, benchmarks, aggregated insights, and other platform intelligence derived from the internal analysis permitted under Section 5.6. Service Data excludes identifiable Customer Data. Service Data that contains personal information remains subject to the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy) and applicable law.
 **"Services"** means Dimedove's AI agent building platform, including the Platform, APIs, Dimedove Apps, integrations, Channels, workflows, and related services.
 **"Subscription Plan"** means the selected service tier, features, limits, and pricing.
 **"Subscription Term"** means the period of authorized access to Services.
@@ -79,8 +82,10 @@ Customer may use the Dimedove API to build and operate Dimedove Apps, subject to
 
 **Apps Data Ownership:**
 
-- All data collected, generated, or processed through Customer's Dimedove Apps, including conversation data, External User information, and interaction logs, constitutes Customer Data as defined in Section 1. Customer retains all right, title, and interest in such data. Dimedove does not claim ownership of Customer Data.
-- Dimedove will not use Customer Data collected through Apps to train AI models, sell or license Customer Data to third parties, or use Customer Data to build competing products or services.
+- Data and content submitted through Customer's Dimedove Apps, or collected from External Users on Customer's behalf, constitutes Customer Data as defined in Section 1. This includes interaction content and identifiable End User and External User information. Customer retains all right, title, and interest in Customer Data. Dimedove does not claim ownership of Customer Data.
+- API telemetry, diagnostic information, security and audit logs, performance and usage measurements, internal system metadata, and other Service Data generated from operation of the Services are not Customer Data and are owned by Dimedove as set forth in Section 5.2. Service Data that contains personal information remains subject to the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy) and applicable law.
+- Dimedove may internally analyze Customer Data collected through Apps as permitted by Section 5.6, including in combination with data from other customer environments, subject to the limits set out in that Section. Analysis conducted in accordance with Section 5.6 is not a use of Customer Data to build competing products or services within the meaning of this Section.
+- Dimedove will not use Customer Data collected through Apps to train third-party or general-purpose AI models, sell or license Customer Data to third parties, or use Customer Data to build competing products or services.
 - Customer is solely responsible for providing appropriate privacy notices, terms of service, and obtaining necessary consents from External Users of Customer's Dimedove Apps.
 
 **Apps Responsibilities:**
@@ -161,7 +166,7 @@ Dimedove will provide written notice specifying the concerns with Customer's per
 
 ### 4.1 Subscription Plans and Pricing
 
-Plans specify features, limits, and fees. Pricing may include base subscription fees, usage-based charges (including charges for qualified opportunities, phone minutes, SMS messages, and API usage), and add-ons.
+Plans and applicable Order Forms specify features, limits, services, fees, and billing commitments. Pricing may include base subscription fees, usage-based charges (including charges for qualified opportunities, phone minutes, SMS messages, and API usage), managed or professional services fees, and add-ons.
 
 ### 4.2 Payment Processing
 
@@ -169,7 +174,7 @@ Payments processed via **Stripe, Inc.** Customer authorizes recurring and usage-
 
 ### 4.3 Billing
 
-Fees billed monthly or annually. Usage-based and overage charges billed in arrears based on actual consumption. Disputes must be reported within 30 days.
+Fees are billed monthly, quarterly, annually, or on the cadence specified in the applicable Subscription Plan or Order Form. Recurring subscription fees and committed managed or professional services fees may be billed in advance or in arrears as stated in the applicable Order Form. Usage-based and overage charges are billed in arrears based on actual consumption. Disputes must be reported within 30 days.
 
 ### 4.4 Taxes
 
@@ -177,7 +182,7 @@ Customer responsible for all taxes except Dimedove's income taxes.
 
 ### 4.5 Fee Changes
 
-Dimedove may adjust fees with 30 days' advance notice.
+Dimedove may adjust fees with 30 days' advance notice unless an applicable Order Form or other written agreement signed by both parties provides a different notice period or pricing commitment.
 
 ### 4.6 Non-Payment and Suspension
 
@@ -187,21 +192,34 @@ Dimedove may suspend or terminate Services for overdue accounts, violations of A
 
 ## 5. DATA OWNERSHIP AND PROCESSING
 
-### 5.1 Customer Data Ownership
+### 5.1 Customer Data Ownership and License to Dimedove
 
-Customer retains all right, title, and interest in Customer Data. Dimedove does not claim ownership of Customer Data and may process Customer Data solely to provide and maintain the Services. This includes data collected through AI Agent interactions, Dimedove Apps, knowledge base content, workflow configurations, and contact information gathered through the platform.
+Customer retains all right, title, and interest in Customer Data and Customer Materials, including CRM and contact data, identifiable conversation content, knowledge base content, and other content submitted to the Services by or on behalf of Customer or collected from End Users and External Users on Customer's behalf. Dimedove does not claim ownership of Customer Data or Customer Materials.
 
-### 5.2 Dimedove Data Rights
+Customer grants Dimedove a limited, non-exclusive, worldwide, royalty-free right, during the Subscription Term and any period permitted under Section 6, to host, copy, store, transmit, process, display, back up, secure, support, and otherwise use Customer Data and Customer Materials solely as necessary to provide, operate, secure, support, maintain, bill for, and administer the Services and to comply with legal obligations relating to the Services.
 
-Dimedove may:
+Customer additionally grants Dimedove a non-exclusive, worldwide, royalty-free right, during the Subscription Term and any period permitted under Section 6, to internally process and analyze Customer Data, including identifiable conversation content, individually and in combination with data from other customer environments, for the purposes described in Section 5.6. This right ends with respect to identifiable Customer Data when that Customer Data is deleted under Section 5.5 or Section 6.5, and Service Data already derived from it remains owned by Dimedove. This right is exercised subject to the limits in Section 5.6, the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy), and applicable law.
 
-- Process Customer Data for hosting, backup, support, and service delivery
-- Use aggregated, anonymized, or de-identified data for service improvement, analytics, and platform optimization
-- Not use conversation data to train AI models
+The licenses in this Section are limited to the purposes stated in this Agreement and grant Dimedove no ownership interest in Customer Data or Customer Materials.
+
+### 5.2 Dimedove Ownership and Data Rights
+
+Dimedove owns all right, title, and interest in Provider Materials and Service Data. Dimedove may:
+
+- Process Customer Data as licensed under Section 5.1 for hosting, backup, security, support, and service delivery
+- Internally analyze Customer Data as licensed under Section 5.1 and permitted by Section 5.6
+- Generate and use Service Data for billing, security, fraud prevention, support, capacity planning, analytics, benchmarking, and developing and improving the Services
+- Create and use aggregated, anonymized, or properly de-identified information for service improvement, analytics, research, and platform optimization
+
+The metrics, patterns, evaluations, benchmarks, aggregated insights, models of platform performance, and other platform intelligence that Dimedove derives from the internal analysis permitted under Section 5.6 constitute Service Data and are owned by Dimedove, provided that such outputs do not identify, and are not used to identify, any individual, End User, External User, or other customer.
+
+Dimedove will not use identifiable Customer Data, including conversation content, to train third-party or general-purpose AI models. Dimedove's use of Service Data remains subject to the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy) and applicable law, including where Service Data contains personal information. Nothing in this Agreement grants Dimedove ownership of identifiable Customer Data or creates joint ownership of personal information.
 
 ### 5.3 Privacy and Security
 
-Governed by [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy). Dimedove implements safeguards and conducts Privacy Impact Assessments (PIAs), including for cross-border transfers.
+Governed by [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy). Dimedove implements safeguards and conducts Privacy Impact Assessments (PIAs), including for cross-border transfers. Dimedove may provide appropriate information or summaries concerning relevant PIAs where appropriate, subject to confidentiality, privilege, security considerations, and applicable law.
+
+For clarity, the Privacy Policy governs the collection, processing, disclosure, retention, and privacy rights applicable to personal information. Ownership and the allocation of intellectual property rights between the parties are governed by this Agreement, including Sections 5, 6, and 7.
 
 ### 5.4 Subprocessors
 
@@ -209,7 +227,29 @@ Dimedove uses trusted subprocessors to provide the Services. Current list: [Subp
 
 ### 5.5 Data Retention and Deletion
 
-Data retained for Subscription Term and deleted or returned upon request or termination, subject to legal requirements and the data export provisions set forth in Section 6.
+Customer Data is retained for the Subscription Term and deleted or returned upon request or termination, subject to legal requirements and the data export provisions set forth in Section 6. Dimedove may retain and use Service Data and aggregated, anonymized, or de-identified information for the purposes described in Section 5.2, subject to the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy) and applicable law.
+
+### 5.6 Internal Analysis and Platform Intelligence
+
+**Permitted Analysis.** Under the license granted in Section 5.1, Dimedove may internally process and analyze Customer Data, including identifiable conversation content, individually and in combination with data originating from other customer environments, in order to:
+
+- measure, evaluate, and improve the quality, accuracy, safety, and performance of the Services and of AI Agent behavior;
+- develop, test, and tune platform features, prompts, orchestration logic, routing, guardrails, evaluations, and quality measurements;
+- produce metrics, patterns, evaluations, benchmarks, and aggregated insights about how the Services are used and how they perform; and
+- support security, fraud prevention, abuse detection, capacity planning, and troubleshooting.
+
+Analysis of Customer Data in identifiable form is limited to purposes consistent with providing, securing, supporting, and improving the Services. Cross-customer benchmarking and generalized product development rely on aggregated, anonymized, or properly de-identified data.
+
+**Ownership of Outputs.** The metrics, patterns, evaluations, benchmarks, aggregated insights, and other platform intelligence resulting from this analysis constitute Service Data and are owned by Dimedove in accordance with Section 5.2. Customer retains ownership of the underlying Customer Data, including the raw conversation content analyzed. This Section creates no joint ownership of Customer Data or of personal information.
+
+**Limits.** This Section does not authorize, and Dimedove will not:
+
+- disclose, publish, sell, license, or otherwise make available identifiable Customer Data of one customer to another customer or to any third party, except as permitted elsewhere in this Agreement (such as subprocessing under Section 5.4 or disclosure required by law);
+- present cross-customer analysis to any customer or third party in a form that identifies, or can reasonably be used to identify, another customer, an individual, an End User, or an External User. Any cross-customer output made available externally is aggregated, anonymized, or properly de-identified before disclosure;
+- use identifiable Customer conversation content to train third-party or general-purpose AI models. Any model development, tuning, or evaluation carried out by Dimedove uses aggregated, anonymized, or properly de-identified data; or
+- exercise this Section in a manner inconsistent with the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy), applicable law, or any written agreement signed by both parties.
+
+Where Customer Data analyzed under this Section contains personal information, that personal information remains Customer Data, remains subject to the Privacy Policy and applicable law, and remains subject to the rights described in Section 5.1 and Section 6.
 
 ---
 
@@ -217,15 +257,30 @@ Data retained for Subscription Term and deleted or returned upon request or term
 
 ### 6.1 Ongoing Export Right
 
-Customer may request a copy of Customer Data at any time during the Subscription Term by contacting Dimedove support at support@dimedove.com. Dimedove will use commercially reasonable efforts to provide the requested data in a standard, machine-readable format (such as JSON or CSV) within thirty (30) business days of receiving a verified request.
+Customer may request a copy of Customer Data at any time during the Subscription Term by contacting Dimedove support at support@dimedove.com. Dimedove will use commercially reasonable efforts to provide the requested Customer Data in a standard, machine-readable format (such as JSON or CSV) within thirty (30) business days of receiving a verified request.
+
+**Scope of Export:** Export rights under this Section 6 apply to Customer Data and Customer Materials. Export rights do not extend to, and Dimedove is not required to disclose:
+
+- Provider Materials;
+- Service Data, except where disclosure is required by applicable privacy law;
+- Dimedove source code;
+- system and developer prompts;
+- orchestration and routing logic;
+- internal schemas;
+- reusable workflow components;
+- proprietary evaluation methods;
+- security-sensitive logs; and
+- backend technology.
+
+Customer-visible settings and customer-authored configuration values may be exported where supported by the Platform. Dimedove is not required to provide a portable reproduction of the Platform, its implementation, or its functionality. Nothing in this Section limits an individual's statutory rights of access or portability with respect to personal information, which are addressed in the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy).
 
 ### 6.2 Apps Data Export
 
-For Customers using Dimedove Apps, exportable data includes conversation data, contact data, usage logs, and configurations created through the API, to the extent such data is available within the platform.
+For Customers using Dimedove Apps, exportable data includes identifiable conversation data, contact data, and customer-supplied content constituting Customer Data, together with customer-visible settings and customer-authored configuration values, in each case to the extent such data is available within the platform and subject to the exclusions in Section 6.1.
 
 ### 6.3 Migration Assistance
 
-If Customer decides to migrate away from the Dimedove platform, Dimedove will work in good faith with Customer to provide reasonable data export assistance at no additional charge beyond the existing Subscription Plan fees. Dimedove is not obligated to provide data in any third-party proprietary format or to perform custom data transformations.
+If Customer decides to migrate away from the Dimedove platform, Dimedove will work in good faith with Customer to provide reasonable data export assistance at no additional charge beyond the existing Subscription Plan fees. Dimedove is not obligated to provide data in any third-party proprietary format, to perform custom data transformations, or to disclose Provider Materials.
 
 ### 6.4 Platform Discontinuation
 
@@ -237,7 +292,9 @@ Dimedove will provide at least ninety (90) days' advance written notice of a Dis
 
 #### 6.4.2 Core Services Continuation Period
 
-The Core Services Continuation Period is intended to provide Customers with continued access to Core Services for a reasonable period following a Discontinuation Notice, during which Customers may undertake their own migration and off-boarding activities. This includes Customers operating Dimedove Apps through the API, who may use the continued availability of Core Services to transition their data, configurations, and functionalities to their own self-managed infrastructure or to alternative service providers at their own direction.
+The Core Services Continuation Period is intended to provide Customers with continued access to Core Services for a reasonable period following a Discontinuation Notice, during which Customers may undertake their own migration and off-boarding activities. This includes Customers operating Dimedove Apps through the API, who may use the continued availability of Core Services to migrate their Customer Data and Customer Materials to their own self-managed infrastructure or to alternative service providers at their own direction.
+
+For the avoidance of doubt, Dimedove is not required to enable Customer or any third party to operate the Platform independently, to reproduce the functionality of the Services, or to disclose, license, or transfer Provider Materials or Service Data in connection with a Discontinuation Event.
 
 Following the issuance of a Discontinuation Notice, Dimedove will continue to operate and maintain Core Services for a minimum period of twelve (12) months from the date of the Discontinuation Notice (the "Core Services Continuation Period"). During the Core Services Continuation Period:
 
@@ -255,9 +312,9 @@ Following the issuance of a Discontinuation Notice, Dimedove will continue to op
 
 During the Core Services Continuation Period, Dimedove will provide the following off-boarding assistance to all active Customers at no additional charge beyond existing Subscription Plan fees:
 
-(a) Data export in standard, machine-readable formats (such as JSON or CSV) in accordance with Section 6.1;
+(a) Export of Customer Data and Customer Materials in standard, machine-readable formats (such as JSON or CSV) in accordance with Section 6.1;
 
-(b) Documentation of API structures, data schemas, and export formats made available to Customer;
+(b) Access to Dimedove's then-current public Documentation, including its documented public API structures and documented export formats. This Section does not require Dimedove to create new documentation or to document internal schemas, system or developer prompts, orchestration logic, or other Provider Materials;
 
 (c) Updated Documentation reflecting any changes to export procedures or data formats;
 
@@ -299,7 +356,7 @@ During the Core Services Continuation Period, Customer's existing Subscription P
 
 ### 6.5 Post-Termination Export
 
-Upon termination or expiration of this Agreement, Customer has thirty (30) days from the effective date of termination to request export of Customer Data in accordance with Section 6.1. After this period, Dimedove may delete Customer Data in accordance with its standard data retention and deletion practices, subject to any applicable legal retention requirements.
+Upon termination or expiration of this Agreement, Customer has thirty (30) days from the effective date of termination to request export of Customer Data and Customer Materials in accordance with Section 6.1, including the scope and exclusions set out in that Section. After this period, Dimedove may delete Customer Data in accordance with its standard data retention and deletion practices, subject to any applicable legal retention requirements. Dimedove may continue to retain and use Service Data and aggregated, anonymized, or de-identified information following termination, subject to the [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy) and applicable law.
 
 ---
 
@@ -307,19 +364,25 @@ Upon termination or expiration of this Agreement, Customer has thirty (30) days 
 
 ### 7.1 Dimedove IP
 
-Dimedove retains all right, title, and interest in the Services, Platform, APIs, Documentation, and all related intellectual property. Nothing in this Agreement transfers ownership of Dimedove's intellectual property to Customer.
+Dimedove retains all right, title, and interest in Provider Materials and Service Data, including the Services, Platform, APIs, software, source and object code, models, architecture, connectors, templates, schemas, system and developer prompts, prompt structures, orchestration and routing logic, the workflow engine, configuration methods, platform-native implementation and configuration artifacts, evaluation methods, Documentation, reusable components, improvements, and generalized know-how. Nothing in this Agreement transfers ownership of Provider Materials or Service Data to Customer.
+
+Customer receives a limited, non-exclusive, non-transferable right to access and use platform configurations created within the Platform for Customer's Account, solely as part of and for the duration of Customer's authorized subscription and subject to Section 2.3.
 
 ### 7.2 Customer IP
 
-Customer retains all right, title, and interest in Customer Data, including AI Agent configurations, instructions, knowledge base content, and workflow definitions.
+Customer retains all right, title, and interest in Customer Data, Customer Materials, and customer-authored source content, including knowledge base content Customer uploads, agent instructions and business rules Customer authors, contact and CRM data, and identifiable conversation content.
+
+Where a platform configuration (such as an AI Agent configuration, prompt field, Workflow definition, or evaluation setup) embeds Customer Materials, Customer retains ownership of those embedded Customer Materials. Customer does not thereby acquire ownership of the surrounding schema, arrangement, platform logic, reusable components, or the configuration artifact itself, each of which constitutes Provider Materials.
+
+Nothing in this Agreement creates a work made for hire relationship, a joint work, or a transfer of Dimedove technology, and no clause of this Agreement gives Dimedove ownership of, or a joint ownership interest in, identifiable personal information contained in Customer Data.
 
 ### 7.3 AI-Generated Content
 
-AI Outputs are generated using third-party AI models and are not independently owned by either party as a matter of intellectual property. Customer has the right to use AI Outputs generated through Customer's use of the Services for any lawful purpose. Dimedove makes no claim of ownership over AI Outputs generated for Customer.
+AI Outputs are generated using third-party AI models and are not independently owned by either party as a matter of intellectual property. Customer has the right to use AI Outputs generated through Customer's use of the Services for any lawful purpose. Dimedove makes no claim of ownership over AI Outputs generated for Customer. For clarity, AI Outputs delivered to Customer as part of conversation content form part of Customer Data for the purposes of Sections 5 and 6; this Section addresses only the existence and allocation of intellectual property rights in AI-generated material.
 
 ### 7.4 Feedback
 
-If Customer voluntarily provides suggestions, ideas, or enhancement requests regarding the Services ("Feedback"), Dimedove may use such Feedback without restriction or obligation. For clarity, Feedback does not include Customer Data, AI Agent configurations, proprietary business logic, or any information submitted to the Services in the course of normal platform usage.
+If Customer voluntarily provides suggestions, ideas, or enhancement requests regarding the Services ("Feedback"), Dimedove may use such Feedback without restriction or obligation, including to develop generalized improvements to the Services. For clarity, Feedback does not include Customer Data, Customer Materials, Customer's Confidential Information, proprietary business logic supplied by Customer, or any information submitted to the Services in the course of normal platform usage, and Dimedove acquires no ownership of any of the foregoing through this Section. Generalized improvements developed by Dimedove constitute Provider Materials.
 
 ---
 
@@ -337,7 +400,7 @@ This Agreement continues until terminated in accordance with this Section. Subsc
 
 ### 9.2 Termination for Convenience
 
-Either party may terminate this Agreement for convenience by providing at least thirty (30) days' written notice to the other party.
+Except as otherwise stated in an applicable Order Form, SOW, or other written agreement signed by both parties, either party may terminate this Agreement for convenience by providing at least thirty (30) days' written notice to the other party.
 
 ### 9.3 Termination for Cause
 
@@ -418,6 +481,7 @@ Each party must maintain confidentiality of the other's non-public information d
 - **Modifications:** Dimedove may modify terms with 30 days' notice for material changes. Continued use after the notice period constitutes acceptance. If Customer does not agree to the modified terms, Customer may terminate this Agreement in accordance with Section 9.2.
 - **Severability:** Invalid provisions replaced by enforceable equivalents that most closely reflect the original intent.
 - **Entire Agreement:** This Agreement, together with referenced policies (Privacy Policy, Cookie Policy, Security Policy), supersedes prior agreements.
+- **Order of Precedence:** In the event of a conflict, an executed Order Form, SOW, or other written agreement signed by both parties prevails over this Agreement to the extent it expressly addresses the same subject and conflicts with this Agreement, and solely to the extent of that conflict. All non-conflicting provisions remain in effect. No such agreement transfers ownership of Provider Materials or Service Data unless expressly agreed in writing and signed by Dimedove.
 - **Notices:** Notices via email or platform are deemed received within 24 hours unless bounced.
 - **Independent Contractors:** No partnership, employment, or agency relationship is created by this Agreement.
 - **Compliance:** Each party complies with applicable laws including privacy and data protection.
