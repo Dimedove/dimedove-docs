@@ -1,22 +1,26 @@
 ---
 title: Configuration
-description: Configure phone numbers, services, and usage limits
+description: Configure phone numbers, services, voices, call behavior, and usage limits
 ---
+
+Your phone numbers are listed under **Channels > Telephony**. Click a number to open its settings, which are split into two tabs: **Basic** and **Advanced**. Changes on both tabs are saved together when you click **Save**.
 
 ## Adding Phone Numbers
 
 **Prerequisites**:
-- Active team subscription
+- Pro subscription or above
 - Valid payment method on file
 
 **Process**:
-1. Navigate to Telephony section
-2. Click "Add" button
+1. Go to **Channels > Telephony**
+2. Click **Add**
 3. Review pricing information
-4. Accept terms and complete purchase
+4. Accept the terms and click **Confirm & Pay**
 5. Phone number is instantly available
 
 ## Basic Configuration
+
+These settings are on the **Basic** tab, along with the services, usage limits, voice, and recording settings described below.
 
 ### Phone Number Name
 Internal identifier for organizing phone numbers. Not shown to callers or SMS users.
@@ -25,7 +29,7 @@ Internal identifier for organizing phone numbers. Not shown to callers or SMS us
 - Every phone number must be connected to an agent
 - Agent must be in "Live" status
 - One agent can handle multiple phone numbers
-- Agent's knowledge base, tasks, and behavior apply to both voice and SMS
+- Agent's knowledge base, [tools](/platform/agents/tools/api), and behavior apply to both voice and SMS
 
 ## Service Configuration
 
@@ -35,12 +39,12 @@ Each phone number can offer voice calls, SMS messaging, or both.
 
 **When Enabled**:
 - Inbound calls are answered by your agent
-- Conversations are transcribed in real-time
-- Call recordings and transcripts are saved
+- Conversations are transcribed in real time, and transcripts are always saved
+- Audio recordings are saved only when [Record calls](#record-calls) is on
 
 **Configuration**:
-- Enable/disable toggle
-- Optional monthly minutes limit
+- **Calls** toggle
+- Optional monthly minutes limit (click **Manage** next to the toggle once calls are on)
 
 ### SMS Service
 
@@ -51,8 +55,8 @@ Each phone number can offer voice calls, SMS messaging, or both.
 - SMS threads appear in Inbox
 
 **Configuration**:
-- Enable/disable toggle
-- Optional monthly SMS limit
+- **SMS** toggle
+- Optional monthly SMS limit (click **Manage** next to the toggle once SMS is on)
 
 ### Service Requirements
 - At least one service must be enabled for phone number to be active
@@ -63,18 +67,18 @@ Each phone number can offer voice calls, SMS messaging, or both.
 
 ### Monthly Call Minutes Limit
 - Set a positive integer or leave empty for unlimited
-- When limit is reached, calls are no longer answered
+- When the limit is reached, the number stays enabled but callers hear "Sorry, we cannot take your call right now. Please try again later. Goodbye." instead of reaching your agent, and call batches using this number stop (see [Outbound](/platform/outbound/overview))
 - Limit resets at beginning of each calendar month
 - First 60 minutes per month are free (shared across all phone numbers)
 
 **Example**: Setting 300 minutes means:
 - First 60 minutes free (shared)
 - Next 240 minutes charged at standard rates
-- After 300 total minutes, calls stop until next month
+- After 300 total minutes, callers hear the apology message until next month
 
 ### Monthly SMS Limit
 - Set a positive integer or leave empty for unlimited
-- When limit is reached, SMS service stops responding
+- When the limit is reached, the agent stops replying to texts on this number, and people who text it receive a short notice that the limit has been reached
 - Limit resets at beginning of each calendar month
 - First 100 SMS per month are free (shared across all phone numbers)
 - Both incoming and outgoing messages count toward limit
@@ -82,13 +86,71 @@ Each phone number can offer voice calls, SMS messaging, or both.
 **Example**: Setting 1000 messages means:
 - First 100 messages free (shared)
 - Next 900 messages charged at standard rates
-- After 1000 total messages, SMS stops until next month
+- After 1000 total messages, the agent stops replying to texts until next month
+
+## Voice and Recording
+
+### Voice
+The voice callers hear on this line. You choose one voice for each language the assigned agent speaks, so a line that answers in French and English can sound native in both. Voices native to each language are listed first, and you can press the play button beside any voice in the list to hear a sample before you choose it.
+
+If you don't choose a voice, French calls use Madeleine, a native Québec French voice, and English calls use Darla.
+
+### Record Calls
+Turn on **Record calls** to save an audio recording of every call on this line. Recording is off by default. Recordings play inline in the conversation in your [Inbox](/platform/inbox/overview). Call transcripts are always saved, whether or not recording is on.
+
+<Warning>
+  Dimedove does not announce the recording to callers. Turning on **Record calls** opens a confirmation reminding you that you are responsible for telling callers their calls are recorded, usually by having your agent say so in its greeting: Québec's Law 25 and PIPEDA require that callers be informed before a call is recorded. You are also responsible for obtaining consent where the laws that apply to you require it. Tick the acknowledgement and click **Confirm** to turn recording on. Turning it off needs no confirmation.
+</Warning>
+
+## Advanced Settings
+
+The **Advanced** tab fine-tunes how calls on this line sound and behave.
+
+### Override First Message
+Turn on **Override first message** to greet callers on this number with a different opening line, written for each language the assigned agent speaks. When it is off, the agent's own [first message](/platform/agents/behavior/first-message) is used. Keep it short: the field counts the words and warns you when the line runs over 12, since every word adds time before the caller can speak. Calls placed from batches, and workflow calls that set a First Message, open with that message instead.
+
+### Silence Before Check-in
+How long the agent waits after a caller goes quiet before checking that they are still there, from 5 to 25 seconds (6 seconds by default). See [Check-ins](#check-ins).
+
+### Background Noise
+Choose **Office** for a subtle room tone that makes the line sound like a real office instead of a silent room, or **None** to turn it off. With **Office** selected, set the **Background noise volume** (30% by default), and keep it low so it is barely noticeable behind the agent's voice.
+
+While the agent looks something up, callers also hear light keyboard and mouse sounds rather than silence, at a level that follows the **Background noise volume**.
+
+### Custom Pronunciations
+Teach the agent how your brand, product, and street names sound. Click **Add a term**, enter the term, then write it the way it sounds, either spelled out phonetically (such as "DIME-dove") or in IPA. Each term also helps the agent hear the word correctly when a caller says it. You can add up to 100 terms.
+
+### Voicemail Fallback
+What the agent does when a call reaches a voicemail box: **Leave a message**, with a message you write, or **Hang up** (the default). Your agent normally takes this from its own behavior, instructions, or procedures, and this setting is only used when none of them say what to do. When they do, the tab shows what they say.
+
+To always use this line's setting, even when the agent's instructions say otherwise, turn on the switch next to **Voicemail fallback**.
+
+### Transfer Fallback
+Where the agent transfers a caller who needs a person. Click **Add a destination** to add up to 10 destinations, each with a phone number, an optional extension, and a condition that says when to use it (for example, "The caller asks for a human or is upset"). Like voicemail, transfers normally come from the agent's own behavior, instructions, or procedures, and these destinations are only used when none of them say where to transfer. When they do, the tab shows the destinations they name.
+
+To always use this line's destinations, even when the agent's instructions name others, turn on the switch next to **Transfer fallback**. With the switch on and no destination listed, the number never transfers a caller to a person.
+
+## Call Behavior
+
+### Check-ins
+When a caller goes quiet, the agent checks in once the **Silence before check-in** delay has passed ("Hello? Are you still there?"). If the agent was the last to speak and did not ask anything, it offers more help sooner instead ("Is there anything else I can help you with?"). After three unanswered check-ins, the call ends.
+
+### Call Length
+Calls last at most 10 minutes. When a call reaches that limit, the agent says goodbye ("Thanks for calling, have a good day!") and ends the call.
+
+### When a Call Can't Be Answered
+Rather than leaving a call unanswered, the number tells callers why they can't get through:
+
+| Callers hear | When |
+| --- | --- |
+| "Sorry, we cannot take your call right now. Please try again later. Goodbye." | The number's monthly minutes are used up, the same caller is calling too often, or the line is at capacity |
+| "Sorry, this number is not available right now. Goodbye." | The number is disabled, calls are turned off, no agent is assigned, or the caller is a blocked contact |
 
 ## Phone Number Status
 
 ### Disabled
 - Phone number is configured but not active
-- Calls and SMS are not answered
+- Calls and SMS are not answered: callers hear "Sorry, this number is not available right now. Goodbye."
 - No usage charges
 
 ### Enabled
@@ -99,18 +161,18 @@ Each phone number can offer voice calls, SMS messaging, or both.
 ## Enabling Phone Numbers
 
 **Prerequisites**:
-- Phone number has a name
 - Agent is assigned and live
 - At least one service is enabled
 
 **Process**:
-1. Toggle status switch to "Enabled"
+1. Turn on the switch at the top of the phone number's page, or choose **Enable** from the number's menu in the list
 2. Phone number becomes immediately active
 
 ## Disabling Phone Numbers
 
-Toggle status to "Disabled" to temporarily deactivate.
+Turn off the switch, or choose **Disable** from the number's menu, to temporarily deactivate the number.
 - Services immediately stop
+- Call and SMS batches using the number stop and show why
 - Configuration is preserved
 - No usage charges while disabled
 
@@ -122,19 +184,19 @@ Toggle status to "Disabled" to temporarily deactivate.
 
 **Process**:
 1. Disable the phone number
-2. Click "Delete" action
-3. Confirm deletion
+2. Choose **Delete** from the number's menu
+3. Confirm with **Delete Phone Number**
 
 **Note**: Phone number is released and may be reassigned to others. Conversation history remains in Inbox.
 
-## Advanced Configuration
+## Integrations
 
 ### Integration with Workflows
 
-**Inbox**: All calls and SMS appear as chat conversations
+**Inbox**: All calls and SMS appear as chat conversations. On a call, an icon on the phone number badge shows whether it was inbound or outbound, and badges show how it ended: **Voicemail left** or **Answering machine** when it reached voicemail, and **Transferred to** followed by the number when the agent transferred it. Recordings play inline when [Record calls](#record-calls) is on.
 
 **Contacts**: Phone numbers link to contact records, caller ID enriches profiles
 
-**Webhooks**: Telephony events trigger webhooks
+**Webhooks**: New SMS conversations fire the general conversation [webhooks](/developer/webhooks/event-types); there are no call-specific webhook events
 
-**Tasks**: Agents can execute tasks during calls and SMS conversations
+**Tools**: Agents can use their [tools](/platform/agents/tools/api) during calls and SMS conversations

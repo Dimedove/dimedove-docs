@@ -1,17 +1,163 @@
 ---
-title: Actions
-description: Action types that workflows can execute after a trigger fires
+title: Steps
+description: Every step a workflow can run after its trigger, grouped as they appear in the editor
 ---
 
-Actions define what a workflow does after its trigger fires. Each workflow can have up to 2 action nodes. If you use 2 action nodes, the first must be a Delay action, enabling patterns like: trigger, wait, then execute. All text fields in action configurations support [template variables](/platform/workflows/configuration#using-template-variables) for inserting dynamic data from the trigger payload.
+Steps define what a workflow does after its trigger fires. You add them from the step palette in the editor, where they are grouped into **Logic**, **Wait**, **Actions**, **Data**, **AI**, and **Teammates**. Steps run from top to bottom, and some of them split the run into branches that each continue with their own steps (see [Branches](/platform/workflows/configuration#branches)). All text fields support [template variables](/platform/workflows/configuration#using-template-variables) for inserting dynamic data from the trigger.
+
+## Steps at a Glance
+
+| Group | Step | What it does |
+| --- | --- | --- |
+| **Logic** | **Filter** | Continues only when the conditions match; otherwise the run ends |
+| | **Condition** | Branches into **True** or **False** based on conditions |
+| | **Switch** | Routes to a case based on a field value |
+| | **Loop** | Repeats the steps inside for each item of a list |
+| **Wait** | **Delay** | Pauses the run for a duration |
+| | **Wait until** | Pauses until a specific date and time |
+| | **Wait for event** | Pauses until an event happens or a timeout expires |
+| **Actions** | **HTTP Request** | Makes an HTTP request to an external URL |
+| | **Email** | Sends an email to a recipient |
+| | **SMS** | Sends an SMS text message |
+| | **Call** | Places an outbound phone call |
+| | **Slack** | Sends a message to a Slack channel |
+| | **Run tools** | Runs agent tools based on context |
+| | **Start goal** | Hands a goal to an agent to pursue autonomously |
+| **Data** | **Enrichment** | Fills contact attributes from external data |
+| | **Update contact attribute** | Sets an attribute value on the contact |
+| | **Add label** | Adds a label to the conversation that started the run |
+| **AI** | **AI summary** | Summarizes the trigger data and previous steps |
+| | **AI decision** | Lets an AI pick a branch from your instructions |
+| **Teammates** | **Assign teammate** | Picks a teammate from a pool, round-robin |
+| | **Notify teammate** | Sends a notification to one or more teammates |
+| | **Approval request** | Asks teammates to approve before continuing |
+
+## Message Bodies: Static or Prompt
+
+The message field of the **Email**, **SMS**, **Call**, **Slack**, and **Notify teammate** steps has two tabs:
+
+- **Static**: The message is exactly what you write, with template variables filled in for each run.
+- **Prompt**: The field becomes **Message instructions**. An agent writes the message from your instructions and the trigger data for each run. You can still insert variables to point it at specific fields.
+
+In **Prompt** mode, the agent also sees:
+
+- The results of earlier steps in the run, such as an **AI summary** or the teammate picked by **Assign teammate**
+- The conversation the trigger came from, when there is one: its recent messages and what your agents learned about the contact
+- Your business details from **Settings > Business** (see [Business](/platform/team/business))
+
+Each message comes out in its channel's format: a formatted email, a short text message (up to 320 characters), a Slack message with Slack formatting, a plain notification email, or a call opener in the call's language. If the agent cannot write the message, the step fails: a Prompt-mode step never sends an empty message. Messages written in Prompt mode use more [credits](/platform/team/credits) than static ones.
+
+<Tip>Write instructions the way you would brief a colleague, for example: "Thank the contact by their first name for reaching out, answer the question they asked in two sentences, and invite them to book a call." Add a variable such as `{{trigger.body.attributes.company}}` when you want the agent to use a specific field.</Tip>
+
+## Steps That Need a Contact or Conversation
+
+Some steps act on the contact or conversation behind the run, so they need a trigger that carries one:
+
+- **Enrichment** and **Update contact attribute** act on the run's contact.
+- **Add label** labels the conversation that started the run.
+
+With a **Webhook**, **Manual**, or **Schedule** trigger, these three steps are greyed out in the palette with the message "Action not compatible with selected trigger". If you switch an existing workflow to one of these triggers, the checklist flags each such step until you remove it. **Goal completed**, **Approval decided**, and **Note created** carry the contact when there is one, but no conversation, so **Add label** fails with them.
+
+**Wait for event** also needs something to wait on: waiting on **The run's contact** or **The run's conversation** fails when the trigger does not carry one.
 
 ## Throughput and Pacing
 
-Outbound actions (HTTP Request, Email, SMS, Call, Slack Message, and Execute Tasks) are automatically paced to respect downstream provider limits and protect overall system stability. There is nothing to configure.
+Outbound steps (HTTP Request, Email, SMS, Call, Slack, and Run tools) are automatically paced to respect provider limits and protect overall system stability. There is nothing to configure.
 
-During bursts of activity, a workflow run may take longer than the sum of its individual action durations: the run is paused and resumed transparently until each action can be dispatched safely. The run still completes; you'll see the elapsed time reflected in the [Run History](/platform/workflows/configuration#run-history).
+During bursts of activity, a run may take longer than the sum of its step durations: the run pauses and resumes on its own until each step can go out safely. A send that still cannot go out after several hours fails instead of going out late. You'll see the elapsed time in the [Run History](/platform/workflows/configuration#run-history).
 
-## Action Types
+When a step is retried automatically after a temporary problem, anything it already sent is not sent again. If Dimedove cannot tell whether a send went out, the step fails with an unknown outcome instead of sending twice.
+
+## Logic
+
+### Filter
+
+Continues only when the conditions match; otherwise the run ends there, with the status **Completed**. Use it right after the trigger to ignore events you don't want to act on.
+
+- **Conditions**: One or more conditions (see [Conditions](#conditions)). With two or more, choose **All** (every condition must match) or **Any** (one is enough). Without conditions, every run passes.
+
+### Condition
+
+Branches into **True** or **False** based on conditions. Add the steps for each outcome under the matching branch on the canvas. A branch you leave empty simply ends the run.
+
+- **Conditions**: One or more conditions (see [Conditions](#conditions)), matched with **All** or **Any**.
+
+#### Conditions
+
+Filter and Condition steps compare a field of the run's data with a value. Click **Add condition** to add a row with:
+
+- **Field**: A path to a value, without curly braces, such as `trigger.body.stage` or `trigger.body.attributes.email`. Use the braces button next to the field to insert a field from the trigger data. Inside a loop, `loop.item` and `loop.index` are available too.
+- **Operator**: **equals**, **does not equal**, **contains**, **does not contain**, **greater than**, **at least**, **less than**, **at most**, **is empty**, **is not empty**, **is one of**, **is none of**, or **matches pattern**.
+- **Value**: What to compare against. It can include template variables. **is empty** and **is not empty** take no value.
+
+Comparisons are numeric when both sides are numbers, and compare text otherwise (ISO dates compare correctly with **greater than** and **less than**). **is one of** and **is none of** take a comma-separated list, **contains** also checks whether a list includes a value, and **matches pattern** takes a regular expression.
+
+### Switch
+
+Routes the run to a case based on a field value.
+
+- **Field** (required): The path to the value to compare, such as `trigger.body.stage`.
+- **Cases** (at least one): Each case has a key and a **Value to match**. The key names the case's branch on the canvas and may use lowercase letters, digits, `-`, and `_` (up to 32 characters, unique within the step).
+
+Cases are checked in order, and the run follows the first case whose value equals the field. Runs that match no case take the **Default** branch.
+
+### Loop
+
+Repeats the steps inside for each item of a list, then continues on the **Done** branch.
+
+- **List** (required): A path to a list in the run's data, such as `trigger.body.items`.
+- **Maximum iterations**: How many items to process at most (100 by default, up to 500). Items beyond the maximum are ignored.
+
+On the canvas, the steps that repeat sit in a dashed **Loop body** box. Inside the loop, `{{loop.item}}` is the current item (use `{{loop.item.email}}` for a field of it), and `{{loop.index}}` is its position, starting at 0. Items are processed one at a time, and each pass appears in the run logs with an **Iteration** badge. The step fails if the path does not hold a list. Loops cannot be nested.
+
+## Wait
+
+### Delay
+
+Pauses the run for a set duration before continuing to the next step. Use this to add timing between steps, for example waiting before sending a follow-up message or allowing time for an external process to complete.
+
+**Configuration Fields**:
+
+- **Duration** (required): A positive number
+- **Unit**: **Seconds**, **Minutes**, **Hours**, **Days**, or **Weeks**. A delay can last up to 365 days.
+- **Business hours only**: If the delay ends outside your team's business hours, the run resumes at the next opening. Business hours are the **Working hours** set under **Settings > Goals** (see [Goals settings](/platform/goals/settings#working-hours)). When working hours are turned off, Monday to Friday, 9:00 to 17:00 (America/Toronto) is used.
+
+**Behavior**:
+
+- The run is paused for the specified duration, then continues with the next step
+- If the workflow is paused while a run is in a delay, the run is cancelled when the delay ends, unless the workflow is **Live** again by then
+- A delay does not block other runs or workflows on your team
+
+<Tip>SMS and Call steps are not held for your working hours. To send only while your team is open, place a short **Delay** (such as 1 minute) with **Business hours only** right before the step: during your hours it barely waits, and outside them it holds the run until you open.</Tip>
+
+### Wait until
+
+Pauses the run until a specific date and time, such as an hour before an appointment.
+
+- **Resume at** (required): An ISO date and time, such as `2026-10-01T09:00:00-04:00`, or a variable that holds one, such as `{{trigger.body.appointment_at}}`. A date and time without a time zone is read as Eastern Time.
+
+Dates in the past continue immediately. The step fails if the value is not a valid date and time, or if it is more than 365 days away.
+
+### Wait for event
+
+Pauses the run until an event happens, or until a timeout expires. The run then continues on the **Event** branch or the **Timeout** branch.
+
+**Configuration Fields**:
+
+- **Event** (required):
+  - **Reply received**: The contact replies by SMS, email, or phone call, or in the Slack thread when you wait on the run's conversation. Messages on other channels, such as your web chat, do not count, and neither do replies in a conversation a teammate has paused.
+  - **Contact attribute changed**: One of the contact's attributes changes through Insights or Enrichment (edits in the dashboard do not count). Use **Filter by Attributes** to wait for particular attributes only.
+  - **Document received**: The contact sends a file in a conversation.
+  - **Goal completed**: A goal for the contact ends, whether it completed, failed, or was cancelled.
+- **Wait on**: Which contact or conversation the event must belong to:
+  - **The run's contact** (default): The contact behind the trigger, on any channel.
+  - **The run's conversation**: Only the conversation the trigger came from. For example, an email reply to an SMS conversation does not count.
+  - **Custom**: A key you build from the run's data, starting with `contact:`, `chat:`, or `objective:`, such as `contact:{{trigger.body.contact_id}}`.
+- **Timeout**: How long to wait before continuing on the **Timeout** branch (2 days by default, up to 365 days).
+
+The step fails if the trigger has no contact or conversation to wait on. While a run waits, its run logs show a banner such as "Waiting for a reply", and the step's **Waits** section shows when the wait expires.
+
+## Actions
 
 ### HTTP Request
 
@@ -20,36 +166,40 @@ Send an HTTP request to any external URL. Use this to connect your workflows to 
 **Configuration Fields**:
 
 - **Method**: The HTTP method to use: GET, POST, PUT, PATCH, or DELETE
-- **URL** (required): The target URL. Supports template variables.
+- **URL** (required): The target URL, starting with `http://` or `https://`. Supports template variables.
 - **Headers**: Key-value pairs for custom request headers. Add as many as needed. Supports template variables in both keys and values.
 - **Query Parameters**: Key-value pairs appended to the URL as query string parameters. Supports template variables.
-- **Body**: The request body content in JSON format. Only available for POST, PUT, and PATCH methods. Supports template variables. A "Format JSON" button is provided to help you validate and format the JSON.
+- **Body**: The request body content in JSON format. Only available for POST, PUT, and PATCH methods. Supports template variables. A **Format JSON** button helps you validate and format the JSON.
+
+A response with a status of 400 or higher, or no response within 30 seconds, fails the step. The response's status, headers, and body appear in the step's output in the run logs (very large bodies are shortened).
 
 <Tip>When using the Webhook trigger, you can use `{{trigger.body.field}}` in the URL, headers, query parameters, or body to forward data from the incoming webhook request to the external API.</Tip>
 
 ### Email
 
-Send an email to a specified recipient. The Email action supports three sending modes, giving you flexibility in how the email appears to the recipient and whether the conversation continues through an agent.
+Send an email to a specified recipient. The **From** field sets how the email appears to the recipient and whether the conversation continues through an agent.
 
 **Sending Modes**:
 
 - **Default (Dimedove)**: Sends the email from the Dimedove platform address. No additional setup required. Suitable for simple notifications.
-- **Custom Sender Name**: Sends from a custom display name using the Dimedove address (e.g., "Your Company Name"). Allows you to customize the sender appearance without setting up a full email channel.
-- **Email Channel**: Sends through one of your configured [email channels](/platform/emails/overview), using your verified domain. When the email channel has an assigned agent, an inbox conversation is automatically created, and the agent can respond to replies.
+- **One of your email channels**: Sends through that [email channel](/platform/emails/overview), using your verified domain. Replies are handled as configured on the channel: when the channel has an assigned agent, an inbox conversation is created and the agent can respond to replies.
+- **Custom**: Sends from the Dimedove address with a display name you choose (e.g., "Your Company Name"), so you can customize the sender without setting up an email channel.
 
 **Configuration Fields**:
 
-- **From**: Select the sending mode (Default, Custom, or a specific Email Channel)
-- **Custom From Name** (Custom mode only): The display name for the sender
-- **Reply-To** (Default and Custom modes): An optional reply-to email address. Supports template variables.
+- **From**: The sending mode: **Default (Dimedove)**, one of your email channels, or **Custom**
+- **Custom From Name** (Custom only): The display name for the sender
+- **Reply To** (Default and Custom only): An optional reply-to email address. Supports template variables.
 - **To** (required): The recipient email address. Supports template variables.
 - **Subject** (required): The email subject line. Supports template variables.
-- **Body** (required): The email body content. Supports template variables. Line breaks are preserved in the sent email.
-- **Context** (Email Channel mode only): Additional context provided to the agent when an inbox conversation is created. Use this to give the agent relevant background information about why this email was sent.
+- **Body** (required): The email content, as **Static** text or **Prompt** instructions (see [Message Bodies](#message-bodies-static-or-prompt)). Line breaks in static text are preserved in the sent email.
+- **Context** (email channel only): Additional context provided to the agent when an inbox conversation is created. Use this to give the agent relevant background information about why this email was sent.
+
+Every workflow email includes a one-click unsubscribe link, and addresses that unsubscribed from your team are skipped.
 
 **Inbox Integration**:
 
-When using the Email Channel sending mode with an agent-assigned channel, the sent email creates a conversation in your [Inbox](/platform/inbox/overview). The agent handles any replies from the recipient, and the conversation shows its workflow origin with a link back to the run. This enables workflows to initiate outreach that seamlessly transitions into agent-powered conversations.
+When you send through an email channel with an assigned agent, the email creates a conversation in your [Inbox](/platform/inbox/overview). The agent handles any replies from the recipient, and the conversation shows its workflow origin with a link back to the run. This lets workflows start outreach that turns into agent-powered conversations.
 
 See [Email Channels](/platform/emails/overview) for setting up email channels with verified domains.
 
@@ -60,78 +210,180 @@ Send an SMS text message to a phone number.
 **Sending Modes**:
 
 - **Default (Dimedove)**: Sends from a Dimedove-managed phone number. No setup required. Recipients cannot reply to this number.
-- **Team Phone Number**: Sends from one of your configured [phone numbers](/platform/telephony/overview). When the phone number has an assigned agent, an inbox conversation is created (or continued), and the agent can respond to replies.
+- **Team phone number**: Sends from one of your configured [phone numbers](/platform/telephony/overview). Replies are handled by the agent, and an inbox conversation is created (or continued).
 
 **Configuration Fields**:
 
-- **From**: Select the sending source (Default or a specific team phone number)
-- **To** (required): The recipient phone number. Supports template variables. The dashboard automatically normalizes phone numbers to international format.
-- **Message** (required): The SMS message content, up to 150 characters. A character counter is displayed in the editor. Supports template variables.
-- **Context** (Team Phone Number mode only): Additional context provided to the agent when an inbox conversation is created.
+- **From**: **Default (Dimedove)** or one of your team phone numbers
+- **Assigned Agent** (team phone number only): The agent that handles the conversation and any replies. It defaults to the number's assigned agent; pick another agent to override it for this step.
+- **To** (required): The recipient phone number, or a single variable such as `{{trigger.body.phone}}`. The dashboard normalizes typed numbers to international format and adds +1 when no country code is given.
+- **Message** (required): As **Static** text, up to 150 characters (a character counter is displayed in the editor), or as **Prompt** instructions, in which case the agent keeps the text short. Supports template variables.
+- **Context** (team phone number only): Additional context provided to the agent when an inbox conversation is created.
+
+Numbers that texted STOP to your team, and blocked contacts, are never texted.
 
 **Inbox Integration**:
 
-When using a team phone number with an assigned agent, the SMS creates or continues a conversation in your [Inbox](/platform/inbox/overview). If an existing SMS conversation with the same phone number exists within a recent window, the message is added to that conversation rather than creating a new one. The conversation shows its workflow origin.
+When using a team phone number, the SMS creates or continues a conversation in your [Inbox](/platform/inbox/overview) for the assigned agent. If a recent SMS conversation with the same phone number exists, the message is added to that conversation rather than creating a new one. The conversation shows its workflow origin.
 
 See [Telephony](/platform/telephony/overview) for phone number configuration.
 
 ### Call
 
-Initiate an outbound voice call using one of your team phone numbers. The call is handled by the agent assigned to the phone number, enabling fully automated outbound conversations.
+Place an outbound voice call from one of your team phone numbers. The call is handled by a voice agent, enabling fully automated outbound conversations.
 
-<Note>Call actions require a team phone number with an assigned agent that has voice capabilities enabled.</Note>
+<Note>Call steps require a team phone number with calls enabled and an agent with voice capabilities enabled.</Note>
 
 **Configuration Fields**:
 
-- **From** (required): The team phone number to call from. Must have a voice-enabled agent assigned.
-- **To** (required): The recipient phone number. Supports template variables. The dashboard normalizes phone numbers to international format.
-- **First Message** (optional): The opening message the agent speaks when the call connects. Supports template variables. If not set, the agent uses its default first message.
-- **Context** (optional): Additional context provided to the agent for the call. Use this to give the agent background information about the recipient or the purpose of the call. Supports template variables.
+- **From** (required): The team phone number to call from.
+- **Assigned Agent**: The voice agent that handles the call. It defaults to the number's assigned agent; you can pick another voice agent for this step.
+- **To** (required): The recipient phone number, or a single variable such as `{{trigger.body.phone}}`. The dashboard normalizes typed numbers to international format.
+- **First Message**: The agent's opening line, as **Static** text or **Prompt** instructions (a Prompt-mode opener is written in the call's language). Supports template variables.
+- **Language**: The language the call is spoken in, chosen from the assigned agent's languages. It defaults to the agent's default language and resets when you change the number or the agent.
+- **Wait for greeting**: On by default: the agent waits for the person to speak first, then says the **First Message**. Turn it off to have the agent speak as soon as the call connects; if the **First Message** is empty, the agent then uses its own greeting.
+- **Context**: Additional context provided to the agent for the call. Use this to give the agent background information about the recipient or the purpose of the call. Supports template variables.
+
+**First Message**, **Language**, **Wait for greeting**, and **Context** appear once you pick a number. Numbers that texted STOP to your team are never called.
 
 **Inbox Integration**:
 
-An inbox conversation is always created before the call is initiated. The conversation shows the workflow origin and contains the full call transcript once the call completes. Your team can review the conversation in the [Inbox](/platform/inbox/overview).
+An inbox conversation is always created before the call is placed. The conversation shows the workflow origin and contains the full call transcript once the call completes. Your team can review the conversation in the [Inbox](/platform/inbox/overview).
 
 See [Telephony](/platform/telephony/overview) for setting up phone numbers with voice agents.
 
-### Slack Message
+### Slack
 
 Send a message to a Slack channel in your connected workspace.
 
-<Note>Requires a connected Slack workspace. See [Slack Configuration](/platform/slack/configuration) for setup instructions.</Note>
+<Note>Requires a connected Slack workspace. See [Slack Configuration](/platform/workspace/configuration#slack) for setup instructions.</Note>
 
 **Configuration Fields**:
 
-- **Channel** (required): The Slack channel to send the message to. Select from your workspace's available channels. A refresh button lets you reload the channel list if you have recently created new channels.
-- **Message** (required): The message content. Supports template variables.
+- **Channel** (required): The Slack channel to send the message to. Select from your workspace's available channels. The **Refresh channels** button reloads the list if you have recently created new channels.
+- **Message** (required): The message content, as **Static** text or **Prompt** instructions (see [Message Bodies](#message-bodies-static-or-prompt)). Supports template variables.
 
 If no Slack integration is found, the dashboard displays a prompt to connect Slack in your team settings.
 
-See [Slack](/platform/slack/overview) for details on the Slack workspace integration.
+See [Slack](/platform/workspace/overview) for details on the Slack workspace integration.
 
-### Delay
+### Run tools
 
-Pause workflow execution for a specified duration before continuing to the next step. Use this to add timing between a trigger and a subsequent action, for example waiting before sending a follow-up message or allowing time for an external process to complete.
+Runs agent tools based on context. An agent reads the context you give it and the trigger data, then decides which of the selected tools to run, for example to create a record in your CRM through one of your agent's API tools.
 
 **Configuration Fields**:
 
-- **Duration** (required): A positive number representing the wait time
-- **Unit**: Select the time unit: Seconds, Minutes, or Hours
+- **Assigned Agent** (required): The agent whose tools the step can run.
+- **Available Tools** (required): Which of the agent's active tools the step may run. All of them are selected when you pick the agent, and at least one must stay selected.
+- **Additional Context**: Information that helps the agent decide which tools to run and with what input. Include relevant trigger data with template variables.
 
-**Behavior**:
+See [Agent Tools](/platform/agents/tools/api) for setting up tools on your agents.
 
-- The workflow is paused for the specified duration, then resumes execution with the next action node
-- If the workflow is disabled or paused during the delay period, the remaining steps are cancelled when the delay ends
-- The delay does not block other workflows or processes on your team
+### Start goal
 
-<Tip>The Delay action is especially useful when combined with a second action node. For example: trigger on a qualified opportunity, delay for 30 minutes, then place a follow-up call.</Tip>
+Hands a goal to an agent to pursue autonomously with the contact behind the run: the agent plans each step, reaches out, waits for answers, and follows up, over days if needed. See [Goals](/platform/goals/overview).
 
-## Inbox Conversations from Actions
+<Warning>Goals are experimental. A Start goal step only works when an admin has turned on **Agent work** under **Settings > Goals**, which is off by default. Otherwise the step fails. See [Goals settings](/platform/goals/settings).</Warning>
 
-Email, SMS, and Call actions can create conversations in your [Inbox](/platform/inbox/overview) when sent through agent-assigned resources:
+**Configuration Fields**:
 
-- **Email** (Email Channel mode): Creates an inbox conversation when the email channel has an assigned agent
-- **SMS** (Team Phone Number mode): Creates or continues an inbox conversation when the phone number has an assigned agent
+- **Agent**: The agent that pursues the goal. **Default agent** uses the default agent set under **Settings > Goals**.
+- **Title**: A short name for the goal, such as `Follow up with {{trigger.body.attributes.first_name}}`. When left empty, the workflow's name is used.
+- **Goal** (required): What the agent should accomplish.
+- **Done when**: One sentence describing what must have happened for the goal to be reached.
+- **Wait for completion**: When on, the run pauses until the goal ends, then continues on the **Event** branch, or on the **Timeout** branch if the **Timeout** passes first (30 days by default). When off, the run continues right away.
+
+Each workflow keeps only one open goal per contact: when a later run reaches this step for a contact who already has an open goal from the same workflow, it reuses that goal and ends there. Goals started by a workflow belong to the **Default owner** set under **Settings > Goals**.
+
+## Data
+
+### Enrichment
+
+Fills in contact attributes with external data. Dimedove looks up information about the run's contact and writes it to the attributes you choose.
+
+**Configuration Fields**:
+
+- **Contact**: **Contact from the trigger step**, the contact behind the run.
+- **Attributes to enrich** (required): Up to 20 of your contact attributes. For each one, you can add optional enrichment guidance (up to 200 characters) describing what to look for, and turn on **Overwrite existing value** to replace a value the contact already has. Otherwise, only empty attributes are filled.
+
+Enrichment can take up to 15 minutes, and the step fails if it has not finished by then. Values it writes are recorded with the change source **Enrichment** and can start other workflows' **Contact Updated** triggers. Enrichment is priced by the data it looks up, and appears as its own **Enrichment** line in your credit usage.
+
+### Update contact attribute
+
+Sets an attribute value on the run's contact.
+
+- **Attribute** (required): One of your team's [contact attributes](/platform/contacts/attributes).
+- **Value**: The value to write, as fixed text or a variable such as `{{trigger.body.stage}}` (up to 2,000 characters).
+
+Writing the value the contact already has does nothing. A change is recorded with the change source **Enrichment** and can start other workflows' **Contact Updated** triggers, but never this workflow's.
+
+### Add label
+
+Adds one of your team's labels to the conversation that started the run.
+
+- **Label** (required): One of your active [labels](/platform/contacts/labels).
+
+The step fails when the trigger does not come from a conversation.
+
+## AI
+
+### AI summary
+
+Summarizes the trigger data and the results of previous steps, following your instructions. When the trigger came from a conversation, the summary can draw on its recent messages and what your agents learned about the contact.
+
+- **Instructions** (required): What to summarize and how, such as "Summarize the conversation in 3 bullet points for the sales team." Supports template variables.
+- **Maximum length (characters)**: 2000 by default.
+
+Later steps that write in **Prompt** mode, and **AI decision** steps, can use the summary. It also appears in the step's output in the run logs.
+
+### AI decision
+
+Lets an AI pick a branch from your instructions. The AI reads the run's data (the trigger data and the results of earlier steps) and picks one of your cases.
+
+- **Instructions** (required): How to decide, such as "Decide whether this lead is hot, warm or cold based on the conversation." Supports template variables.
+- **Cases** (at least one): Each case has a key and a description of **When to pick this case**. Each case becomes a branch on the canvas, labeled with its description (or its key), next to a **Default** branch. Keys follow the same rules as for Switch.
+
+The run logs show the case the AI picked and a one-sentence reason. The AI picks the closest case even when none fits perfectly, so the **Default** branch rarely runs: to give the AI a catch-all, add a case for it (for example `other`, picked when none of the other cases apply). If the AI cannot decide, the step fails.
+
+## Teammates
+
+### Assign teammate
+
+Picks the next teammate from a pool, in turn, for example to share incoming leads fairly across your sales team.
+
+- **Teammates** (optional): The pool to rotate across. Leave it empty to rotate across everyone on your team.
+
+The step only picks a person: it does not assign the conversation or notify anyone. Use the pick in later steps written in **Prompt** mode, for example an email that introduces the teammate by name.
+
+### Notify teammate
+
+Sends a notification email to one or more teammates.
+
+- **Channel**: **Emails**
+- **Recipients** (required): The teammates to notify.
+- **Subject**: The email subject. Supports template variables. When left empty, the workflow's name is used.
+- **Body** (required): As **Static** text or **Prompt** instructions (see [Message Bodies](#message-bodies-static-or-prompt)).
+
+The step fails only when the email could not be sent to any recipient.
+
+### Approval request
+
+Asks teammates to approve before continuing, and waits for their decision.
+
+- **Question** (required): What to decide, such as `Should we offer a 10% discount to {{trigger.body.attributes.first_name}}?`. Supports template variables.
+- **Approvers**: Who is asked. The first decision wins.
+- **Timeout**: How long to wait for a decision. When left empty, the request expires after your team's **Expires after** setting under **Settings > Goals** (48 hours by default).
+
+The run continues on the **Approved** branch, the **Rejected** branch, or, without a decision in time, the **Timeout** branch.
+
+The request appears in the **Approvals** column on the **Tasks** page, where anyone on your team can decide it. When **Ask by email** is on under **Settings > Goals** (the default), it is also emailed to the first approver you picked, or to your team's owner when **Approvers** is empty, and replying "approve" or "reject" decides it. See [Tasks and Approvals](/platform/goals/tasks).
+
+## Inbox Conversations from Steps
+
+Email, SMS, and Call steps can create conversations in your [Inbox](/platform/inbox/overview) when sent through agent-assigned resources:
+
+- **Email** (email channel): Creates an inbox conversation when the email channel has an assigned agent
+- **SMS** (team phone number): Creates or continues an inbox conversation for the assigned agent
 - **Call**: Always creates an inbox conversation (a phone number with a voice agent is required)
 
-These conversations display the originating workflow's name and provide a direct link to the specific workflow run that initiated them. This gives your team full visibility into how conversations were started and allows agents to seamlessly continue the interaction with the recipient.
+These conversations display the originating workflow's name and provide a direct link to the specific workflow run that started them. This gives your team full visibility into how conversations were started and allows agents to seamlessly continue the interaction with the recipient.

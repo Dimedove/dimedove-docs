@@ -12,7 +12,7 @@ Each chat view displays the context operators need to triage quickly:
 - **Conversation type & metadata** – Channel badge (chat, call, SMS, form), last activity timestamp, and call duration (when applicable).
 - **Agent attribution** – Agent emoji/name plus any linked form so you know which funnel or entry point produced the exchange.
 - **Labels & statuses** – Human assistance badge, performance qualification badge, and every auto/manual label applied to the thread.
-- **Contact panel** – Renders the recognized visitor details (name, email, phone, contact ID) together with a shortcut button to open the full contact record.
+- **Contact panel** – Renders the recognized contact's name and contact ID, a blue shield with a check when their identity is verified, and a strip showing the goals your agents are pursuing for them, together with a shortcut button to open the full contact record.
 
 ## AI-Generated Summaries
 
@@ -29,22 +29,15 @@ Summaries are displayed above the messenger preview, and the toggle preserves yo
 
 ### Events Tab
 
-The Events tab enables businesses to:
+The Events tab lists every action your agent took during the conversation, newest first. It enables businesses to:
 
-- **Review tool calls** - View all AI agent tool executions during the conversation
-- **Track task completions** - See completed tasks (API calls, calendar bookings, emails)
-- **Monitor tool success status** - Identify successful and failed tool executions
-- **View execution timestamps** - Track when each tool was called
-- **Distinguish tasks from tools** - Separate task-based actions from direct tool calls
-- **Navigate to task details** - Direct links to task configuration pages
-- **Refresh tool call data** - Manually update tool call information (5-second auto-refresh)
-
-Tool call information includes:
-
-- Tool or task name
-- Success/failure status indicator
-- Time of execution
-- Associated agent task details (when applicable)
+- **Review agent actions** - View every action the agent took
+- **Distinguish event types** - Each event carries a badge: **Tool** for one of your agent's [tools](/platform/agents/tools/api) (API calls, calendar bookings, emails), **Procedure** when the agent loaded one of your [procedures](/platform/agents/procedures), and **System** for built-in actions
+- **Monitor success status** - Identify successful and failed actions, with the request, the response, and any error for each one
+- **View execution timestamps** - Track when each action happened
+- **Navigate to details** - Jump to a tool's configuration with **View tool**
+- **See handoffs** - Events marked **Handed to the team** show where the agent passed a customer's request to your team as a [goal](/platform/goals/overview), which **View goal** opens. The agent keeps handling the conversation
+- **Refresh event data** - Manually update the list (5-second auto-refresh)
 
 ### Insights Tab
 
@@ -79,14 +72,42 @@ A toolbar appears at the top of each conversation so operators can take immediat
 
 - **Label chips** – Active labels are rendered as colored chips; click the inline × to remove one. Labels update instantly across the workspace.
 - **Manage labels** – Select the Tag icon to open a full dialog of all active team labels. Check or uncheck entries to manually assign conversations to intents that matter for your business.
-- **Request human assistance** – Toggle the concierge icon to mark the thread as requiring a teammate. Dimedove updates the chat record (`human_required` flag) and triggers relevant automation such as notification emails or webhook events.
+- **Request human assistance** – Toggle the concierge icon to mark the thread as requiring a teammate. Dimedove updates the conversation and triggers relevant automation such as notification emails or webhook events.
 - **Copy transcript** – Export the entire conversation into your clipboard, including user/agent roles, with a single click for handoffs or compliance logging.
 - **Manual refresh** – Reload both the transcript and tool call data while staying on the same page, useful during live escalations.
+- **More actions** – The ⋯ menu at the end of the toolbar holds **Pause** or **Resume**, **Confirm identity** (when it applies), and **Copy ID**. It only shows the actions that apply to this conversation.
 
 The toolbar works alongside automatic labeling so teams can override, enrich, or triage any conversation in seconds.
 
+## Pausing the agent
+
+When you want to handle a conversation yourself, pause the agent from the ⋯ menu. Pausing stops the agent in this conversation, and pauses the [goals](/platform/goals/overview) it is pursuing for the same contact and hands them to you. A new conversation with the contact, such as a new call or a new email thread, is still answered, and workflows and outbound campaigns are not paused.
+
+When you pause, you can optionally add:
+
+- **Reason**: a short note (up to 300 characters) shown to your teammates.
+- **Resume at**: a future time after which the agent answers this conversation again. The goals paused with it restart the next time the customer writes in, or when you choose **Resume**. Leave it empty to stay paused until you resume it yourself.
+
+While a conversation is paused, a **Paused** badge appears at the top of the conversation, along with when the agent resumes if you set a time.
+
+Choose **Resume** from the ⋯ menu to hand the conversation back. The agent starts replying again, and the goals that were handed to you restart, including goals you took over from the Goals page. Goals you paused from the Goals page stay paused.
+
+<Note>
+  On email channels, a reply from a teammate in the thread always pauses the agent. Your email channel's human handoff setting decides whether it resumes after a time. See [Email configuration](/platform/emails/configuration).
+</Note>
+
+## Confirming identity
+
+Your agents adjust what they share based on how sure they are about who they are talking to. A person who writes in from an unknown browser is treated differently from a caller whose number matches the contact on file. See [Identity](/platform/team/identity) for how each level is reached.
+
+When you recognize the person, or have checked them against something only your team can see, choose **Confirm identity** from the ⋯ menu. The contact is then **Verified** in this conversation: the agent may use and state what you have stored about them, including [notes](/platform/goals/notes) and details marked sensitive. A verified contact shows a blue shield with a check next to their name on the conversation's contact card.
+
+**Confirm identity** only appears when the conversation is linked to a contact who is not yet verified. If something already contradicted the person's identity, for example someone else writing into a thread tied to one person, the contact card shows a red shield and the confirmation dialog warns you before you vouch for them.
+
+Any member of your team can pause, resume, or confirm identity.
+
 ## Tips for managing chats
 
-- **Use tabs strategically** – Leave the Events tab open during troubleshooting so you can refresh tool calls after adjusting tasks, and switch to Insights when validating enrichment or labels.
+- **Use tabs strategically** – Leave the Events tab open during troubleshooting so you can refresh events after adjusting tools, and switch to Insights when validating enrichment or labels.
 - **Apply sidebar filters first** – Label/search filters in the left rail persist as you open chats, helping you focus on the right cohort.
 - **Jump to contacts** – Click the contact badge in the header to inspect historical context or update attributes without losing your Inbox position.

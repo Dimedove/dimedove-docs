@@ -21,7 +21,7 @@ The right-hand pane renders the exact messenger component that end users see:
 - A conversation summary surfaces above the transcript whenever the agent generated both a title and summary for that chat. The “See more/See less” toggle lets you expand longer recaps.
 - Dimedove automatically disables the messenger if a preview chat reaches its token limit and prompts you to start a new conversation.
 - The messenger reflects the locale, language, and personalization settings defined on the version you are testing. Inputs are disabled only when the chat is locked (e.g., token limit reached); otherwise you can type freely to simulate visitors.
-- When you are previewing a non-active version, the UI uses the draft messenger so styling, instructions, or tasks unique to that version can be verified before publishing.
+- When you are previewing a non-active version, the UI uses the draft messenger so styling, instructions, or tools unique to that version can be verified before publishing.
 
 ## Events & insights tabs
 
@@ -29,9 +29,9 @@ The left-hand panel contains tabs that mirror the Inbox experience, but scoped t
 
 ### Events
 
-- Lists every tool call and task execution triggered during the preview.
-- Shows success/failure states, execution timestamps, and links to the originating task configuration so you can immediately tweak misfiring steps.
-- Refreshes alongside the messenger, giving you immediate feedback on new prompts or task wiring.
+- Lists every tool call triggered during the preview.
+- Shows success/failure states, execution timestamps, and links to the originating tool configuration so you can immediately tweak misfiring steps.
+- Refreshes alongside the messenger, giving you immediate feedback on new prompts or tool wiring.
 
 ### Insights
 
@@ -50,7 +50,7 @@ Selecting **History** opens a right-side drawer with the version-specific archiv
 
 ## Tips for productive preview sessions
 
-- **Switch versions often** – Preview makes it trivial to A/B test prompts, tone, or tasks. Keep a draft dedicated to experiments, then publish only when you are confident in its output.
+- **Switch versions often** – Preview makes it trivial to A/B test prompts, tone, or tools. Keep a draft dedicated to experiments, then publish only when you are confident in its output.
 - **Validate tokens** – If you frequently hit the max-token overlay, consider shortening prompts or adding guardrails so production visitors never encounter it.
 - **Use history for collaboration** – Drop the preview URL (which includes the chat ID) into Slack or task trackers so teammates can reproduce exactly what you saw.
 - **Pair with labels and notifications** – When you preview new label conditions or notification triggers, the preview tabs will show whether those automations fire before you expose them to customers.

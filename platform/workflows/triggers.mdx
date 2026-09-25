@@ -1,11 +1,31 @@
 ---
 title: Triggers
-description: Event types that start workflow execution
+description: Events that start a workflow run, the filters that narrow them, and the data they carry
 ---
 
-Triggers define the event that starts a workflow. Each workflow has exactly one trigger. When the specified event occurs, the workflow is queued for execution and your action nodes run in sequence.
+Triggers define the event that starts a workflow. Each workflow has exactly one trigger, and it is always the first step on the canvas. When the event occurs, a new run starts and follows the workflow's steps, taking whichever branches its conditions lead to.
 
-Many triggers accept optional filters to narrow which events fire the workflow. For example, a Form Submission trigger can be filtered to a specific form, or an Inbound Call trigger can be filtered to a specific phone number. When no filter is applied, the trigger fires for any matching event across your team.
+Triggers only start runs while the workflow is **Live**, and every run uses the workflow's latest published version. Many triggers accept optional filters to narrow which events start a run. For example, a Form Submission trigger can be filtered to a specific form, or an Inbound Call trigger to a specific phone number. When no filter is applied, the trigger fires for any matching event across your team.
+
+## Trigger Types at a Glance
+
+| Trigger | Starts a run when | Filters |
+| --- | --- | --- |
+| **Webhook** | An HTTP POST request reaches the workflow's webhook URL | None |
+| **Manual** | You click **Run** in the dashboard, once or for a list | None |
+| **Qualified Opportunity** | An agent records a qualified opportunity | Agent, channel |
+| **Human required** | An agent requests human assistance | Agent |
+| **Form Submission** | A form submission is completed | Form |
+| **Email Received** | An inbound email arrives on an email channel | Email channel |
+| **Inbound Call** | An inbound phone call ends | Phone number |
+| **Inbound SMS** | An inbound SMS arrives | Phone number |
+| **Slack Message Received** | A Slack agent receives a message | Slack agent |
+| **Contact Created** | A new contact is captured | Agent, channel |
+| **Contact Updated** | A contact's attribute values change | Agent, channel, attributes, change source |
+| **Schedule** | A recurring time you set comes around | None (you set the schedule) |
+| **Goal completed** | An agent finishes a goal | Agent |
+| **Approval decided** | A teammate approves or rejects a request | None |
+| **Note created** | A note is added to a contact, a conversation, or a goal | None |
 
 ## Trigger Types
 
@@ -19,22 +39,28 @@ When you select the Webhook trigger, your workflow automatically receives a uniq
 https://hooks.dimedove.com/v1/w/{path}
 ```
 
-This URL is displayed in the trigger configuration panel. Share it with the external system that should start your workflow. The system sends a POST request with a JSON body to this URL, and the workflow executes.
+This URL is displayed on the trigger card and in the trigger's configuration panel, with a copy button. Share it with the external system that should start your workflow. The system sends a POST request with a JSON body to this URL, and a run starts.
 
 **Available Filters**: None. The webhook URL is unique to your workflow.
+
+Each run can read the request through template variables:
+
+- `{{trigger.body.field}}`: A field of the JSON body. If the body is not valid JSON, the run starts with an empty body.
+- `{{trigger.headers.Header-Name}}`: A request header. The `Authorization`, `Cookie`, and `X-Forwarded-For` headers are not kept.
+- `{{trigger.query.param}}`: A query string parameter.
 
 <Tip>You can test webhook triggers by sending a POST request with a JSON body using tools like curl, Postman, or any HTTP client.</Tip>
 
 #### Response
 
-The webhook endpoint responds asynchronously: it queues the workflow for execution and returns immediately. The actual action steps run in the background.
+The webhook endpoint responds right away: it creates the run and returns, and the steps run in the background.
 
 | Status | Meaning |
 | --- | --- |
-| `202 Accepted` | The workflow run was created and queued. The response body includes `workflow_run_id`. |
-| `400 Bad Request` | The workflow is not configured to run, or it references outbound channels (such as SMS) that are not available on your team. |
+| `202 Accepted` | The run was created. The response body includes `workflow_run_id`. |
+| `400 Bad Request` | The workflow cannot run: it is not **Live**, it has never been published, it has no webhook trigger, the payload is larger than 1 MB, or it uses SMS or Call steps that no phone number on your team can send. |
 | `404 Not Found` | No workflow exists at the given webhook path. |
-| `429 Too Many Requests` | The team is sending triggers faster than allowed. Wait for the duration in the `Retry-After` response header, then retry. |
+| `429 Too Many Requests` | Your team is sending more than 100 trigger events per minute. Wait for the duration in the `Retry-After` response header, then retry. |
 
 A successful response looks like:
 
@@ -49,7 +75,7 @@ A successful response looks like:
 
 #### Idempotency
 
-To make retries safe, include an `Idempotency-Key` header on your POST request. If the same key is replayed against the same workflow, Dimedove returns the original run instead of creating a new one, and the response body sets `idempotent_replay: true`.
+To make retries safe, include an `Idempotency-Key` header on your POST request. If the same key is sent to the same workflow again within 24 hours, Dimedove returns the original run's `workflow_run_id` instead of creating a new run, and the response body sets `idempotent_replay: true`.
 
 Keys are scoped per workflow: the same key sent to two different workflows produces two distinct runs. Use any opaque string your script can regenerate deterministically (a UUID, a hash of the payload, etc.).
 
@@ -60,39 +86,68 @@ curl -X POST https://hooks.dimedove.com/v1/w/{path} \
   -d '{"email": "lead@example.com"}'
 ```
 
-Including this header is strongly recommended for any script that may retry on network failures. Omitting it preserves the previous behavior (no deduplication).
+Including this header is strongly recommended for any script that may retry on network failures. Without it, every request starts a new run.
 
 For receiving events from Dimedove in your own external systems (the reverse direction), see [Webhooks](/developer/webhooks/overview).
 
 ### Manual
 
-Triggered manually from the dashboard by clicking the **Run** button. This is useful for testing workflows, running one-off automations, or triggering processes that do not correspond to a platform event.
+Triggered manually from the dashboard. This is useful for testing workflows, running one-off automations, or running a workflow once for every person on a list. The Manual trigger has nothing to configure.
 
-When a workflow uses a Manual trigger, a **Run** button appears in the workflow header. Clicking it immediately queues the workflow for execution.
+When the published workflow uses a Manual trigger, a **Run** button appears in the workflow header. It is available only while the workflow is **Live** and has no unpublished changes; otherwise it is greyed out, and its tooltip tells you what to do first.
+
+- **Run** (or **Run once** in its menu) starts a single run right away and opens the **Runs** tab.
+- **Run for a list** in its menu starts one run per row of a file you upload. See [Run for a List](#run-for-a-list).
+
+A single manual run starts with empty trigger data, so variables that read `trigger.body` resolve to empty text.
 
 **Available Filters**: None.
+
+#### Run for a List
+
+Use **Run for a list** to run a workflow once for each person in a spreadsheet, for example to start a follow-up sequence for a list of leads. It is available for workflows with a Manual trigger and no **Call** step. To call a list of people, use [outbound calls](/platform/outbound/calls) instead.
+
+<Steps>
+  <Step title="Open the list sheet">
+    Click the arrow next to **Run** and choose **Run for a list**. Optionally give the list run a **Name**: it is set once, when you upload the list.
+  </Step>
+  <Step title="Upload your list">
+    Upload a CSV or Excel file of up to 25 MB and 10,000 rows with an `email` or `phone_number` column (**Download template** gives you a starting point). Every other column is available to the workflow as `{{trigger.body.<column>}}`: under **Detected columns**, click a column to copy its variable. Rows that cannot be used are skipped and counted.
+  </Step>
+  <Step title="Choose when">
+    Choose **Run now**, or **Schedule for later** and pick a date and time at least 5 minutes ahead.
+  </Step>
+  <Step title="Confirm and start">
+    Tick the checkbox confirming that every recipient consented to receive messages from you. If the start time falls outside standard contact hours (8 AM to 9 PM), also acknowledge that. Review the estimated credit cost, then click **Run** (or **Schedule**).
+  </Step>
+</Steps>
+
+Each row becomes its own run, on the version that was published when you submitted the list. Each row is matched to a contact (a new contact is created when none exists), so steps such as **Wait for event** can wait for that person's reply. Addresses and numbers that opted out, and blocked contacts, are skipped.
+
+Runs start gradually rather than all at once, and only between 8 AM and 9 PM in your time zone, unless you acknowledged starting outside those hours: a list that is still starting at 9 PM continues the next morning. While the workflow is paused, the list waits; after about a week without progress, it stops.
+
+List runs appear under **List runs**, above the runs table, with counts of total, enrolled, running, completed, failed, and skipped rows. Click a list run to filter the runs table to its runs, or click **Recipients** to see what happened to each uploaded row (**Queued**, **Enrolled**, **Skipped**, or **Failed**, with the reason). **Cancel** stops a list run: no more runs start, and the runs it already started are cancelled too. Runs that already finished keep their result.
 
 ### Qualified Opportunity
 
 Triggered when one of your agents records a qualified opportunity during a conversation. This connects your agent's [performance tracking](/platform/agents/performance) to downstream automations, allowing you to instantly act on high-value leads.
 
-Use cases include notifying your sales team, pushing qualified lead data to your CRM via an HTTP request, or initiating a follow-up call or email.
+Use cases include notifying your sales team, pushing qualified lead data to your CRM via an HTTP request, or starting a follow-up goal.
 
 **Available Filters**:
 
-- **Agent**: Restrict the trigger to qualified opportunities recorded by a specific agent. Leave unset to fire for any agent on your team.
-- **Channel Type**: Restrict the trigger to opportunities from a specific channel: Web, Form, Call, SMS, Slack, or Email. Leave unset to fire for any channel.
+- **Filter by Agent**: Restrict the trigger to qualified opportunities recorded by a specific agent. Leave it on **Any agent** to fire for any agent on your team.
+- **Filter by Channel**: Restrict the trigger to opportunities from a specific channel: **Web**, **Forms**, **Calls**, **SMS**, **Slack**, **Emails**, **Socials** (Facebook Messenger, Instagram, and TikTok direct messages), or **Apps** (conversations from your [Apps](/developer/apps/overview)). Leave it on **Any channel** to fire for any channel.
 
 See [Agent Performance](/platform/agents/performance) for details on how qualified opportunities are recorded.
 
-### Human Required
+### Human required
 
-Triggered when an agent requests human assistance during a conversation. Use this to notify your team immediately when a conversation needs human intervention, whether by sending an email alert, posting to a Slack channel, or triggering an external notification system.
+Triggered when an agent requests human assistance during a conversation. Use this to notify your team immediately when a conversation needs human intervention, whether by emailing a teammate, posting to a Slack channel, or triggering an external notification system.
 
 **Available Filters**:
 
-- **Agent**: Restrict the trigger to human assistance requests from a specific agent. Leave unset to fire for any agent.
-- **Channel Type**: Restrict the trigger to requests from a specific channel: Web, Form, Call, SMS, Slack, or Email. Leave unset to fire for any channel.
+- **Filter by Agent**: Restrict the trigger to human assistance requests from a specific agent. Leave it on **Any agent** to fire for any agent.
 
 See [Human Fallback](/platform/agents/behavior/human-fallback) for details on when and why agents escalate to humans.
 
@@ -102,7 +157,7 @@ Triggered when a form submission is completed. Use this to send collected form d
 
 **Available Filters**:
 
-- **Form**: Restrict the trigger to submissions from a specific form. Leave unset to fire for any form on your team.
+- **Filter by Form**: Restrict the trigger to submissions from a specific form. Leave it on **Any form** to fire for any form on your team. When you pick a form, its fields are offered as variables such as `{{trigger.body.form_data.email}}`.
 
 <Note>The dashboard displays a warning indicator next to forms that are currently disabled. Disabled forms will not generate submissions, so the trigger will not fire for them.</Note>
 
@@ -110,11 +165,11 @@ See [Forms](/platform/forms/overview) for details on form configuration and data
 
 ### Email Received
 
-Triggered when an inbound email arrives at one of your [email channels](/platform/emails/overview). Use this to trigger actions based on incoming customer emails, such as forwarding data to an external system, notifying a Slack channel, or initiating a follow-up workflow.
+Triggered when an inbound email arrives at one of your [email channels](/platform/emails/overview) and your agent handles it. Emails in a conversation a teammate has paused, and opt-out requests, do not start runs. Use this to trigger actions based on incoming customer emails, such as forwarding data to an external system, notifying a Slack channel, or starting a follow-up workflow.
 
 **Available Filters**:
 
-- **Email Channel**: Restrict the trigger to emails received on a specific email channel. Leave unset to fire for any email channel on your team.
+- **Filter by Email Channel**: Restrict the trigger to emails received on a specific email channel. Leave it on **Any email channel** to fire for any email channel on your team.
 
 <Note>The dashboard displays a warning if the selected email channel is currently disabled. Disabled channels will not receive emails, so the trigger will not fire.</Note>
 
@@ -122,11 +177,11 @@ See [Email Channels](/platform/emails/overview) for details on email channel set
 
 ### Inbound Call
 
-Triggered when an inbound phone call is received on one of your team [phone numbers](/platform/telephony/overview). Use this to trigger post-call actions such as sending a follow-up email, notifying your team, or logging call data to an external system.
+Triggered when an inbound phone call on one of your team [phone numbers](/platform/telephony/overview) ends. The trigger data includes the call's duration and a summary of its transcript. Use this to trigger post-call actions such as sending a follow-up email, notifying your team, or logging call data to an external system.
 
 **Available Filters**:
 
-- **Phone Number**: Restrict the trigger to calls received on a specific phone number. Leave unset to fire for any phone number on your team.
+- **Filter by Phone Number**: Restrict the trigger to calls received on a specific phone number. Leave it on **Any phone number** to fire for any phone number on your team.
 
 <Note>The dashboard displays warnings if the selected phone number is disabled or does not have calls enabled.</Note>
 
@@ -134,11 +189,11 @@ See [Telephony](/platform/telephony/overview) for details on phone number config
 
 ### Inbound SMS
 
-Triggered when an inbound SMS message is received on one of your team [phone numbers](/platform/telephony/overview). Use this to trigger actions based on incoming text messages, such as forwarding the message content to a Slack channel or logging it in an external system.
+Triggered when an inbound SMS message is received on one of your team [phone numbers](/platform/telephony/overview) and your agent handles it. Messages in a conversation a teammate has paused, and opt-out keywords such as STOP, do not start runs. Use this to trigger actions based on incoming text messages, such as forwarding the message content to a Slack channel or logging it in an external system.
 
 **Available Filters**:
 
-- **Phone Number**: Restrict the trigger to SMS received on a specific phone number. Leave unset to fire for any phone number on your team.
+- **Filter by Phone Number**: Restrict the trigger to SMS received on a specific phone number. Leave it on **Any phone number** to fire for any phone number on your team.
 
 <Note>The dashboard displays warnings if the selected phone number is disabled or does not have SMS enabled.</Note>
 
@@ -146,33 +201,125 @@ See [Telephony](/platform/telephony/overview) for details on phone number config
 
 ### Slack Message Received
 
-Triggered when a Slack message is received in a channel where a [Slack Agent](/platform/slack/overview) is deployed. This includes both direct @mentions and messages in threads where the agent is participating. Use this to trigger actions based on Slack activity, such as logging messages or triggering external processes.
+Triggered when a Slack message is received in a channel where a [Slack Agent](/platform/workspace/overview) is deployed. This includes both direct @mentions and messages in threads where the agent is participating. Use this to trigger actions based on Slack activity, such as logging messages or triggering external processes.
 
 **Available Filters**:
 
-- **Slack Agent**: Restrict the trigger to messages received by a specific Slack Agent. Leave unset to fire for any Slack Agent on your team.
+- **Filter by Slack Agent**: Restrict the trigger to messages received by a specific Slack Agent. Leave it on **Any Slack Agent** to fire for any Slack Agent on your team.
 
 <Note>The dashboard displays a warning if the selected Slack Agent is currently disabled. Disabled agents will not receive messages, so the trigger will not fire until the agent is re-enabled.</Note>
 
-See [Slack Agents](/platform/slack/overview) for details on deploying agents to Slack channels.
+See [Slack Agents](/platform/workspace/overview) for details on deploying agents to Slack channels.
+
+### Contact Created
+
+Runs once when a new contact is captured with its initial data, for example when someone first reaches out on one of your channels or shares their details with your agent. Use this to welcome new leads, enrich them, or hand them to an agent as a [goal](/platform/goals/overview).
+
+**Available Filters**:
+
+- **Filter by Agent**: Restrict the trigger to contacts captured by a specific agent.
+- **Filter by Channel**: Restrict the trigger to contacts who came in on a specific channel (same options as for Qualified Opportunity).
+
+The trigger data includes the contact's attribute values, available as `{{trigger.body.attributes.<key>}}` (for example `{{trigger.body.attributes.email}}`).
+
+<Note>Contact triggers never fire for contacts that only exist in preview conversations, and never for edits a teammate makes to a contact in the dashboard.</Note>
+
+See [Contacts](/platform/contacts/overview) for details on contacts and their attributes.
+
+### Contact Updated
+
+Runs when a contact's attribute values change, for example when your agent learns a phone number during a conversation or an enrichment step fills in a job title.
+
+**Available Filters**:
+
+- **Filter by Agent** and **Filter by Channel**: The same filters as Contact Created.
+- **Filter by Attributes**: Only fire when at least one of the selected attributes changes. Leave it empty to match any attribute.
+- **Filter by Change Source**: Only fire for the selected sources: **Insights** (values your agents pick up in conversations) or **Enrichment** (values written by enrichment and by workflow steps). Leave it empty to match any source.
+
+The trigger data includes the contact's current attribute values (`{{trigger.body.attributes.<key>}}`), the list of attributes that changed (`changed_attributes`), and what changed them (`change_source`).
+
+A new contact's first data starts **Contact Created**, not Contact Updated. The exception is a Contact Updated trigger filtered to particular attributes: it also fires for a new contact whose first data includes one of them.
+
+<Note>Edits a teammate makes in the dashboard never fire contact triggers. When a workflow step changes a contact (**Update contact attribute** or **Enrichment**), it can start other workflows' Contact Updated triggers, but never the workflow that made the change.</Note>
+
+### Schedule
+
+Runs on a recurring schedule (cron), for example to send a weekly report or check an external system every morning. The workflow runs at each scheduled time while it is **Live**.
+
+**Settings**:
+
+- **Frequency**: Pick a preset: **Every 15 minutes**, **Every hour**, **Every day at 9:00**, **Weekdays at 9:00**, **Every Monday at 9:00**, or **1st of the month at 9:00**, or choose **Custom**. New schedules start on **Weekdays at 9:00**.
+- **Cron expression**: The schedule as 5 fields: minute, hour, day of month, month, and day of week (for example `0 9 * * 1-5`). Runs must be at least 15 minutes apart.
+- **Timezone**: The time zone the schedule follows (America/Toronto by default).
+
+The scheduled time is available as `{{trigger.body.scheduled_at}}`.
+
+**Available Filters**: None.
+
+### Goal completed
+
+Runs when an agent finishes a [goal](/platform/goals/overview), whether the goal completed, failed, or was cancelled. Use this to report outcomes, update an external system, or start the next stage of a process.
+
+**Available Filters**:
+
+- **Filter by Agent**: Restrict the trigger to goals pursued by a specific agent.
+
+The trigger data includes the goal's `title` and its final `status` (`completed`, `failed`, or `cancelled`). To act only on goals that were reached, add a **Condition** on `trigger.body.status` right after the trigger.
+
+<Note>A goal started by a workflow's **Start goal** step never starts that same workflow's Goal completed trigger. To continue a workflow when its own goal finishes, turn on **Wait for completion** in the Start goal step instead.</Note>
+
+### Approval decided
+
+Runs when a teammate approves or rejects a request, whether it came from a goal (see [Tasks and Approvals](/platform/goals/tasks)) or from a workflow's **Approval request** step. The trigger data tells you whether the request was approved (`approved`) and who decided (`decided_by`).
+
+**Available Filters**: None.
+
+### Note created
+
+Runs when a note is added to a contact, a conversation, or a goal, such as the note your agent files after a conversation. The trigger data includes the note's `title` and, when the note is about a contact, its `contact_id`.
+
+**Available Filters**: None.
+
+See [Notes](/platform/goals/notes) for details on notes.
 
 ## How Trigger Filters Work
 
-Filters give you precise control over which events fire your workflow:
+Filters give you precise control over which events start your workflow:
 
 - **Filter set**: The workflow only fires when the event comes from the specific resource you selected (e.g., a particular form, phone number, or agent)
 - **Filter unset ("Any")**: The workflow fires for every matching event across your entire team
+- **Several filters**: An event must match all of the filters you set
+- **Several values in one filter** (Contact Updated attributes and change sources): The event matches when any of the selected values matches
 
-You can combine a trigger type with a filter to create targeted automations. For example:
+You can combine a trigger type with filters to create targeted automations. For example:
 
 - "Fire only when the Sales Inquiry form is submitted"
 - "Fire when any agent on the team requests human help"
-- "Fire only when an email is received on the Support email channel"
+- "Fire only when a contact's phone number changes"
 
 ## Accessing Trigger Data
 
-All trigger data is available to your action nodes through template variables. Use `{{trigger.body.field_name}}` in your action configurations to reference data from the event payload. The specific fields available depend on the trigger type.
+All trigger data is available to your steps through template variables. Use `{{trigger.body.field_name}}` in any text field to reference data from the event. When you configure a step, its panel lists the **Available trigger data:** for the workflow's trigger: click a variable to copy it. For contact triggers, the list also includes each of your contact attributes as `{{trigger.body.attributes.<key>}}`, and for a Form Submission trigger with a form selected, each form field as `{{trigger.body.form_data.<key>}}`.
 
-You can inspect the exact payload for any workflow run by opening the run details in the Runs tab. This is especially useful when building your first workflow or discovering which fields are available for a given trigger type.
+Commonly used fields include:
 
-<Tip>Use the Manual trigger to test your workflow with sample payloads and verify that your template variables resolve correctly before switching to an event-driven trigger.</Tip>
+| Trigger | Fields under `trigger.body` |
+| --- | --- |
+| **Webhook** | Your JSON body, plus `trigger.headers` and `trigger.query` |
+| **Qualified Opportunity** | `agent_name`, `channel`, `details`, `chat_title`, `chat_summary`, `chat_id` |
+| **Human required** | `agent_name`, `chat_title`, `chat_summary`, `chat_id` |
+| **Form Submission** | `form_name`, `form_data`, `external_id`, `chat_id` |
+| **Email Received** | `from_email`, `from_name`, `subject`, `message_body`, `chat_id` |
+| **Inbound Call** | `from_phone`, `to_phone`, `duration_seconds`, `transcript_summary`, `chat_id` |
+| **Inbound SMS** | `from_phone`, `to_phone`, `message`, `chat_id` |
+| **Slack Message Received** | `slack_agent_name`, `slack_channel_name`, `slack_user_id`, `user_message`, `chat_id` |
+| **Contact Created** | `display_name`, `attributes`, `channel`, `agent_name`, `contact_id` |
+| **Contact Updated** | The Contact Created fields, plus `changed_attributes` and `change_source` |
+| **Schedule** | `scheduled_at` |
+| **Goal completed** | `title`, `status`, `contact_id` |
+| **Approval decided** | `approved`, `decided_by`, `contact_id` |
+| **Note created** | `title`, `subject_type`, `contact_id` |
+
+Attributes treated as sensitive, such as addresses or policy numbers, are left out of contact trigger data. You can inspect the exact data for any run by opening its run logs in the **Runs** tab. This is especially useful when building your first workflow or discovering which fields are available for a given trigger type.
+
+<Tip>A single manual run has no trigger data. To try a workflow on sample data, send a test request to a Webhook trigger (for example with curl), or use **Run for a list** with a one-row file that contains your own email address or phone number, then check the run logs to confirm your variables resolve as expected.</Tip>

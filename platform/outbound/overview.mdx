@@ -1,0 +1,91 @@
+---
+title: Overview
+description: Reach contacts first with outbound calls, text messages, and emails, one at a time or as a batch
+---
+
+<Info>Outbound is a Pro feature. Call and SMS batches require telephony, and telephony add-on charges apply. Email batches use an [email channel](/platform/emails/overview) instead, and consume [credits](/platform/team/credits) for each email sent. See [pricing](https://www.dimedove.com/pricing) for details.</Info>
+
+Your agents answer the conversations customers start. Outbound lets them start the conversation: place a call, send a text message, or send an email to the people on your list, then carry on the conversation exactly as they would if the contact had come to you. Every conversation lands in your [Inbox](/platform/inbox/overview) alongside all your other channels, linked back to the batch that started it.
+
+You find batches under **Manage > Outbound** in your dashboard sidebar.
+
+## Channels
+
+<CardGroup cols={3}>
+  <Card title="Calls" icon="phone" href="/platform/outbound/calls">
+    Your agent calls each recipient, opens with a spoken first message, and handles the call like any inbound call
+  </Card>
+  <Card title="SMS" icon="message-square" href="/platform/outbound/sms">
+    Your agent texts each recipient and carries on the conversation over two-way SMS
+  </Card>
+  <Card title="Email" icon="mail" href="/platform/outbound/email">
+    Your agent emails each recipient from one of your email channels and answers the replies
+  </Card>
+</CardGroup>
+
+Calls and SMS use the phone numbers you have set up under [Telephony](/platform/telephony/overview): a number must be enabled and have the matching service turned on, and its assigned agent handles the conversations. Emails do not need telephony: they are sent from an [email channel](/platform/emails/overview), and the channel's agent handles the replies.
+
+## How a Batch Works
+
+1. **Create it**: under **Manage > Outbound**, click **Create** and choose **Calls**, **SMS**, or **Emails**. The channel is set when you create the batch and cannot be changed afterwards.
+2. **Add your recipients**: upload a CSV or Excel file (see below).
+3. **Configure the message**: each channel has its own settings, such as the first message of a call, the text of an SMS, or the subject and body of an email. See [Calls](/platform/outbound/calls), [SMS](/platform/outbound/sms), and [Email](/platform/outbound/email).
+4. **Add context and instructions**: optional **Additional context** is passed to the agent for every recipient, and optional **Campaign instructions** make the batch follow up (see below).
+5. **Run or schedule it**: click **Run**, then choose **Run now** or **Schedule for later**.
+6. **Follow it**: the batch's **Activity** tab shows its totals and each recipient's status.
+
+### Recipients
+
+Upload your recipients as a CSV or Excel file of up to 25 MB and 10,000 recipients. Each row is one recipient:
+
+- **Phone number**: for calls and SMS, a `phone_number` column is required and is normalized automatically.
+- **Email**: for emails, an `email` column is required.
+- **Additional columns**: any other columns (such as `first_name`) become per-recipient variables you can reference in your message (for example, `{{first_name}}`) and that are passed to the agent as context for that person.
+
+Rows with a missing or invalid address, and duplicate recipients, are skipped, and the upload tells you how many. Click **Download template** in the batch editor to get the expected format.
+
+### Campaign Instructions
+
+Any batch, on any channel, can also follow up with its recipients:
+
+- **Campaign instructions**: what the campaign is trying to do and how to react, in your own words (for example, "If someone asks about pricing, send the tier sheet and offer a call. If nobody replies within a week, follow up once, then stop."). They guide the messages, the follow-ups, and the replies on every channel. Keep background facts about the recipients in **Additional context** instead.
+- **Maximum messages per person**: shown once you add instructions. It caps how many messages each person receives, counting the first one (3 by default, from 1 to 20). The campaign stops reaching out to someone once they reach it, whatever the instructions say.
+
+Without instructions, a batch sends its one message and nothing follows up. With them, the agent follows up with each person as your instructions describe, and can use another channel when your instructions call for it. Follow-ups written from your instructions don't wait for approval, although the agent still asks when a draft looks wrong. Follow-ups are [agent work](/platform/goals/settings): they only run while agent work is on for your team, and they use [credits](/platform/team/credits).
+
+## Sending and Scheduling
+
+Click **Run**, then choose **Run now** or **Schedule for later**. A schedule takes a date, a time, and a timezone, at least 5 minutes and at most 30 days ahead. To change a scheduled batch, click **Edit** on its schedule banner: the batch goes back to a draft that you can edit, then run or schedule again.
+
+Before a batch starts, you confirm it:
+
+- **SMS and email batches** ask you to confirm that every recipient consented to receive your messages, each time you run or schedule the batch.
+- **Call batches** show a reminder instead: calls follow the National Do Not Call List (DNCL) rules, so only call people you are allowed to call.
+
+Batches on every channel send only between 8 AM and 9 PM in the batch's timezone (the one you schedule in, or your browser's when you run now). If the start time is outside that window, you must acknowledge it before continuing, and the batch then sends regardless of the hour. Otherwise, a batch still sending at 9 PM pauses and resumes at 8 AM.
+
+Recipients are dispatched at a steady pace appropriate to your phone number or email channel.
+
+## Following a Batch
+
+A batch's **Activity** tab shows its totals and each recipient's status, with **View chat** to open the conversation once the recipient engages. Each channel has its own statuses: see [Calls](/platform/outbound/calls#recipient-statuses), [SMS](/platform/outbound/sms#recipient-statuses), and [Email](/platform/outbound/email#recipient-statuses). Recipients who have opted out are skipped and shown as **Opted out**, including anyone who opts out while the batch is running.
+
+## Stopping and Retrying
+
+While a batch is running or scheduled, **Cancel** stops it: recipients already contacted keep their outcome, everything still queued is dropped, and the batch cannot be resumed.
+
+If a batch stops before finishing its list, the **Activity** tab says why, for example "The batch stopped: the team ran out of call minutes." Other reasons include the phone number or email channel being disabled, the email channel's domain no longer being verified, agent work being paused or stopped for your team, and every recipient having opted out.
+
+Once a batch has finished, **Retry failed** appears when the batch has **Failed** recipients or stopped early. It contacts the failed recipients again and resumes any recipients a stopped batch never reached. Usage fees apply to a retry.
+
+To send a batch again, choose **Duplicate** from the batch list: it creates a new draft with the same configuration and recipients. Only drafts can be deleted.
+
+## Outbound from Workflows and Goals
+
+You can also reach a single contact in response to an event rather than as part of a batch: the **Call**, **SMS**, and **Email** steps of [workflows](/platform/workflows/actions) send one message each time the workflow runs. And when you give an agent a [goal](/platform/goals/overview), it reaches out on its own by email, text, or phone as it works toward the outcome.
+
+## Opt-outs and Compliance
+
+Opt-outs are respected everywhere your agents reach out, including batches, workflows, and goals. The **Opt-outs** page, opened with the **Opt-outs** button under **Manage > Outbound**, lists everyone who asked not to be contacted and how. See [Opt-outs](/platform/outbound/opt-outs).
+
+You are responsible for ensuring your outbound messaging complies with the regulations that apply to you, including obtaining the consent required to contact your recipients.

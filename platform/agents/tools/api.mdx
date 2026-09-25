@@ -3,7 +3,11 @@ title: API
 description: Configure API integrations for your agent to perform actions
 ---
 
-API tasks give your agent the ability to make HTTP requests to external services during conversations. Whether you need to look up customer data, submit forms, or trigger workflows in other systems, API tasks provide full control over request construction.
+API tools give your agent the ability to make HTTP requests to external services during conversations. Whether you need to look up customer data, submit forms, or trigger workflows in other systems, API tools provide full control over request construction.
+
+## Who this tool is for
+
+Your agent answers in two kinds of conversation: the ones it has with your customers, and the ones your own team has with it. The **Who this tool is for** setting on the tool's **Basic** tab decides which of them can use it: **Everywhere** (the default) for both, **Customers only** to keep it out of your team's own conversations, or **Your team only** so it never reaches a customer, not even through a goal. The preview reflects a change right away, and your live channels pick it up when you publish the agent.
 
 ## Configuration
 
@@ -26,11 +30,11 @@ The HTTPS endpoint your agent will call. The URL can include path parameters usi
 Dynamic segments in your URL that get replaced at runtime. For each path parameter:
 
 - **Key** - Matches the placeholder in your URL (e.g., `userId`)
-- **Value type** - Either a static value you define, or a reference to a task input collected from the visitor
+- **Value type** - Either a static value you define, or a reference to an input collected from the visitor
 
 ### Query Parameters
 
-URL query string parameters appended to your request. Like path parameters, each can be static or sourced from task inputs.
+URL query string parameters appended to your request. Like path parameters, each can be static or sourced from inputs.
 
 ### Headers
 
@@ -49,9 +53,9 @@ For POST, PUT, and PATCH requests, define the JSON body structure. The body buil
 - **Arrays** - Lists of items, either static or from inputs
 - **Nested objects** - Complex structures up to 3 levels deep
 
-## Task Inputs
+## Inputs
 
-Task inputs are pieces of information your agent collects from visitors during the conversation. These inputs can then be used as dynamic values in your API request (path parameters, query parameters, or body fields).
+Inputs are pieces of information your agent collects from visitors during the conversation. These inputs can then be used as dynamic values in your API request (path parameters, query parameters, or body fields).
 
 For each input, you define:
 

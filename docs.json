@@ -101,13 +101,14 @@
                 ]
               },
               "platform/agents/procedures",
+              "platform/agents/attachments",
               {
-                "group": "Tasks",
+                "group": "Tools",
                 "pages": [
-                  "platform/agents/tasks/api",
-                  "platform/agents/tasks/mcp",
-                  "platform/agents/tasks/calendar",
-                  "platform/agents/tasks/email"
+                  "platform/agents/tools/api",
+                  "platform/agents/tools/mcp",
+                  "platform/agents/tools/calendar",
+                  "platform/agents/tools/email"
                 ]
               },
               "platform/agents/performance",
@@ -136,10 +137,20 @@
             ]
           },
           {
+            "group": "Goals",
+            "pages": [
+              "platform/goals/overview",
+              "platform/goals/tasks",
+              "platform/goals/notes",
+              "platform/goals/settings"
+            ]
+          },
+          {
             "group": "Ask Dimedove",
             "pages": [
               "platform/ask-dimedove/overview",
-              "platform/ask-dimedove/how-to"
+              "platform/ask-dimedove/how-to",
+              "platform/ask-dimedove/delegation"
             ]
           },
           {
@@ -147,6 +158,8 @@
             "pages": [
               "platform/team/overview",
               "platform/team/manage",
+              "platform/team/business",
+              "platform/team/identity",
               "platform/contacts/labels",
               "platform/contacts/attributes",
               "platform/team/notifications",
@@ -174,22 +187,33 @@
             "group": "Telephony",
             "pages": [
               "platform/telephony/overview",
-              "platform/telephony/configuration",
-              "platform/telephony/outbound"
+              "platform/telephony/configuration"
             ]
           },
           {
-            "group": "Slack",
+            "group": "Workspace",
             "pages": [
-              "platform/slack/overview",
-              "platform/slack/configuration"
+              "platform/workspace/overview",
+              "platform/workspace/configuration"
             ]
           },
           {
             "group": "Socials",
             "pages": [
               "platform/socials/overview",
-              "platform/socials/messenger"
+              "platform/socials/facebook-messenger",
+              "platform/socials/instagram",
+              "platform/socials/tiktok"
+            ]
+          },
+          {
+            "group": "Outbound",
+            "pages": [
+              "platform/outbound/overview",
+              "platform/outbound/calls",
+              "platform/outbound/sms",
+              "platform/outbound/email",
+              "platform/outbound/opt-outs"
             ]
           },
           {
@@ -288,9 +312,12 @@
           {
             "group": "Integrations",
             "pages": [
+              "integrations/overview",
               "integrations/slack",
+              "integrations/microsoft-teams",
               "integrations/facebook-messenger",
               "integrations/instagram",
+              "integrations/tiktok",
               "integrations/hubspot",
               "integrations/salesforce",
               "integrations/attio",
@@ -366,6 +393,30 @@
     {
       "source": "/developer/api/manage-keys",
       "destination": "/developer/apps/api-keys"
+    },
+    {
+      "source": "/platform/agents/tasks/:slug*",
+      "destination": "/platform/agents/tools/:slug*"
+    },
+    {
+      "source": "/platform/slack/:slug*",
+      "destination": "/platform/workspace/:slug*"
+    },
+    {
+      "source": "/platform/msteams/:slug*",
+      "destination": "/platform/workspace/:slug*"
+    },
+    {
+      "source": "/slack/overview",
+      "destination": "/platform/workspace/overview"
+    },
+    {
+      "source": "/platform/telephony/outbound",
+      "destination": "/platform/outbound/overview"
+    },
+    {
+      "source": "/platform/socials/messenger",
+      "destination": "/platform/socials/facebook-messenger"
     }
   ],
   "seo": {

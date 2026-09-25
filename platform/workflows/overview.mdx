@@ -1,78 +1,120 @@
 ---
 title: Overview
-description: Automate multi-step processes by connecting platform events to actions
+description: Automate multi-step processes that start from a platform event, branch on what happens, and act across your channels
 ---
 
 <Info>Workflows are available to teams on the Pro subscription.</Info>
 
-Workflows let you automate multi-step processes by connecting platform events to actions. When a specific event occurs, such as a form submission, an inbound email, a qualified opportunity, or an incoming phone call, a workflow automatically executes a sequence of actions like sending an email, making an HTTP request, placing an outbound call, or posting a Slack message.
+Workflows let you automate multi-step processes. When a specific event occurs, such as a form submission, an inbound email, a qualified opportunity, a new contact, or a time on a schedule, a workflow starts a run and follows the steps you laid out: sending an email or a text message, placing an outbound call, posting to Slack, calling an external API, updating the contact, asking a teammate for approval, or letting AI pick the next path. Steps can wait for a reply, split into branches, and repeat for every item in a list, so one workflow can cover a whole process from first touch to follow-up.
 
-Workflows bring together your [agents](/platform/agents/overview), [forms](/platform/forms/overview), [email channels](/platform/emails/overview), [phone numbers](/platform/telephony/overview), and [Slack workspace](/platform/slack/overview) into a single automation layer, enabling you to build end-to-end processes without leaving the Dimedove dashboard.
+Workflows bring together your [agents](/platform/agents/overview), [forms](/platform/forms/overview), [email channels](/platform/emails/overview), [phone numbers](/platform/telephony/overview), [Slack workspace](/platform/workspace/overview), [contacts](/platform/contacts/overview), and [goals](/platform/goals/overview) into a single automation layer, so you can build end-to-end processes without leaving the Dimedove dashboard. You find them under **Workflows**, in the **Manage** section of the sidebar.
 
 ## Key Features
 
 ### Event-Driven Triggers
 
-Every workflow starts with a trigger: the event that kicks off execution. Dimedove provides 9 trigger types that respond to real platform events, including webhook requests, form submissions, inbound emails, phone calls, SMS messages, Slack messages, qualified opportunities, and human assistance requests. You can also trigger workflows manually from the dashboard for testing or one-off runs.
+Every workflow starts with a trigger: the event that starts a run. Dimedove provides 15 trigger types: webhook requests, manual runs from the dashboard (once, or once per row of an uploaded list), a recurring schedule, form submissions, inbound emails, calls, SMS, and Slack messages, qualified opportunities, human assistance requests, new and updated contacts, finished goals, approval decisions, and new notes.
 
-Each trigger connects to an existing platform resource, and you can optionally apply filters to narrow which specific resource fires the trigger (for example, only a specific form or a specific phone number).
+Most triggers accept optional filters to narrow which events start a run (for example, only a specific form, a specific phone number, or a specific agent).
 
-See [Triggers](/platform/workflows/triggers) for details on each trigger type and its available filters.
+See [Triggers](/platform/workflows/triggers) for details on each trigger type and its filters.
 
-### Configurable Actions
+### Steps That Branch, Wait, and Act
 
-After a trigger fires, workflows execute one or more actions. Dimedove provides 6 action types: HTTP Request, Email, SMS, Call, Slack Message, and Delay. Each action type has its own configuration fields, and all text fields support template variables for inserting dynamic data from the trigger payload.
+After the trigger, a workflow runs steps, laid out top to bottom on a visual canvas. Some steps split the run into branches (for example, **True** and **False** after a **Condition**), and each branch can hold its own steps. Dimedove provides 22 step types in six groups:
 
-See [Actions](/platform/workflows/actions) for details on each action type and its configuration options.
+| Group | Steps | What they do |
+| --- | --- | --- |
+| **Logic** | Filter, Condition, Switch, Loop | Stop a run, branch on conditions, route on a field value, or repeat steps for each item in a list |
+| **Wait** | Delay, Wait until, Wait for event | Pause for a duration, until a date and time, or until a reply or another event arrives |
+| **Actions** | HTTP Request, Email, SMS, Call, Slack, Run tools, Start goal | Reach people and systems, run an agent's tools, or hand a goal to an agent |
+| **Data** | Enrichment, Update contact attribute, Add label | Update the contact or conversation behind the run |
+| **AI** | AI summary, AI decision | Summarize the run's data, or let AI choose a branch |
+| **Teammates** | Assign teammate, Notify teammate, Approval request | Pick a teammate, email teammates, or wait for a teammate's approval |
+
+Text fields support template variables for inserting data from the trigger. Message steps (Email, SMS, Call, Slack, and Notify teammate) can also be written for you: switch the step to **Prompt** mode, describe the message, and an agent writes it for each run.
+
+See [Steps](/platform/workflows/actions) for details on each step type and its settings.
 
 ### Workflow Statuses
 
 Workflows have three statuses that control their behavior:
 
-- **Draft**: The workflow is being configured and will not run. This is the default status for new workflows.
-- **Live**: The workflow is active and responds to trigger events. You can enable a workflow using the toggle in the dashboard.
-- **Paused**: The workflow is temporarily disabled. Its configuration is preserved, but trigger events will not start new runs.
+- **Draft**: The workflow has not been turned on yet and does not run. This is the status of every new workflow.
+- **Live**: The workflow is active and responds to trigger events. You turn it on with the switch in the workflow header once its changes are published.
+- **Paused**: The workflow is turned off. Its configuration is preserved, but trigger events do not start new runs, and runs already in progress are cancelled when they reach their next step.
+
+### Drafts, Publishing, and Versions
+
+Every change you make in the editor saves automatically as a draft. Drafts have no effect on the live workflow until you publish them, and a checklist makes sure the workflow is complete before you can. Each publish creates a new numbered version. Runs in progress finish on the version they started with, and every run records the version it ran on, so you can always see exactly what a run executed.
+
+See [Configuration](/platform/workflows/configuration) for building, publishing, and managing workflows.
 
 ### Template Variables
 
-Template variables let you pass dynamic data from triggers into action configurations. Use double curly braces to reference values from the trigger payload:
+Template variables let you pass dynamic data from the trigger into your steps. Use double curly braces to reference values:
 
-- `{{trigger.body.field_name}}`: Access a field from the trigger event payload
-- `{{trigger.headers.Header-Name}}`: Access request headers (webhook triggers)
-- `{{trigger.query.param}}`: Access query string parameters (webhook triggers)
+- `{{trigger.body.field_name}}`: A field from the trigger event data
+- `{{trigger.headers.Header-Name}}`: A request header (webhook triggers)
+- `{{trigger.query.param}}`: A query string parameter (webhook triggers)
+- `{{loop.item}}`: The current item, for steps inside a **Loop**
 
-Template variables support dot notation for nested access (e.g., `{{trigger.body.user.name}}`) and array index access (e.g., `{{trigger.body.items.0.name}}`).
+Template variables support dot notation for nested access (e.g., `{{trigger.body.user.name}}`) and array index access (e.g., `{{trigger.body.items.0.name}}`). A variable that has no value becomes empty text.
 
-See [Configuration](/platform/workflows/configuration) for more details on using template variables when building workflows.
+See [Configuration](/platform/workflows/configuration#using-template-variables) for more details on using template variables.
 
-### Run History and Analytics
+### Runs and Analytics
 
-Every workflow execution is recorded as a run. The Runs tab provides full visibility into your workflow's activity:
+Every workflow execution is recorded as a run:
 
-- **Run history**: View all executions with their status, trigger type, duration, and step progress
-- **Run details**: Inspect the complete trigger data, step-by-step inputs and outputs, and error messages for any run
-- **Analytics dashboard**: Track runs over time, total run count, success rate, and average duration with configurable time ranges and trend comparisons
+- **Run history**: The **Runs** tab lists every run with its status, trigger, the version it ran on, duration, step progress, and credits
+- **Run logs**: Inspect the trigger data, each step's input and output, the branch it took, any waits, and error messages, or view the run drawn on the workflow canvas
+- **Run controls**: Cancel a run in progress, or retry a finished run with the same trigger data
+- **Analytics**: The **Overview** tab charts runs over time, with total runs, success rate, and average duration
+
+### Credits
+
+Workflow runs consume [credits](/platform/team/credits): each run that starts uses a base amount, plus credits for each step it completes. Steps that use AI, such as messages written in **Prompt** mode, **AI summary**, and **AI decision**, use more credits than simple sends, while Wait and Logic steps do not add to the cost. Contact enrichment is priced by the data it looks up and appears as its own **Enrichment** line in your usage. Steps that fail add nothing beyond the base.
+
+Each run shows the credits it used in the **Credits** column of the **Runs** tab and in its run logs once the run finishes. Your team's totals appear under **Settings > Usage > Credits**, where workflow runs are listed with the activity **Workflows** and the workflow's name under **Consumed by**. Text messages and call minutes are also metered as telephony usage.
 
 ### Inbox Integration
 
-When Email, SMS, or Call actions are sent through agent-assigned channels, they automatically create conversations in your [Inbox](/platform/inbox/overview). These inbox conversations show the workflow origin, with a direct link back to the specific workflow run that created them. Your agents can then continue the conversation with the recipient through the Inbox, enabling workflows to seamlessly initiate outreach that transitions into agent-powered conversations.
+When Email, SMS, or Call steps are sent through agent-assigned channels, they automatically create conversations in your [Inbox](/platform/inbox/overview). These conversations show the workflow origin, with a direct link back to the specific workflow run that created them. Your agents can then continue the conversation with the recipient through the Inbox, so workflows can start outreach that turns into agent-powered conversations.
 
 See [Inbox Chats](/platform/inbox/chats) for more on managing conversations.
 
-## Workflow Structure
+## Reliability and Consent
 
-Each workflow follows a linear sequence of nodes:
+Workflows are built to act once, respect opt-outs, and stop when you tell them to:
 
-- **1 trigger node** (required): The event that starts the workflow
-- **Up to 2 action nodes**: The steps that execute after the trigger fires
+- **No duplicate sends**: When a step is retried automatically after a temporary problem, messages that already went out are not sent again. If Dimedove cannot tell whether a send went out, the step fails with an unknown outcome instead of risking a duplicate.
+- **Automatic pacing**: Emails, text messages, calls, Slack messages, HTTP requests, and tool runs are paced automatically to respect provider limits, so runs can take longer during bursts of activity. A send that still cannot go out after several hours fails instead of going out late.
+- **Opt-outs**: Numbers that texted STOP to your team are never texted or called by a workflow, and blocked contacts are never texted. Every workflow email carries a one-click unsubscribe link, and addresses that unsubscribed are skipped.
+- **Emergency stop**: While an **Emergency stop** or a pause of agent work is in force under **Settings > Goals**, workflow emails, text messages, and calls do not go out. See [Goals settings](/platform/goals/settings).
+- **Working hours**: Workflow SMS and Call steps are not held for your working hours. To hold a run until your team is open, use a **Delay** step with **Business hours only** turned on.
+- **Pausing and deleting**: While a workflow is paused, its runs in progress are cancelled when they reach their next step, including runs that were in a delay or a wait when you paused it. Deleting a workflow stops its open runs.
+- **Trigger rate limit**: Up to 100 events per minute per team can start runs. Every event of a type a workflow can react to counts, whether or not a workflow uses it, while manual runs and list runs do not. Above that, webhook requests receive `429 Too Many Requests`, and other events do not start runs.
 
-If you use 2 action nodes, the first must be a **Delay** action. This allows patterns like: trigger, wait for a specified duration, then execute an action.
+## Limits
 
-Each node can have a custom name and description for easy identification in the workflow editor and run history.
+| Limit | Value |
+| --- | --- |
+| Triggers per workflow | 1 |
+| Steps per workflow | 40, including the trigger |
+| Connections between steps | 60 |
+| **Delay** | Up to 365 days |
+| **Loop** | Up to 500 items per run; loops cannot be nested |
+| **Schedule** trigger | No more often than every 15 minutes |
+| Webhook payload | 1 MB |
+| Trigger events | 100 per minute per team |
+| **Enrichment** | 20 attributes per step |
+| **Run for a list** file | CSV or Excel, up to 25 MB and 10,000 rows |
 
 ## Benefits
 
-- **End-to-End Automation**: Connect platform events directly to outbound actions without leaving Dimedove
-- **Cross-Channel Orchestration**: Trigger actions across email, SMS, voice, Slack, and HTTP from any event source on your platform
-- **Real-Time Execution**: Workflows run immediately when triggered, with detailed run history for monitoring and debugging
-- **Inbox Visibility**: Actions that create conversations appear in your unified [Inbox](/platform/inbox/overview) alongside all other channels
+- **End-to-End Automation**: Connect platform events directly to outbound actions and follow-ups without leaving Dimedove
+- **Cross-Channel Orchestration**: Send email, SMS, voice, Slack, and HTTP from any event source on your platform, and branch on what happens next
+- **Human in the Loop**: Notify teammates, pick the next teammate in turn, or wait for their approval before a step goes out
+- **Full Visibility**: Every run is logged step by step, with its version, credits, and outcome
+- **Inbox Visibility**: Steps that create conversations appear in your unified [Inbox](/platform/inbox/overview) alongside all other channels

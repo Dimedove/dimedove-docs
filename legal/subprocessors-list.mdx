@@ -1,11 +1,11 @@
 **Effective Date:** 2025-07-01<br/>
-**Last Updated:** 2026-03-13
+**Last Updated:** 2026-09-25
 
 ## Overview
 
 Where Dimedove Technologies Inc. ("Dimedove") processes personal information on a Business Customer's behalf, it acts as a data processor and engages certain subprocessors that may process personal data submitted to Dimedove's AI agent building platform and related services. Dimedove acts in its own capacity for account administration, billing, security, fraud prevention, legal compliance, and its own business operations, as described in Section 13.3 of our [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy). These subprocessors are listed below with a description of their services, the data they may access, and data processing locations.
 
-Dimedove services and data are hosted in Amazon Web Services (AWS) regions **US East (us-east-1)** and **Canada Central (ca-central-1)**. This list may be updated by Dimedove from time to time in accordance with our customer contracts.
+Dimedove services and data are hosted in the Amazon Web Services (AWS) **Canada Central (ca-central-1)** region. This list may be updated by Dimedove from time to time in accordance with our customer contracts.
 
 ---
 
@@ -13,31 +13,51 @@ Dimedove services and data are hosted in Amazon Web Services (AWS) regions **US 
 
 These subprocessors are integral to the operation of the Dimedove platform and process data for all customers.
 
-**Amazon Web Services, Inc.**: Cloud hosting, storage, and processing (including AI processing) of customer data. Accesses all customer data as the infrastructure provider. (USA/Canada)
+**Amazon Web Services, Inc.**: Cloud hosting, storage, and processing (including AI processing) of customer data. Accesses all customer data as the infrastructure provider. (Canada)
 
 **Stripe, Inc.**: Payment processing, subscription billing, and financial transaction services. Accesses billing email, payment method details, and usage meter data. (USA)
 
 **Kinde Pty Ltd**: User authentication, identity management, and access control services. Accesses authentication credentials, user identity information, and session data. (Australia/Global)
 
-**Resend, Inc.**: Transactional email delivery and communication services. Accesses recipient email addresses and email content for platform notifications. (USA)
+**Resend, Inc.**: Transactional email delivery, including emails that AI agents and workflows send to end users. Accesses recipient email addresses and email content. (USA)
 
-**Loops Technologies, Inc.**: Email marketing and campaign delivery services. Accesses user email addresses and marketing preferences. (USA)
+**Loops Technologies, Inc.**: Email delivery for platform notifications and marketing. Accesses team member email addresses, notification content, and marketing preferences. (USA)
+
+**Temporal Technologies Inc.**: Workflow orchestration for automations, outbound batches, and agent work. Accesses record identifiers and timestamps only, not message content. (Canada)
+
+**Intercom, Inc.**: Customer support messenger in the Dimedove dashboard. Accesses team member names, email addresses, and support conversations. (USA)
 
 ---
 
 ## AI Model Providers
 
-These subprocessors provide AI inference capabilities. The specific provider(s) used depend on the Business Customer's agent configuration.
+These subprocessors provide AI inference capabilities. Dimedove selects the AI models and providers used to deliver the Services.
 
 **OpenAI, L.L.C.**: AI model services and natural language processing. Accesses conversation content transmitted for AI inference. (USA)
 
-**Google L.L.C.**: AI processing (Gemini models), analytics services, OAuth authentication, Workspace (email, calendar), and Google Drive (file storage/collaboration). Accesses conversation content for AI inference, authentication data, and connected workspace data. (USA/Global)
+**Google L.L.C.**: AI processing (Gemini models), including reading images and documents shared in conversations, website analytics, and OAuth sign-in. Accesses conversation content and attachments for AI inference, and authentication data. (USA/Global)
 
 **Anthropic, PBC**: AI model services and processing. Accesses conversation content transmitted for AI inference. (USA)
 
 **Groq, Inc.**: High-performance AI inference and processing services. Accesses conversation content transmitted for AI inference. (USA)
 
-**ElevenLabs, Inc.**: Conversational voice agent platform for phone-based AI agents, including speech recognition, text-to-speech, and real-time call handling. Accesses call audio in real time for speech recognition and the text content transmitted for speech synthesis. Voice recording is disabled on Dimedove's voice agent configuration. (USA)
+**Cerebras Systems Inc.**: High-performance AI inference used to process agent tool results. Accesses conversation context and tool results transmitted for AI inference. (USA)
+
+**Baseten, Inc.**: AI model hosting for phone-based AI agents. Accesses call transcripts and context transmitted for AI inference. (USA)
+
+**TypeSafe**: Review of messages drafted by AI agents before they are sent. Accesses message drafts and related context, with personal identifiers masked before transmission. (USA)
+
+---
+
+## Voice and Speech Providers
+
+These subprocessors let phone-based AI agents listen and speak in real time.
+
+**Deepgram, Inc.**: Real-time speech recognition for phone calls. Accesses live call audio. (USA)
+
+**Cartesia AI, Inc.**: Speech synthesis for phone-based AI agents. Accesses the text of agent replies. (USA)
+
+**ElevenLabs, Inc.**: Speech recognition for specific details in phone calls, such as names, email addresses, and numbers. Accesses short segments of call audio. (USA)
 
 ---
 
@@ -51,7 +71,9 @@ These subprocessors provide AI inference capabilities. The specific provider(s) 
 
 **Spider Cloud Technologies**: Web scraping and data extraction services for knowledge base features. Accesses URLs and web page content as directed by Business Customers. (USA)
 
-**Exa Labs, Inc.**: Web search and research services used for contact and company enrichment. Accesses the contact or company identifiers submitted in an enrichment request. (USA)
+**Exa Labs, Inc.**: Web search and research services used for AI agent web search and for contact and company enrichment. Accesses search queries and the contact or company identifiers submitted in an enrichment request. (USA)
+
+**ip-api.com**: IP geolocation used for country detection and security rules. Accesses visitor IP addresses. (Global)
 
 ---
 
@@ -81,7 +103,7 @@ These subprocessors only process data when a Business Customer actively connects
 
 **TikTok Inc.**: TikTok messaging and comment moderation for connected business accounts. Accesses user identifiers, message content, and comment content when Business Customers connect a TikTok account for AI agent deployment. (USA/Global)
 
-**Microsoft Corporation**: Microsoft 365 and Outlook calendar services. Accesses calendar availability, event details, and mailbox time zone settings when Business Customers connect a Microsoft 365 account. (USA/Global)
+**Microsoft Corporation**: Microsoft Teams and Outlook calendar services. Accesses Teams message content and user profiles, and calendar availability, event details, and mailbox time zone settings, when Business Customers connect Microsoft 365. (USA/Global)
 
 **Cal.com, Inc.**: Scheduling and calendar booking services. Accesses booking details and attendee contact information as configured by the Business Customer. (USA)
 
@@ -107,10 +129,7 @@ These subprocessors support Dimedove's internal operations and do not directly p
 
 ## Data Processing Locations
 
-Customer data processing occurs primarily in:
-
-- **United States** (AWS US East region, us-east-1)
-- **Canada** (AWS Canada Central region, ca-central-1)
+Customer data is hosted in **Canada**, in the AWS Canada Central region (ca-central-1).
 
 Certain AI processing services may involve cross-border data transfers as part of model inference and processing, conducted in accordance with applicable data protection laws, our [Privacy Policy](https://docs.dimedove.com/legal/privacy-policy), and [Security Policy](https://docs.dimedove.com/legal/security-policy).
 

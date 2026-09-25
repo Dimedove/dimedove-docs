@@ -1,0 +1,51 @@
+---
+title: Calls
+description: Have your agent call a list of contacts, open with a spoken first message, and handle each call like any inbound call
+---
+
+<Info>Call batches are a Pro feature and require telephony. Telephony add-on charges apply. See [pricing](https://www.dimedove.com/pricing) for details.</Info>
+
+A call batch has your agent call every person on your list. When the call connects, the agent opens with your first message, then handles the conversation just as it would an inbound call, including any [tools](/platform/agents/tools/api) you have configured, such as booking a meeting.
+
+## Requirements
+
+- A [phone number](/platform/telephony/overview) that is enabled and has calls turned on
+- A voice agent assigned to that number: it handles every call in the batch
+
+## Settings
+
+For a call batch you configure:
+
+- **Assigned phone**: which of your call-enabled numbers places the calls. The number's assigned agent handles each conversation.
+- **First message**: the spoken opener the agent uses when the call connects. You can reference recipient columns in it (for example, `{{first_name}}`). The language selector beside it sets the call language, the language each call starts in, chosen from the languages the agent speaks (the agent's default language unless you pick another). Write the first message in that language.
+- **Wait for greeting**: when on, the agent stays silent until the person who answers speaks, then says your first message word for word, once. When off, the agent speaks first as soon as the call connects.
+- **Additional context**: optional batch-level context passed to the agent for every call.
+
+You can also add **Campaign instructions** so the agent follows up after the call. See [Campaign instructions](/platform/outbound/overview#campaign-instructions).
+
+## During the Call
+
+- **Voicemail**: if an answering machine picks up, the agent leaves a message or hangs up, following the agent's voicemail instructions or the number's [Voicemail fallback](/platform/telephony/configuration#voicemail-fallback).
+- **Dropped calls**: a call that connects but drops before the person hears anything is dialed again, up to 3 attempts in total.
+- **In your Inbox**: every call appears as a conversation, with its transcript, and its recording when [Record calls](/platform/telephony/configuration#record-calls) is on for the number.
+
+Calls are placed only between 8 AM and 9 PM in the batch's timezone unless you acknowledge otherwise when you start or schedule the batch. See [Sending and scheduling](/platform/outbound/overview#sending-and-scheduling).
+
+## Recipient Statuses
+
+| Status | Meaning |
+| --- | --- |
+| **Queued** | Waiting to be called |
+| **Calling** | The call is in progress |
+| **Answered** | The person picked up |
+| **Voicemail** | The call reached an answering machine |
+| **No answer** | Nobody picked up |
+| **Line busy** | The line was engaged |
+| **Opted out** | The person asked not to be contacted, so they were skipped |
+| **Failed** | The call could not be placed |
+
+When you **Retry failed** on a finished call batch, recipients marked **No answer** or **Line busy** are called again along with the failed ones.
+
+## Before You Call
+
+Call batches show a reminder before they start: calls follow the National Do Not Call List (DNCL) rules, so only call people you are allowed to call. Phone numbers that texted STOP, or whose owners asked not to be contacted, are never called. See [Opt-outs](/platform/outbound/opt-outs).

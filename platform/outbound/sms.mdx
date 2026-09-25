@@ -1,0 +1,42 @@
+---
+title: SMS
+description: Text a list of contacts and let your agent carry on each conversation over two-way SMS
+---
+
+<Info>SMS batches are a Pro feature and require telephony. Telephony add-on charges apply. See [pricing](https://www.dimedove.com/pricing) for details.</Info>
+
+An SMS batch sends a text message to every person on your list. When someone replies, your agent carries on the conversation over two-way SMS, just as it would with a contact who texted you first.
+
+## Requirements
+
+- A [phone number](/platform/telephony/overview) that is enabled and has SMS turned on
+- An agent assigned to that number: it answers every reply
+
+## Settings
+
+For an SMS batch you configure:
+
+- **Assigned phone**: which of your SMS-enabled numbers sends the messages. The number's assigned agent handles replies.
+- **Message**: the text sent to each recipient. You can reference recipient columns in it (for example, `{{first_name}}`). Outbound SMS messages are kept short to fit within a single message segment.
+- **Additional context**: optional batch-level context passed to the agent for every conversation.
+
+You can also add **Campaign instructions** so the agent follows up with people who do not reply. See [Campaign instructions](/platform/outbound/overview#campaign-instructions).
+
+## Sending
+
+Before an SMS batch starts, you confirm that every recipient consented to receive your messages, each time you run or schedule it. Texts go out only between 8 AM and 9 PM in the batch's timezone unless you acknowledge otherwise. See [Sending and scheduling](/platform/outbound/overview#sending-and-scheduling).
+
+Texts from a number are paced to its carrier limit, so a large batch takes time to go out, while your agent's replies to people are never delayed. A text is never sent twice when a send is retried.
+
+## Recipient Statuses
+
+| Status | Meaning |
+| --- | --- |
+| **Queued** | Waiting to be sent |
+| **Sent** | The text was sent |
+| **Opted out** | The person asked not to be contacted, so they were skipped |
+| **Failed** | The text could not be sent, including when the carrier rejected it |
+
+## Opting Out and Back In
+
+Recipients can opt out at any time by replying with a standard keyword such as STOP, and opt back in by texting START. Only a message that is just the keyword counts, so "stop by later" is not an opt-out, although a plain-language request to stop is recognized too. A phone opt-out covers both texts and calls. See [Opt-outs](/platform/outbound/opt-outs).

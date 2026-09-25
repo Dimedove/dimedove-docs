@@ -9,7 +9,7 @@ Custom tools give your frontend visibility into what your agent is doing mid-con
 
 There are two types of custom tools, both configured in the **Configuration** tab of your App:
 
-- **Custom Tool Mappings**: assign custom names to your agent's existing tasks (API calls, calendar bookings, email sends, etc.) so your frontend can identify them.
+- **Custom Tool Mappings**: assign custom names to your agent's existing tools (API calls, calendar bookings, email sends, etc.) so your frontend can identify them.
 - **Client Tools**: blank tools with no server-side action. The agent calls them purely as signals for your frontend to act on.
 
 Both types appear identically in the API response as `function_call` items.
@@ -18,20 +18,20 @@ Both types appear identically in the API response as `function_call` items.
 
 ## Custom Tool Mappings
 
-Your agent can have tasks configured in the Dimedove dashboard (HTTP API calls, MCP tool calls, calendar bookings, etc.). By default, these tasks surface in the API response under internal names. Custom tool mappings let you assign your own names to them, so your frontend can reliably identify which task ran.
+Your agent can have tools configured in the Dimedove dashboard (HTTP API calls, MCP tool calls, calendar bookings, etc.). By default, these tools surface in the API response under internal names. Custom tool mappings let you assign your own names to them, so your frontend can reliably identify which tool ran.
 
 ### Configuring Tool Mappings
 
 1. In the **Configuration** tab of your App, scroll to the **Custom Tools** section.
-2. You will see a list of all active tasks assigned to the app's agent.
-3. For each task you want to intercept, enter a custom name in the input field next to it.
+2. You will see a list of all active tools assigned to the app's agent.
+3. For each tool you want to intercept, enter a custom name in the input field next to it.
 4. Save the App.
 
 The custom name must start with a lowercase letter and can contain lowercase letters, digits, and underscores only (e.g. `check_inventory`, `book_appointment`, `update_crm`).
 
 ### How They Appear in Responses
 
-When the agent runs a mapped task, the `function_call` item in the response uses your custom name:
+When the agent runs a mapped tool, the `function_call` item in the response uses your custom name:
 
 ```json
 {
@@ -42,7 +42,7 @@ When the agent runs a mapped task, the `function_call` item in the response uses
 }
 ```
 
-The `arguments` field contains the JSON-encoded inputs the agent passed to the task.
+The `arguments` field contains the JSON-encoded inputs the agent passed to the tool.
 
 ---
 

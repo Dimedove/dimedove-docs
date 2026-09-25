@@ -3,44 +3,53 @@ title: Overview
 description: Enable voice and SMS interactions on phone numbers answered by your agents
 ---
 
-<Info>Telephony is an add-on feature. Additional charges apply. See [pricing](https://www.dimedove.com/pricing) for details.</Info>
+<Info>Telephony is an add-on feature for teams on the Pro subscription and above. Additional charges apply. See [pricing](https://www.dimedove.com/pricing) for details.</Info>
 
-Telephony extends your AI agents beyond web and chat interfaces to voice calls and SMS messaging. Connect phone numbers to your agents to provide customers with conversational experiences over the phone and via text messages.
+Telephony extends your AI agents beyond web and chat interfaces to voice calls and SMS messaging. Connect phone numbers to your agents to provide customers with conversational experiences over the phone and via text messages. Your agents answer the calls and texts that come in, and with [Outbound](/platform/outbound/overview) they can also reach out first.
 
 ## Key Features
 
 ### Voice Call Support
-- Real-time conversational AI for inbound calls
+- Real-time conversational AI for inbound and outbound calls
 - Natural handling of interruptions, pauses, and speech patterns
 - Access to your agent's full knowledge base
-- Execute tasks like scheduling, data collection, or API calls during calls
-- Automatic call transcripts for review and analysis
+- Use [tools](/platform/agents/tools/api) like scheduling, data collection, or API calls during calls
+- A voice of your choice for each language your agent speaks, including native Québec French voices
+- Follows a caller who switches to another language your agent speaks: recognition, voice, and replies all switch together
+- Reads emails, web addresses, postal codes, phone numbers, dates, times, amounts, percentages, and reference codes aloud naturally, in the language of the sentence
+- Knows today's date, so "next Tuesday" means what the caller meant
+- A subtle office room tone, with light keyboard and mouse sounds while the agent looks something up, instead of dead air
+- Checks in when a caller goes quiet, and closes the call politely when it reaches the 10-minute limit
+- Automatic call transcripts for review and analysis, with optional call recordings
 
 ### SMS Messaging
 - Two-way SMS conversations with your AI agent
 - Maintain conversation history across messages
 - Handle multiple SMS conversations simultaneously
 - Rich responses within SMS constraints
+- No duplicate texts: a message is never sent twice when a send is retried
+- Sending on each number is paced to its carrier limit, and replies to people waiting on an answer are never delayed
 
 ### Service Configuration
 - Enable calls only, SMS only, or both per phone number
 - Assign different agents to different phone numbers
 - Configure independent usage limits per service
+- Set each number's voices, call recording, and call behavior (see [Configuration](/platform/telephony/configuration))
 
 ### Usage Controls
 - Set monthly call minute limits
 - Set monthly SMS message limits
 - First 60 minutes free per month (shared across all numbers)
 - First 100 SMS free per month (shared across all numbers)
-- Automatic service disabling when limits are reached
+- When a limit is reached, the number stays enabled: callers hear a short apology instead of reaching your agent, the agent stops replying to texts, and outbound call batches stop and show why
 
 ## Benefits
 
 - **24/7 Availability**: Handle calls and texts at all hours without staffing concerns
 - **Cost Efficiency**: Lower than human operator costs with pay-per-use pricing
-- **Scalability**: Manage multiple concurrent calls with no busy signals
+- **Scalability**: Handle many calls and texts at once, and if a line is ever at capacity, callers hear a short apology instead of an unanswered call
 - **Consistency**: Same responses and tone for every interaction
-- **Analytics**: Full call transcripts and conversation analytics
+- **Analytics**: Full call transcripts, optional call recordings, and conversation analytics
 
 ## Pricing
 

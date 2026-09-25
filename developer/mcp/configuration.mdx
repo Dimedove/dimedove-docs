@@ -12,7 +12,7 @@ This guide walks you through creating and configuring an MCP Server to expose yo
 Before setting up an MCP Server, ensure you have:
 
 - A Dimedove account with Pro subscription
-- At least one agent configured with tasks you want to expose
+- At least one agent configured with tools you want to expose
 - The agent must be published (live) before you can enable the MCP Server
 
 ## Setup Flow
@@ -33,20 +33,20 @@ Your MCP Server is now created in draft mode. You need to configure it before en
 
 ### Step 3: Assign an Agent
 
-1. In the **Agent** dropdown, select the agent whose tasks you want to expose
+1. In the **Agent** dropdown, select the agent whose tools you want to expose
 2. Only published (live) agents can be assigned
 
 <Warning>If you select an agent that is not live, you will see a warning. The MCP Server cannot be enabled until the agent is published.</Warning>
 
-### Step 4: Select Tasks to Expose
+### Step 4: Select Tools to Expose
 
-After assigning an agent, you can choose which tasks to expose:
+After assigning an agent, you can choose which tools to expose:
 
-1. In the **Exposed Tasks** section, you will see all tasks configured on the selected agent
-2. Check the boxes next to the tasks you want to make available through this MCP Server
-3. Only active tasks can be selected
+1. In the **Exposed tools** section, you will see all tools configured on the selected agent
+2. Check the boxes next to the tools you want to make available through this MCP Server
+3. Only active tools can be selected
 
-External tools will only be able to execute the tasks you explicitly select here.
+External tools will only be able to run the tools you explicitly select here.
 
 ### Step 5: Enable Knowledge Base Access (Optional)
 
@@ -55,7 +55,7 @@ If your agent has a knowledge base configured:
 1. Toggle **Knowledge Base Access** to enable it
 2. When enabled, external tools can search your agent's knowledge base using the `query_knowledge` tool
 
-Leave this disabled if you only want to expose tasks without knowledge base access.
+Leave this disabled if you only want to expose tools without knowledge base access.
 
 ### Step 6: Test the Connection
 
@@ -64,8 +64,8 @@ Before enabling your MCP Server, verify the configuration:
 1. Click **Test Connection**
 2. The status indicator shows the result:
    - **Connected**: Server is reachable and tools are available
-   - **Connected, no tools**: Server works but no tasks are exposed
-   - **Error**: Configuration issue (check that an agent is assigned and tasks are selected)
+   - **Connected, no tools**: Server works but no tools are exposed
+   - **Error**: Configuration issue (check that an agent is assigned and tools are selected)
 
 The test results display all available MCP tools, helping you verify that the right capabilities are exposed.
 
@@ -86,11 +86,11 @@ An internal identifier for this MCP Server. Use descriptive names like "Sales Ag
 
 ### Agent Assignment
 
-The agent whose tasks and knowledge base will be exposed. You can only assign one agent per MCP Server. If you need to expose multiple agents, create separate MCP Servers for each.
+The agent whose tools and knowledge base will be exposed. You can only assign one agent per MCP Server. If you need to expose multiple agents, create separate MCP Servers for each.
 
-### Exposed Tasks
+### Exposed Tools
 
-Select which of the agent's tasks are available through this MCP Server. This gives you fine-grained control over what external tools can do. You might expose read-only API tasks while keeping write operations private.
+Select which of the agent's tools are available through this MCP Server. This gives you fine-grained control over what external tools can do. You might expose read-only API tools while keeping write operations private.
 
 ### Knowledge Base Access
 
@@ -122,9 +122,9 @@ Each tool has its own configuration method. Refer to the tool's documentation fo
 
 The MCP Server configuration page shows the current connection status:
 
-- **Not configured**: No agent assigned or no tasks selected
+- **Not configured**: No agent assigned or no tools selected
 - **Connected**: Server is active and tools are available
-- **Connected, no tools**: Server works but nothing is exposed (assign tasks or enable knowledge base)
+- **Connected, no tools**: Server works but nothing is exposed (expose tools or enable knowledge base)
 - **Connection failed**: Error reaching the server (verify the URL and try again)
 
 ## Managing MCP Servers
@@ -146,7 +146,7 @@ Toggle the **Enable** switch off to disable an MCP Server. External tools will n
 You can update an MCP Server's configuration at any time:
 
 - Change the assigned agent
-- Add or remove exposed tasks
+- Add or remove exposed tools
 - Toggle knowledge base access
 - Update the name
 
@@ -159,13 +159,13 @@ Changes take effect immediately for new connections.
 Verify that:
 - An agent is assigned
 - The assigned agent is published (live)
-- At least one task is selected for exposure
+- At least one tool is selected for exposure
 
 ### Connection Test Fails
 
 Check that:
 - The agent is live and active
-- Selected tasks are active (not disabled)
+- Selected tools are active (not disabled)
 - Your Dimedove subscription is active
 
 ### External Tool Cannot Connect

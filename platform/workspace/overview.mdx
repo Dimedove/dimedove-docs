@@ -1,0 +1,69 @@
+---
+title: Overview
+description: Bring your agents and Ask Dimedove into Slack and Microsoft Teams, where your team already works
+---
+
+<Info>Slack and Microsoft Teams agents are available to teams on the Pro subscription.</Info>
+
+Workspace brings Dimedove into the chat tools your organization already uses: Slack, Microsoft Teams, or both. Deploy your agents to channels where people mention them to get answers, with the same knowledge, instructions, and tools they use everywhere else, and talk to [Ask Dimedove](/platform/ask-dimedove/delegation), your team's own assistant, in a direct message or a dedicated channel.
+
+Everything is managed from the **Workspace** page, under Channels in your dashboard sidebar. It lists your Slack and Microsoft Teams agents together, with the platform each one runs on, the Dimedove agent it uses, the channels it answers in, and whether it is enabled. Click **Add** and choose **Slack** or **Microsoft Teams** to create one.
+
+<Note>
+  Dimedove is not listed in the Microsoft Teams Store yet. Until it is, your Microsoft 365 administrator installs Dimedove from an app package that we provide, and Microsoft may refuse its replies in some organizations with an authorization error. [Contact us](https://cal.com/felixsimard/support) to get the package, then follow [Configuration](/platform/workspace/configuration#microsoft-teams).
+</Note>
+
+## Slack and Microsoft Teams at a Glance
+
+| | Slack | Microsoft Teams |
+| --- | --- | --- |
+| **Connect** | Authorize your Slack workspace from **Settings > Integrations** | One approval from a Microsoft 365 administrator, then the Dimedove app package we provide |
+| **Where agents answer** | Public and private channels | Standard and private channels, and group chats |
+| **Connect a channel** | `/invite @Dimedove`, then `/dimedove add <id>` | `@Dimedove add <id>` |
+| **When the agent answers** | **Only when mentioned**, or **All messages in thread** | When mentioned |
+| **Ask Dimedove** | A direct message with the app, or `/dimedove add ask` in a channel | A one-on-one chat with Dimedove, or `@Dimedove add ask` in a channel |
+| **Attachments** | Images and documents shared in the conversation | Images pasted into a message |
+
+## Key Features
+
+### Agents in Your Channels
+
+Connect a Dimedove agent to a channel and people mention **@Dimedove** to talk to it. Your agent replies in the thread of the post, keeping channels organized while giving everyone the same accurate answers. You choose which agent answers in which channel, and you can switch agents at any time.
+
+### Ask Dimedove Where You Work
+
+A direct message with the Dimedove app in Slack, or a one-on-one chat with Dimedove in Microsoft Teams, reaches Ask Dimedove for the members of your team. You can also dedicate a channel to it. Your teammates ask questions about your workspace or hand work to an agent without leaving the conversation, and approve that work with **Approve** and **Reject** buttons in the thread. See [Delegating work](/platform/ask-dimedove/delegation).
+
+### One Occupant per Channel
+
+Each channel is connected to either one agent or to Ask Dimedove, never both. An agent in a channel answers everyone in it, as it would a customer, while Ask Dimedove only works for people it recognizes as members of your team.
+
+### Files and Images
+
+Your agents read what people share in the conversation: images and documents in Slack, and images pasted into a message in Microsoft Teams. See [Attachments](/platform/agents/attachments).
+
+### Unified Inbox
+
+Conversations with your agents appear in your Dimedove [Inbox](/platform/inbox/overview) with the **Slack** or **Teams** type, alongside every other channel, and the **Workspace** filter shows them together. Contacts are created and [webhooks](/developer/webhooks/overview) fire as they do for your other channels. Conversations with Ask Dimedove stay in your Ask Dimedove history instead.
+
+## What Dimedove Can See in Microsoft Teams
+
+- The messages in the channels and chats where the Dimedove app has been added
+- The name and work email of the people in those conversations, used to recognize your teammates when they talk to Ask Dimedove
+- Images shared in those conversations
+- The user profiles in your organization's directory, which Microsoft's approval makes readable
+
+Dimedove does not read any other channel, mailbox, file, or calendar in your organization.
+
+## Benefits
+
+- **Meet your team where it works**: Get answers from your agents without leaving Slack or Microsoft Teams
+- **Consistent answers**: Everyone in your organization receives the same accurate information from your agents
+- **Delegate in the flow of work**: Hand work to Ask Dimedove from a chat and approve it in place
+- **Complete visibility**: Track every agent conversation from your centralized Dimedove Inbox
+
+## Next Steps
+
+<Card title="Configuration" icon="settings" href="/platform/workspace/configuration">
+  Connect Slack or Microsoft Teams, create your workspace agents, and connect them to your channels
+</Card>

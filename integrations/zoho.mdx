@@ -22,6 +22,8 @@ Configure your Dimedove agents to perform CRM operations as part of their workfl
 - **Update Records**: Update existing records with new information gathered during conversations
 - **Upsert Records**: Look up existing records and update them, or create new records if no match is found
 
+When an upsert's only lookup is a lead's or contact's email, or a field Zoho treats as unique, Dimedove uses Zoho's own duplicate check, so an existing record is updated instead of created twice. Email addresses are saved and looked up in lowercase, so the same address typed with different capitalization still finds the record. If none of the tool's **Lookup Mappings** has a value to look the record up by, Dimedove writes nothing rather than risk creating a duplicate.
+
 ### Key Capabilities
 
 - **Multi-Region Support**: Dimedove supports Zoho's region-specific data centers, ensuring your data stays in the correct geographic location

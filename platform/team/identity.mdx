@@ -1,0 +1,68 @@
+---
+title: Identity
+description: Decide which accounts may act for your team, and understand how your agents recognize who they are talking to.
+---
+
+Agents that remember customers and take on work for your team need to know who they are talking to. **Settings > Identity** is where you control that trust: which Slack, Microsoft Teams, and email accounts may hand work to [Ask Dimedove](/platform/ask-dimedove/delegation) on behalf of your teammates, and which system your agents treat as the source of truth for your contacts.
+
+## Team identities
+
+A team identity links an outside account to someone on your team. Once linked, messages from that account are treated as coming from that teammate: they can hand work to Ask Dimedove, and their replies can approve what an agent sends, all recorded under that person's name.
+
+### Confirmed automatically
+
+Most accounts link themselves the first time a teammate writes in:
+
+- **Slack**: a full member of the Slack workspace you connected, whose profile email matches a member of your Dimedove team
+- **Microsoft Teams**: a user in the Microsoft 365 organization you connected, whose profile email matches a member of your Dimedove team
+- **Email**: an authenticated email sent from the exact address a teammate signs in to Dimedove with
+
+Guests, people from other organizations in shared channels, and bots are never confirmed automatically.
+
+### Unrecognized accounts
+
+Any other account that writes in is held as an **Unrecognized account** at the top of the list, with **Confirm** and **Reject** actions. The person is told once that someone on your team needs to approve their account first. By email, this only happens for authenticated emails sent to your team's own Ask Dimedove address; other emails from unknown senders get no reply. Dimedove holds up to five of their requests, and answers them as soon as the account is confirmed, provided that happens within seven days.
+
+Only an admin or owner can confirm an unrecognized account. To confirm one, pick the **Team member** it belongs to and read what it allows before you confirm. Pending confirmations also appear under **Needs your attention** on your **Home** page.
+
+### Adding and removing identities
+
+Admins can link an account ahead of time with **Add**: choose the **Team member**, the **Channel** (Slack, Microsoft Teams, or email), and the account's identifier (a Slack member ID, a Microsoft Entra object ID, or an email address). An account added this way is confirmed right away.
+
+To remove an account, choose **Revoke** from its ⋯ menu. A revoked account is never linked again automatically; admins can bring it back with **Restore**. A rejected account may ask again later.
+
+Each account can belong to only one teammate. Members see and manage their own accounts, while admins and owners manage everyone's, including unrecognized accounts.
+
+## How agents recognize customers
+
+Every conversation carries an identity level, based on how the person reached you. Your agents use it to decide how much of what they know they may use, from [notes](/platform/goals/notes) to details stored on the contact.
+
+| Level | How it is reached | What the agent may use |
+| --- | --- | --- |
+| **Unknown** | No evidence yet of who the person is. Today this includes conversations in the web messenger. | Nothing stored about anyone. |
+| **Probably known** | A form submission, or an unauthenticated email. | Continuity only: it may acknowledge a previous conversation. |
+| **Claimed** | A phone number reported by the carrier on a call or text, an authenticated email, or a Slack, Microsoft Teams, or social account. | Notes, and stored details except those marked sensitive. |
+| **Verified** | A teammate confirmed the person in the Inbox, or your own application identified them through the [Apps API](/developer/apps/overview). | Everything stored about the contact, including sensitive details. |
+
+Details such as addresses, postal codes, dates of birth, and policy, claim, licence, or passport numbers are treated as sensitive automatically.
+
+When something contradicts a person's identity, for example someone else writing into a thread tied to one person, the conversation drops to **Unknown** and stays there until a teammate confirms who it is. See [Confirming identity](/platform/inbox/chats#confirming-identity).
+
+## Source of truth
+
+If your team keeps its customer records in a CRM or another record system, you can make it the source of truth your agents check before they reach out. It works with one connected record integration: HubSpot, Attio, Zoho CRM, Pipedrive, Close, Salesforce, Airtable, or Applied Epic.
+
+1. Under **Source of truth**, click **Configure**
+2. In **Describe your records**, choose the **System** (the integration) and the **Object** your agents should read
+3. In **How your team reads this object**, explain what its fields mean to your team, in up to 1,000 characters. For example: "A deal in the Closed Lost stage means the customer asked not to be contacted again." Only your team sees this description, and it is never shown to a customer
+4. Save, then turn on the switch next to it (it is off by default)
+
+Once it is on:
+
+- **Before reaching out** for a [goal](/platform/goals/overview), the agent reads the contact's record to check whether it may contact them and what it should know. If the record cannot confirm the contact, the agent does not act.
+- **If the system cannot be read**, for example during an outage, the agent waits and tries again rather than acting without it.
+- **In live conversations**, agents can also draw on the record once the contact's identity is **Verified**.
+
+<Note>
+  Your agents need permission to read the object before you can save the description or turn this on. Grant it from the integration's page under **Settings > Integrations**. See [Integrations](/integrations/overview). Source of truth requires third-party integrations on your plan.
+</Note>

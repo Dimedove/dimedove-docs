@@ -1,0 +1,56 @@
+---
+title: Notes
+description: What your agents write down after each conversation, and how they use it to pick up where they left off.
+---
+
+Notes are your agents' memory. After a conversation with a customer, the agent writes a short note about what happened: what the person asked for, what was agreed, and what is still open. The next time any of your agents speaks with that contact, on any channel, it can pick up where the last conversation left off instead of starting from zero.
+
+## How notes are written
+
+Notes are written by your agents, not by hand:
+
+- About half an hour after a conversation goes quiet, the agent files a note if the customer shared something worth remembering. Each conversation gets at most one note, and a pause of more than 12 hours starts a new conversation.
+- Notes are written for live conversations with your customers, whatever the identity level. What agents may later use from them depends on that level (see below). Preview and test conversations never produce notes.
+- Every note is kept in both English and French.
+- If a conversation continues after its note was filed, the agent rewrites that note as a new version. A later conversation gets its own note, and earlier notes are not rewritten, so remove a note that no longer holds.
+
+Notes are only written while agent work is turned on for your team. When it is off, **Settings > Goals** says so, and that is where an admin turns it on. See [Settings](/platform/goals/settings).
+
+## Finding notes
+
+You can read notes from several places:
+
+- **Notes** in the sidebar lists every note, with pinned notes first. Use **Filter notes**, and narrow by subject (contact, goal, or conversation) or by agent.
+- The **Notes** tab on a [contact record](/platform/contacts/contact) shows the notes about that person.
+- The **Notes** tab on a [goal](/platform/goals/overview) shows notes filed on the goal itself. What the agent learns about the contact while working on a goal is filed on the contact.
+- The command palette includes notes in its search results.
+
+Open a note to read it in full, with links to the contact and goal it relates to and the agent that wrote it. From there you can:
+
+- **Pin** or **Unpin** the note. Pins are shared with your whole team, and pinned notes are the ones your agents read first.
+- Open its **History**, once the note has been rewritten, to see when each version was filed and why.
+- **Copy ID** for reference.
+- **Remove** the note. Your agents stop reading it and it leaves the list, but nothing is erased: its earlier versions stay on the record.
+
+## How agents use notes
+
+Memory is automatic for every agent, on every channel. What an agent may use depends on how sure it is about who it is talking to:
+
+| Identity level | What the agent may use |
+| --- | --- |
+| **Unknown** | Nothing stored about anyone. |
+| **Probably known** | Continuity only: it may acknowledge that it has spoken with the person before. |
+| **Claimed** | Notes, and stored details except those marked sensitive. Agents are instructed not to repeat a sensitive detail until the person is verified. |
+| **Verified** | Everything stored about the contact, including sensitive details. |
+
+Details such as addresses, postal codes, dates of birth, and policy, claim, licence, or passport numbers are treated as sensitive automatically. Email addresses and phone numbers never are. See [Identity](/platform/team/identity) for how each level is reached, and [Confirming identity](/platform/inbox/chats#confirming-identity) for how a teammate can verify a contact from the Inbox.
+
+Agents are instructed to treat notes as information, never as instructions: a note can remind an agent what a customer said, but it is not a way to change how the agent behaves.
+
+<Tip>
+  Notes can start a workflow: the **Note created** trigger runs a workflow whenever an agent files a note, on a contact, a goal, or a conversation, including each rewritten version. See [Triggers](/platform/workflows/triggers).
+</Tip>
+
+## Credits
+
+Writing notes is part of agent work and uses [credits](/platform/team/credits), recorded under **Agent work** in your credit usage.

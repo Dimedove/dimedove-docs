@@ -1,0 +1,63 @@
+---
+title: Delegating Work
+description: Hand work to your agents through Ask Dimedove, from the dashboard, Slack, Microsoft Teams, or email
+---
+
+Ask Dimedove does more than answer questions about your workspace. You can hand it work: follow up with a contact until they answer, check what one of your agents would tell a customer, or have an agent run one of its tools. It proposes what it is about to do, you approve, and the work is carried out. You can do all of this from wherever your team already works: the dashboard, Slack, Microsoft Teams, or email.
+
+## Where You Can Reach It
+
+| Where | How |
+| --- | --- |
+| **Dashboard** | **Ask Dimedove** in the sidebar, the prompt box on the Home page, the button in the top navigation, or **⌘K** (**Ctrl+K** on Windows) |
+| **Slack** | Send the Dimedove app a direct message, or mention @Dimedove in a channel where Ask Dimedove is installed |
+| **Microsoft Teams** | Start a one-on-one chat with Dimedove, or mention @Dimedove in a channel where Ask Dimedove is installed |
+| **Email** | Write to your team's Ask Dimedove address, or copy it on a thread |
+
+### Setting Up Slack, Microsoft Teams, and Email
+
+Open **Settings > Ask Dimedove** and select the **Workspace** tab. It walks you through each surface:
+
+- **Slack**: invite the Dimedove app to a channel and have a Slack workspace admin run `/dimedove add ask` there. Direct messages with the app reach Ask Dimedove without any setup. See [Slack configuration](/platform/workspace/configuration#slack).
+- **Microsoft Teams**: once your Microsoft 365 administrator has installed the Dimedove app, add it to a team and send `@Dimedove add ask` in the channel. One-on-one chats reach Ask Dimedove without any setup. See [Microsoft Teams configuration](/platform/workspace/configuration#microsoft-teams).
+- **Email**: your team gets one address, shown as **Your team address**. Write to it directly, or forward an address of your own to it. To have replies come from your own address rather than Dimedove's, verify your domain under **Reply from your own domain** (DNS verification can take up to 72 hours) and set a **Reply address**.
+
+A channel has either an agent or Ask Dimedove, never both. Channels where an agent answers your customers are managed separately, on the **Workspace** page.
+
+### Who Can Use It
+
+Outside the dashboard, Ask Dimedove only works for people it can recognize as members of your team. Your teammates are recognized automatically when their Slack or Microsoft 365 profile email matches the address they sign in to Dimedove with, or when they email from that address. Anyone else is held until an admin accepts their account under **Settings > Identity**. See [Identity](/platform/team/identity).
+
+By email, anyone else who writes to your team address gets a one-line notice that their request is waiting, and an answer once an admin accepts their account. When Ask Dimedove is copied on a thread, it reads the thread and replies only if it has something useful to add, and it answers the whole thread only when everyone on it is a confirmed member of your team. Its answers never go to anyone outside your team.
+
+## What You Can Hand Over
+
+- **Start a goal**: "Follow up with Marie Tremblay about her renewal until she answers." Ask Dimedove proposes a [goal](/platform/goals/overview) for the contact, with what done looks like, optional completion criteria and deadline, the first step (an email, a text message, a call, a review, or **Notify team**), when to start, and which agent pursues it.
+- **Adjust a goal**: change a goal's wording, title, or deadline, move one of its scheduled steps, or cancel a step with a reason.
+- **Ask one of your agents**: "What would our support agent tell a customer asking about refunds?" It answers from that agent's published configuration and knowledge.
+- **Run an agent's tool**: have one of your agents run one of its [tools](/platform/agents/tools/api), for example to look up or update a CRM record, send an email or text message, or run one of its API or MCP tools.
+- **Look things up**: find contacts, check how your goals are going, and read your integrations, knowledge base, usage, and team members, alongside everything described in the [Overview](/platform/ask-dimedove/overview).
+
+Goals you start through Ask Dimedove belong to you, and start in your team's default mode, so their own messages follow the usual [approval rules](/platform/goals/tasks).
+
+<Note>
+  Delegating goals requires agent work to be turned on and a default agent to be set in [Goals settings](/platform/goals/settings), unless you name the agent in your request. Ask Dimedove tells you when either is missing.
+</Note>
+
+## Approving What It Does
+
+Nothing that changes anything happens without a person's approval. Questions and lookups are answered right away, but starting or changing a goal, and running a tool that takes action, are proposed for you to **Approve** or **Reject**. These changes apply as soon as they are approved.
+
+- **In the dashboard**, the proposal appears as a card in the conversation.
+- **In Slack and Microsoft Teams**, the card appears in the thread, and the teammate who asked (or an admin) approves it with a single click. If no card appears, approve the proposal from the conversation in your Ask Dimedove history on the dashboard.
+- **By email**, Ask Dimedove replies that the request needs your approval. Open the conversation from your Ask Dimedove history on the dashboard to approve it: replying to the email does not approve it.
+
+Some decisions stay with you on the goal itself: pausing, resuming, or cancelling a whole goal, taking it over, marking it done, and changing its mode. Ask Dimedove never decides the approvals a goal's agent asks for: you do, on the goal, or on the card in the Slack or Microsoft Teams thread the goal came from. It never changes your Goals settings or turns channels on or off; the only settings it can edit are written ones, such as your [Business](/platform/team/business) details, and only as a change you approve.
+
+## Conversation History
+
+Conversations started in Slack, Microsoft Teams, or email appear in your Ask Dimedove history, grouped under **Slack**, **Microsoft Teams**, and **Email**. Filter the history by channel to find them. They are read-only in the dashboard: reply in the original thread to continue, or start a new chat.
+
+## Credits
+
+Conversations with Ask Dimedove consume [credits](/platform/team/credits) wherever they happen, in the dashboard, Slack, Microsoft Teams, or email.

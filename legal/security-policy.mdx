@@ -1,5 +1,5 @@
 **Effective Date:** 2025-07-01<br/>
-**Last Updated:** 2026-03-13
+**Last Updated:** 2026-09-25
 
 ## Overview
 
@@ -24,7 +24,7 @@ Our infrastructure and security team includes experienced professionals who have
 - **Defense in Depth:** Multiple layers of security controls and monitoring
 - **Continuous Monitoring:** Real-time security event detection and response
 - **Privacy by Design:** Security and privacy considerations integrated from the ground up
-- **Compliance Focus:** Adherence to Canadian privacy laws (including Quebec’s Bill 25), PIPEDA, and industry standards
+- **Compliance Focus:** Adherence to Canadian privacy laws (including Quebec’s Law 25), PIPEDA, and industry standards
 
 ---
 
@@ -54,7 +54,7 @@ Our infrastructure and security team includes experienced professionals who have
 
 **Confidentiality Incident Register:**
 
-- In accordance with Quebec’s Bill 25, all confidentiality incidents (breaches or security events involving personal information) are logged and maintained in an internal register
+- In accordance with Quebec’s Law 25, all confidentiality incidents (breaches or security events involving personal information) are logged and maintained in an internal register
 - Records are available to regulators or other authorized parties upon request
 
 ### Build Process and Deployment Security
@@ -104,8 +104,7 @@ Our infrastructure and security team includes experienced professionals who have
 
 **Data Hosting Locations:**
 
-- Dimedove services and data hosted in AWS regions: US East (us-east-1) and Canada Central (ca-central-1)
-- Data residency preferences can be accommodated based on customer requirements
+- Dimedove services and data are hosted in the AWS Canada Central region (ca-central-1)
 - Compliance with Canadian data localization requirements where applicable
 
 **Data Architecture:**
@@ -146,7 +145,7 @@ Our infrastructure and security team includes experienced professionals who have
 **Backup Security:**
 
 - Automated backup systems with encryption
-- Backups stored across multiple geographic locations
+- Automated, encrypted database backups
 - Regular restoration testing validates recovery
 - Strictly controlled and monitored backup access
 
@@ -226,8 +225,9 @@ Our infrastructure and security team includes experienced professionals who have
 - OpenAI: Natural language processing and AI services
 - Google: Cloud, authentication, AI capabilities
 - Anthropic: Advanced AI services
-- Groq: High-performance AI inference
-- ElevenLabs: Voice synthesis and text-to-speech
+- Groq, Cerebras, and Baseten: High-performance AI inference
+- Deepgram and ElevenLabs: Speech recognition for voice agents
+- Cartesia: Speech synthesis for voice agents
 
 **Service Provider Security:**
 
@@ -257,7 +257,7 @@ Dimedove engages subprocessors to deliver services effectively. Our current subp
 
 **Compliance Framework:**
 
-- Compliance with Canadian privacy laws including Bill 25 and PIPEDA
+- Compliance with Canadian privacy laws including Law 25 and PIPEDA
 - Implementation of security frameworks and best practices
 - Regular review and updates to policies and procedures
 - Documentation and evidence collected for compliance initiatives
@@ -342,15 +342,15 @@ If you discover a potential security vulnerability in Dimedove's platform, we en
 
 - Encrypted API access for AI models
 - Training data and parameters protected with access controls
-- Identifiable customer conversation content is not used to train third-party or general-purpose AI models, and our AI provider agreements prohibit the use of customer conversation data for model training. Any model development, tuning, or evaluation carried out by Dimedove uses aggregated, anonymized, or properly de-identified data, as described in Section 5.6 of the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service)
+- Dimedove does not train AI models on identifiable Customer Data, and identifiable customer conversation content is not used to train third-party or general-purpose AI models. We select AI providers whose terms, to our knowledge, do not permit them to use the data we send them for model training. Any model development, tuning, or evaluation carried out by Dimedove uses aggregated, anonymized, or properly de-identified data, as described in Section 5.6 of the [Terms of Service](https://docs.dimedove.com/legal/terms-of-service)
 - Safeguards in place against adversarial prompts and injection attacks
 
 **Voice and Telephony Security:**
 
-- Voice audio for phone-based AI agents is carried by Twilio (telephony) and processed in real time by ElevenLabs, which provides speech recognition, speech synthesis, and call handling for the voice agent. Dimedove does not store voice recordings.
+- Voice audio for phone-based AI agents is carried by Twilio (telephony) and processed in real time by our speech recognition and speech synthesis providers
 - All telephony connections are encrypted in transit using industry-standard protocols
-- Only conversation transcripts are retained by Dimedove, encrypted at rest using industry-standard controls
-- Voice recording is disabled on Dimedove's voice agent configuration
+- Conversation transcripts are retained by Dimedove, encrypted at rest using industry-standard controls
+- Call recording is off by default; when a Business Customer turns it on for a phone line, recordings are stored in Canada and encrypted at rest
 
 ### Data Privacy Protection
 

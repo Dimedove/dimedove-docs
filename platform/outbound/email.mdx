@@ -1,0 +1,51 @@
+---
+title: Email
+description: Email a list of contacts from one of your email channels, with a message you write or one your agent writes for each person
+---
+
+<Info>Email batches are a Pro feature. They consume [credits](/platform/team/credits) for each email sent, and the editor shows an **Estimated cost** before you send.</Info>
+
+An email batch sends an email to every person on your list from one of your [email channels](/platform/emails/overview). When someone replies, the channel's agent answers, just as it would any email your team receives. Email batches do not need telephony.
+
+## Requirements
+
+The email channel you send from must:
+
+- Be enabled
+- Have a verified domain
+- Have a **Mailing address**, which is shown at the bottom of every message
+
+See [Email configuration](/platform/emails/configuration) to set these up.
+
+## Settings
+
+For an email batch you configure:
+
+- **Sending channel**: the email channel the batch sends from. It sets the address the emails come from and the agent that answers replies.
+- **Language**: the language of the unsubscribe line and of any message the agent writes. It defaults to the language of the channel's agent.
+- **Subject**: the subject line each recipient sees. You can reference recipient columns in it.
+- **Preview line**: the short line shown beside the subject in the recipient's inbox. Without one, the opening words of your message are used.
+- **Message**: choose **Write it myself** to write one message for everyone (you can reference recipient columns in it), or **Let the agent write it** to describe what the agent should write, so it writes a different message for each recipient from your description and their details.
+- **Signature**: added to the end of every email in the batch. It starts from the channel's signature, and changing it here does not change the channel.
+- **Reply-to**: leave it empty so replies come back to your inbox and the agent can answer them. If you enter another address, replies go there instead, and the agent does not see or answer them.
+- **Cc**: colleagues to copy on every email, separated by commas. Each of them sees the recipient's address.
+- **Additional context**: optional batch-level context passed to the agent.
+
+You can also add **Campaign instructions** so the agent follows up with people who do not reply. See [Campaign instructions](/platform/outbound/overview#campaign-instructions).
+
+## Sending
+
+Before an email batch starts, you confirm that every recipient consented to receive your messages, each time you run or schedule it. Emails go out only between 8 AM and 9 PM in the batch's timezone unless you acknowledge otherwise. See [Sending and scheduling](/platform/outbound/overview#sending-and-scheduling).
+
+An unsubscribe link is added to every email automatically. Recipients who use it, or who report one of your emails as spam, are opted out of your emails. See [Opt-outs](/platform/outbound/opt-outs).
+
+## Recipient Statuses
+
+| Status | Meaning |
+| --- | --- |
+| **Queued** | Waiting to be sent |
+| **Sent** | The email was sent |
+| **Delivered** | The recipient's mail server accepted the email |
+| **Bounced** | The email could not be delivered to the address |
+| **Opted out** | The person asked not to be contacted, so they were skipped |
+| **Failed** | The email could not be sent |

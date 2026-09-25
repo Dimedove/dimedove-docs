@@ -1,0 +1,66 @@
+---
+title: Attachments
+description: Your agents read the images and documents people send them, in the web messenger, email, text messages, social messages, Slack, and Microsoft Teams.
+---
+
+People often answer with a file rather than a sentence: a photo of a damaged windshield, a screenshot of an error, a signed form, or a spreadsheet of quotes. Your agents read the images and documents people send them and use what they contain in their reply, just as they use the text of the message. [Ask Dimedove](/platform/ask-dimedove/overview) reads the files your team sends it in the same way.
+
+## Where agents read attachments
+
+| Channel | What your agent reads |
+| --- | --- |
+| Web messenger, [forms](/platform/forms/overview), and [preview](/platform/agents/preview) | Files a visitor attaches to a message, up to 5 at a time. Visitors can attach files only when **Attachments** is turned on for your agent (see below). |
+| [Email](/platform/emails/overview) | Up to 10 attachments and 25 MB per email, plus images pasted into the message, such as screenshots. Very small inline images, such as logos in email signatures, are skipped. |
+| [SMS](/platform/telephony/overview) | Pictures and files sent by MMS, including a text that contains only a picture. |
+| [Facebook Messenger and Instagram](/platform/socials/overview) | Images and files sent in direct messages. |
+| [Slack](/platform/workspace/overview) | Files and images shared in the conversation with your Slack agent. |
+| [Microsoft Teams](/platform/workspace/overview) | Images pasted into a message. |
+| [Ask Dimedove](/platform/ask-dimedove/overview) | Files you attach in the dashboard chat or the prompt box on your **Home** page (up to 5 per message), files your team sends it in Slack or by email, and images pasted in Microsoft Teams. |
+
+Outside the web messenger and forms, there is nothing to turn on: your agents read files as they arrive.
+
+### Turn on attachments in the messenger and forms
+
+<Info>Attachments in the web messenger and forms are available to teams on the Pro subscription.</Info>
+
+Open your agent's **Design** page and turn on **Attachments**. Visitors then see an attachment button in the messenger and in your forms. The setting also applies to your agent's preview, and your live channels pick it up when you publish the agent. See [Design](/platform/agents/design#attachments).
+
+### Slack workspaces connected earlier
+
+Reading files in Slack needs a permission that older Slack connections did not include. If you connected Slack before your agents could read files, the **Workspace** page shows **Update Slack Permissions** (and the Slack card under **Settings > Integrations** shows **Update**). Click **Update** once and approve the new permission in Slack. Until you do, your Slack agents and Ask Dimedove in Slack answer the text of a message and skip its files.
+
+## Supported files
+
+| Type | Formats |
+| --- | --- |
+| Images | JPG, JPEG, PNG, GIF, WEBP |
+| Documents | PDF, DOCX, RTF, TXT, MD |
+| Spreadsheets and data | XLSX, CSV, JSON |
+| Presentations | PPTX |
+
+Each file can be up to 10 MB. The web messenger and forms accept every format above except CSV.
+
+Your agents do not read:
+
+- Voice notes, other audio, and video
+- HEIC images
+- Older Microsoft Office formats, such as .doc and .xls
+- Archives, such as ZIP files
+- Images that an HTML email only links to on the web, rather than carrying itself
+- TikTok direct messages
+- Phone calls, which carry no files
+
+## How your agent reads them
+
+- **On the message they arrive with**: your agent looks at images and PDFs as they are, and reads the text of documents, spreadsheets, and presentations.
+- **Text in pictures**: it reads the text in images and scanned PDFs, such as a photographed form or a screenshot of an error message.
+- **Later in the conversation**: it works from what it read in the file rather than from the file itself. For a question about a fine detail much later on, sending the file again gives the most reliable answer.
+- **Files it cannot read**: a damaged or unsupported file is skipped, and your agent answers the rest of the message. A message that carries only files, with no text, is still answered.
+
+## Attachments and goals
+
+When a contact sends a file while one of your agents is working on a [goal](/platform/goals/overview) with them, such as collecting missing documents, the agent plans a **Review** task, **Check the received document**, and reads the file before it decides the next step. See [Tasks and Approvals](/platform/goals/tasks).
+
+## Credits
+
+Reading attachments has no separate charge: a file is part of the message it arrives with. Ask Dimedove's [credits](/platform/team/credits) depend on how much work each message involves, so a long document can make that message use more.

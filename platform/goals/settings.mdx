@@ -1,0 +1,67 @@
+---
+title: Settings
+description: Turn agent work on, set working hours, choose how approvals work, and pause or stop everything at once.
+---
+
+Everything that governs how your agents pursue goals lives under **Settings > Goals**. Members can change the **Default agent** and **Working hours**. Every other setting on this page can only be changed by an admin.
+
+The **Agent work** switch, **Emergency stop**, and **Resume** take effect immediately. Every other change applies when you click **Save**.
+
+## Status
+
+### Agent work
+
+The **Agent work** switch lets your agents pursue goals on their own. It is off by default, and only an admin can turn it on. Until it is on, the page shows only this switch; the other settings appear once it is on.
+
+While agent work is off, your agents do not pursue goals, plan tasks, or write [notes](/platform/goals/notes). Conversations, workflows, and phone lines carry on as usual, except that a workflow's **Start goal** step fails. Turning agent work off does not cancel the goals already running: they are held, and pick up again when you turn it back on.
+
+### Default agent
+
+The agent used when a goal does not name one. Ask Dimedove and workflow **Start goal** steps rely on it whenever no agent is specified, so set it before you start delegating work.
+
+### Default owner
+
+The teammate who hears about goals nobody owns: hand-offs from a conversation, and goals a workflow started. Approval requests and notifications for those goals go to this person. Goals started by an outbound campaign report to whoever created the campaign.
+
+### Pause agent work
+
+Pick a date and time, and your agents pursue no goals until then. Once it passes, they pick up on their own. While a pause is in force, the page shows when agent work resumes, with a **Resume** button to end the pause early.
+
+### Emergency stop
+
+**Emergency stop** halts every goal immediately. Nothing is sent, planned, or scheduled for your goals until you lift the stop, and any pause you set is cancelled. Scheduled tasks stay in place and pick up where they left off when you lift the stop.
+
+<Warning>
+  An emergency stop, like a pause, reaches beyond goals. While either is in force, your agents also stop sending text messages (including their replies in SMS conversations), placing outbound calls, sending workflow emails, and running tools that take action in conversations, such as API calls and bookings. Nothing is queued for later: outbound text and call campaigns that are running stop and do not pick up again afterwards, while email campaigns are not held, so cancel an email campaign separately. Answering inbound calls is not affected.
+</Warning>
+
+## Working hours
+
+**Working hours** keep your agents from reaching out at the wrong time. When the switch is on, agents only reach out for goals inside this window, and a message you approved while it was closed goes out in the hour before it opens. Turn it off to let agents reach out at any time. Outbound campaigns follow their own sending window instead; see [Outbound](/platform/outbound/overview).
+
+| Setting | Default |
+| --- | --- |
+| **Timezone** | America/Toronto |
+| **From** and **Until** | 9:00 to 17:00, in whole hours |
+| Days | Monday to Friday |
+
+The window must end after it starts and include at least one day.
+
+<Note>
+  Working hours are also used by the **Business hours only** option of the workflow Delay step. While working hours are turned off, that option uses Monday to Friday, 9:00 to 17:00, Toronto time. See [Workflow steps](/platform/workflows/actions#delay).
+</Note>
+
+## Approvals
+
+Approvals decide what an agent holds for a person, and how long a request stays open. See [Tasks and approvals](/platform/goals/tasks) for how deciding works.
+
+| Setting | Description | Default |
+| --- | --- | --- |
+| **Mode** | Where new goals start. **Ask** holds every message, call, and record update for approval. **Autonomous** lets the agent act on its own, and it still asks when a draft trips one of its checks. | Ask |
+| **Ask by email** | Emails the goal's owner, who can decide by replying "approve" or "reject". The dashboard always lists the request. | On |
+| **Expires after** | How many hours a request stays open. When it expires, the agent stops waiting and the proposed action is not taken. | 48 hours |
+| **Reminders** | Follow-up emails before a request expires, spread evenly (0 to 10). | 2 |
+
+## How settings reach your goals
+
+A goal takes a copy of your team's **Mode** and **Working hours** when it starts (goals started by an outbound campaign always run **Autonomous**). Changing these settings later applies to new goals, while goals already running keep what they started with (a goal that started while working hours were off follows your current window). You can still change a running goal's mode from its own page.

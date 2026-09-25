@@ -3,6 +3,115 @@ title: "Changelog"
 description: "Product updates and announcements from the Dimedove team"
 ---
 
+<Update label="September 24, 2026" description="Goals and Microsoft Teams: Agents That Follow Through">
+    Until now, your agents worked one conversation at a time. Goals change that: give an agent one outcome to reach with a contact, such as getting a renewal signed or booking a review call, and it works toward it over days. It plans each step, reaches out by email, text, or phone, follows up, and hands the goal back to your team when a person should step in. You choose whether it asks before anything goes out or acts on its own, and approvals reach you in the dashboard, by email, or right in Slack and Microsoft Teams.
+
+    Handing work over is as simple as asking Ask Dimedove, from the dashboard, Slack, Microsoft Teams, or email. Workflows can start goals too, and the workflow editor has been rebuilt around branches, waits, loops, and AI steps. Your agents also reach further: Microsoft Teams joins Slack in a new Workspace section, agents read the images and documents people send them, and Outbound gains email alongside calls and SMS.
+
+    - **Goals**, outcomes your agents pursue with a contact over days
+    - **Tasks and approvals**, with Ask and Autonomous modes
+    - **Delegation through Ask Dimedove** from the dashboard, Slack, Microsoft Teams, or email
+    - **Notes**, the memory your agents keep about each contact
+    - **A rebuilt workflow editor** with branches, waits, loops, AI steps, and versions
+    - **Microsoft Teams agents**, and a Workspace section for Slack and Teams
+    - **Attachments**, read on most channels
+    - **Email batches and an Opt-outs page** in Outbound
+
+    ### Features
+
+    - Each goal has a plain-language outcome, optional "Done when" criteria, a deadline, an owner, and a mode, and its own page with its tasks, notes, activity, and the credits it used
+    - Before every step, the agent checks your working hours, opt-outs, the deadline, and the goal's credit allowance, and it hands the goal back after at most four unanswered messages
+    - A Tasks page lists the work planned across every goal, with an Approvals column; requests expire after 48 hours by default, and silence never counts as approval
+    - Settings, Goals holds the Agent work switch, a default agent and owner, working hours, approval defaults, a timed pause, and an emergency stop
+    - Settings, Business describes your offering for every agent, and Settings, Identity controls which Slack, Teams, and email accounts act for your team and can point agents at your CRM as the source of truth
+    - Pause a conversation from the Inbox and the contact's goals pause with it, and confirm a contact's identity when you recognize them
+    - Contact records gain Goals, Tasks, and Notes tabs, and duplicate contacts can be merged
+    - The workflow editor is a branching canvas with 15 triggers and 22 step types, numbered versions, and runs you can cancel, retry, and view on the canvas
+    - New Schedule, Goal completed, Approval decided, and Note created triggers, and manual workflows that run for every row of an uploaded list
+    - Your agents' tasks are now called Tools, each with a "Who this tool is for" setting
+    - Connect Microsoft Teams with one approval from your Microsoft 365 administrator, then connect an agent to a channel with `@Dimedove add` followed by its ID
+    - Agents read images, PDFs, and Office documents up to 10 MB on email, SMS and MMS, the web messenger and forms, Facebook Messenger, Instagram, and Slack, and images in Microsoft Teams
+    - Email batches send your own message or one the agent writes for each person, and the Opt-outs page recognizes opt-outs from keywords or plain language, in English and French
+    - Each connected CRM has a page for connection health and for allowing or blocking reads and writes per object
+    - Press / to search the dashboard, and lists refresh on their own within seconds
+
+    ### Notes
+
+    - Goals are experimental, and agent work is off by default: an admin turns it on under Settings, Goals
+    - Goals send real messages to real contacts, so try them first with a contact you own
+    - Goals, notes, workflow runs, and email batches consume credits
+    - An emergency stop or pause also stops text messages, outbound calls, workflow emails, and tools that take action in conversations
+    - Microsoft Teams agents require the Pro subscription, and Dimedove is installed from a package we provide until its Teams Store listing is published
+    - A newly connected CRM starts with read access only: allow writes on the integration's page before your agents update records
+
+</Update>
+
+<Update label="September 3, 2026" description="Voice and Telephony: Language Switching and Reliability">
+    Callers do not always stay in one language, and now neither do your voice agents. When a caller switches to another language your agent speaks, recognition, voice, and replies all follow, and details such as email addresses, postal codes, phone numbers, dates, and amounts are read out naturally in the language of the sentence.
+
+    Busy lines also behave better. When a phone line is at capacity, callers now hear a short apology right away instead of being answered and then cut off, and text messages are never sent twice when a send is retried.
+
+    - **Mid-call language switching** for voice agents
+    - **Natural read-outs** of emails, addresses, numbers, dates, and amounts in the caller's language
+    - **A clear message when a line is busy** instead of a dropped call
+    - **No duplicate text messages** on retries, with sends paced to carrier limits
+    - **Reconnect alerts** for your social channels
+
+    ### Features
+
+    - Voice agents follow a caller who switches to another language the agent speaks, across recognition, voice, and replies
+    - Email addresses, web addresses, postal codes, phone numbers, dates, times, amounts, and percentages are read aloud naturally in the language of the sentence
+    - Text messages sent from a number are paced to its carrier limit, while replies to people are never delayed
+    - Owners and admins receive an email when a Facebook, Instagram, or TikTok connection needs to be reconnected
+
+    ### Bug Fixes
+
+    - When a phone line is at capacity, callers now hear a short apology right away instead of being answered and then cut off
+    - A text message is never sent twice when a send is retried
+    - Batch calls that never connected are no longer recorded as completed
+    - Zoho CRM upserts now match existing records instead of creating duplicates
+
+</Update>
+
+<Update label="August 27, 2026" description="Voice: A New Engine, Call Recordings, and Line Settings">
+    Phone calls are where an agent is judged hardest, so we rebuilt how your voice agents listen and speak. Calls now run on a new voice engine with more natural turn-taking, and instead of dead air while your agent looks something up, callers hear the quiet sounds of an office. When a caller goes silent, the agent checks in rather than waiting indefinitely, and every call knows today's date, so "next Tuesday" means what the caller meant.
+
+    Every phone line also gets its own settings. Pick the voice your agent speaks with in each language and hear a sample first, choose whether calls are recorded, and fine-tune the line: how long the agent waits before checking in, the background ambience, how it pronounces the names and terms that matter to you, and what it does when it reaches voicemail or needs to transfer. Recordings play right inside the conversation in your Inbox.
+
+    - **A new voice engine** with more natural turn-taking and office ambience during lookups
+    - **A voice picker** for each language, with samples, including native Québec French voices
+    - **Call recordings**, turned on per line and played back in your Inbox
+    - **Check-ins after silence**, with a delay you control
+    - **Custom pronunciations** for the names and terms your agent must get right
+    - **Voicemail and transfer fallbacks** for each line
+    - **Call badges** in your Inbox for voicemails, answering machines, and transfers
+
+    ### Features
+
+    - Phone line settings are organized in Basic and Advanced tabs
+    - Choose a voice for each language your agent speaks and play a sample before you pick; French lines default to a native Québec French voice
+    - Turn on Record calls for a line, and play recordings inline in the conversation; transcripts are always saved
+    - Calls show whether they were inbound or outbound, with badges for Voicemail left, Answering machine, and Transferred
+    - Set how long the agent waits for an answer before checking in, from 5 to 25 seconds; after three unanswered check-ins, the call ends
+    - Choose the background ambience for a line and its volume
+    - Add up to 100 custom pronunciations per line, which also help your agent recognize those words when callers say them
+    - Override the first message for a single line
+    - Voicemail and transfer fallbacks apply when your agent's instructions do not say what to do, with up to 10 transfer destinations per line, each with an optional extension and a condition
+    - Calls wrap up politely after 10 minutes
+    - When a booking fails during a call, your agent now sees the failure clearly instead of mistaking it for a confirmation
+    - Batch call recipients whose line is engaged now show Line busy
+    - Lines that kept the previous defaults move to a shorter check-in delay and a quieter background
+
+    ### Bug Fixes
+
+    - A disabled phone line no longer answers calls
+
+    ### Notes
+
+    - Call recording is off by default; turning it on asks you to acknowledge that callers are not told automatically, so informing callers and obtaining consent where required remains your responsibility
+
+</Update>
+
 <Update label="August 4, 2026" description="Voice: Voicemail Handling and Québec French">
     Your voice agents now know what to do when nobody picks up. Voicemail detection is on for every voice agent, and the default behavior is to hang up rather than keep talking into an answering machine. If you would rather leave a message, you do not need to configure anything new: describe what your agent should say in a voicemail anywhere in its instructions or in one of its Procedures, and your agent uses it, in whichever language the call is running in.
 

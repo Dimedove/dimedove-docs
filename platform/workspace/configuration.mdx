@@ -1,0 +1,172 @@
+---
+title: Configuration
+description: Connect Slack or Microsoft Teams, create workspace agents, and connect them to your channels
+---
+
+<Info>Slack and Microsoft Teams agents are available to teams on the Pro subscription.</Info>
+
+This guide walks you through setting up Slack, Microsoft Teams, or both. Each platform is connected on its own, and the agents you create for either one appear together on the **Workspace** page, under Channels in your dashboard sidebar.
+
+## Prerequisites
+
+Before you start, make sure you have:
+
+- A Dimedove account with the Pro subscription
+- At least one Dimedove agent that is published and live
+- For Slack: admin access to your Slack workspace
+- For Microsoft Teams: a Microsoft 365 **Global Administrator** (or Privileged Role Administrator), needed once to approve Dimedove for your organization, a **Teams Administrator** to upload the app (who can be the same person), and the **Dimedove.zip** app package, which we send you while Dimedove awaits its Teams Store listing
+
+## Slack
+
+### Step 1: Connect Your Slack Workspace
+
+1. Navigate to **Settings > Integrations** in your Dimedove dashboard
+2. Click **Configure** on Slack
+3. You'll be redirected to Slack to authorize the connection
+4. Review the permissions and click **Allow**
+5. Once authorized, you'll be redirected back to Dimedove
+
+When your Slack connection needs attention, for example to reconnect or to grant new permissions, a card at the top of the **Workspace** page tells you what to do.
+
+<Note>If you connected Slack before your agents could read files and images, click **Update** on the **Update Slack Permissions** card of the **Workspace** page once to grant the new permission. See [Attachments](/platform/agents/attachments).</Note>
+
+### Step 2: Create a Slack Agent
+
+1. Go to **Workspace** under Channels in your dashboard sidebar
+2. Click **Add** and choose **Slack**
+3. Configure it:
+   - **Name**: an internal name for this Slack Agent, such as "Sales Support" or "Technical Questions"
+   - **Assigned Agent**: the Dimedove agent that answers in the channels you connect. It must be published and active; a warning appears if it is not
+   - **Respond to messages**: **Only when mentioned** (the default, recommended), so the agent only answers when someone mentions @Dimedove, or **All messages in thread**, so the agent answers every reply in the channel's threads, whether or not it was mentioned there (new top-level messages still need a mention)
+
+### Step 3: Enable the Slack Agent
+
+Turn on the Slack Agent using the toggle in the dashboard. A Slack Agent must be enabled before you can add it to a channel.
+
+### Step 4: Add the Agent to Channels
+
+<Note>These steps are performed in your Slack workspace. Only Slack workspace administrators can run Dimedove commands, other than `/dimedove help`.</Note>
+
+1. **Invite the Dimedove bot to the channel**:
+   ```text
+   /invite @Dimedove
+   ```
+2. **Assign the Slack Agent to the channel**, replacing `{agent_id}` with the ID shown in your Dimedove dashboard for this Slack Agent:
+   ```text
+   /dimedove add {agent_id}
+   ```
+3. **Start interacting with your agent** by mentioning it:
+   ```text
+   @Dimedove What are our pricing plans?
+   ```
+
+The agent replies in a thread to keep the channel organized. Each channel has one occupant, either one agent or Ask Dimedove: to assign a different agent to a channel, run `/dimedove remove` first.
+
+### Slack Commands
+
+| Command | What it does |
+| --- | --- |
+| `/dimedove add {agent_id}` | Assigns a Slack Agent to the channel |
+| `/dimedove add ask` | Assigns [Ask Dimedove](/platform/ask-dimedove/delegation) to the channel instead of an agent, for your team's own channels |
+| `/dimedove active` | Shows the name of the Slack Agent assigned to the channel |
+| `/dimedove remove` | Removes the assignment. The bot stays in the channel but no longer responds. If this was the Slack Agent's last channel, Dimedove also turns the Slack Agent off, so turn it back on before adding it elsewhere |
+| `/dimedove help` | Lists every available command |
+
+### Where Slack Agents Answer
+
+- **Public channels**: all workspace members can interact with the agent
+- **Private channels**: only members of the channel can see and interact with the agent
+- **Direct messages**: a direct message with the Dimedove app reaches Ask Dimedove for the members of your team, unless an administrator has connected an agent to that conversation
+- **Threads**: all agent responses are posted as replies in threads
+- **Files and images**: your agent reads the images and documents shared in the conversation, such as a screenshot or a PDF
+
+## Microsoft Teams
+
+Setup takes about 15 minutes.
+
+### Step 1: Connect Your Microsoft 365 Organization
+
+1. In your Dimedove dashboard, go to **Settings > Integrations**
+2. Find **Microsoft Teams** under Productivity and click **Connect**
+3. Microsoft asks a Global Administrator to approve Dimedove, showing exactly what is being granted. Accept. The approval link is valid for 15 minutes and can be used once.
+
+This is a one-time, organization-wide approval. Once it is done, the card reads "Connected. An admin still needs to add the app in Teams." until Teams reports the app in a team or chat, and then simply "Connected".
+
+Click **Manage** on the card at any time to see the remaining setup steps, **Reconnect**, or **Disconnect**. Disconnecting keeps your channel assignments, and reconnecting restores them.
+
+### Step 2: Allow Custom Apps
+
+Many organizations block apps that are not from the Teams Store. Check this before uploading:
+
+1. Open the [Teams admin center](https://admin.teams.microsoft.com) and go to **Teams apps > Manage apps**
+2. Open **Org-wide app settings**
+3. Under **Custom apps**, make sure interaction with custom apps is turned on
+
+<Note>If your organization keeps custom apps turned off as a policy, the upload in the next step is unavailable. Contact us, and we can plan around the Teams Store listing instead.</Note>
+
+### Step 3: Upload the Dimedove App
+
+1. In **Teams apps > Manage apps**, click **Upload new app**, then **Upload**
+2. Choose the **Dimedove.zip** package
+3. Find **Dimedove** in the app list and make sure its status is **Allowed**
+
+You can also add Dimedove to an app setup policy so it appears pinned for the people who will use it.
+
+### Step 4: Create a Microsoft Teams Agent
+
+1. In your Dimedove dashboard, go to **Workspace** under Channels in the sidebar
+2. Click **Add** and choose **Microsoft Teams**
+3. Configure it:
+   - **Name**: identifies this Microsoft Teams agent in Dimedove; Dimedove also shows it in the channel when it confirms the `add` command
+   - **Assigned Agent**: the Dimedove agent that answers in the channels you connect
+   - **Respond to messages**: **Only when mentioned** (recommended), so your agent answers when someone mentions **@Dimedove**
+
+The page shows an **Install in Microsoft Teams** card with the steps below and the ID to use in them.
+
+### Step 5: Connect the Agent to a Channel
+
+<Note>These steps are performed in Microsoft Teams, except for turning on the agent in Dimedove.</Note>
+
+1. **Add Dimedove to the team**: go to **Apps > Built for your org > Dimedove > Add to a team**, or open the team's **⋯ > Manage team > Apps > Get more apps**. For a group chat, add Dimedove to the chat instead.
+   - A channel's **+** button only lists tab apps, so Dimedove does not appear there.
+   - **Private channels** need Dimedove added to each one: open the channel's **⋯ > Manage channel > Apps**. It can take a while to appear there after being added to the team.
+2. **Turn on the agent**: back in Dimedove, turn on the Microsoft Teams agent with the switch in its page header. The switch is available once Microsoft Teams is connected, Teams reports the Dimedove app in a team or chat, and the assigned agent is live.
+3. **Connect the agent**: in the channel, send the command below, replacing the ID with the one shown on the **Install in Microsoft Teams** card:
+   ```text
+   @Dimedove add ABC123XYZ0
+   ```
+   Dimedove confirms which agent is now connected.
+4. **Start chatting**: mention **@Dimedove** in that channel to talk to your agent. It replies in the thread of your post.
+
+Repeat Step 5 for each channel where you want an agent.
+
+<Tip>If Dimedove does not show up in the Teams desktop app, use Teams on the web at [teams.microsoft.com](https://teams.microsoft.com). A newly uploaded app often reaches it first.</Tip>
+
+### Microsoft Teams Commands
+
+Send these in a channel or group chat, mentioning the app:
+
+| Command | What it does |
+| --- | --- |
+| `@Dimedove add <id>` | Connects an agent. Running it again with another ID switches the channel to that agent |
+| `@Dimedove add ask` | Connects [Ask Dimedove](/platform/ask-dimedove/delegation) instead of an agent, for your team's own channels |
+| `@Dimedove remove` | Disconnects the channel |
+
+A one-on-one chat with Dimedove always reaches Ask Dimedove for the members of your team, so it needs no command.
+
+### Removing Dimedove from Microsoft Teams
+
+- **One channel**: send `@Dimedove remove` in the channel
+- **The connection**: in Dimedove, open **Settings > Integrations**, click **Manage** on Microsoft Teams, then **Disconnect**
+- **The whole app**: in the Teams admin center, go to **Manage apps > Dimedove** and block or delete it
+- **The organization approval**: in the Microsoft Entra admin center, go to **Enterprise applications > Dimedove** and delete it
+
+### Troubleshooting
+
+- **Dimedove does not appear in Teams**: use Teams on the web, and give private channels a few minutes after adding the app to the team
+- **The upload option is unavailable**: your organization blocks custom apps (see Step 2)
+- **Replies fail with an authorization error**: while Dimedove awaits its Teams Store listing, its app is registered in Dimedove's own Microsoft organization, and Microsoft may refuse its replies in yours. This is not something your administrators can fix. Contact us and we will get you set up.
+
+## Ask Dimedove in a Channel
+
+To give your team a channel where it talks to Ask Dimedove instead of an agent, add the Dimedove app to the channel and run `/dimedove add ask` in Slack, or send `@Dimedove add ask` in Microsoft Teams. Your teammates then mention @Dimedove in that channel to ask questions about your workspace or hand work to an agent. Direct messages in Slack and one-on-one chats in Microsoft Teams reach Ask Dimedove without any setup. See [Delegating work](/platform/ask-dimedove/delegation).

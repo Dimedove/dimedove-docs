@@ -1,0 +1,95 @@
+---
+title: Overview
+description: Check whether a connected CRM or record system is working, and decide exactly what your agents may do in it.
+---
+
+Every CRM or record system you connect has its own page in your dashboard. It answers two questions: is the connection working, and what may your agents do in it? From there you decide, object by object, whether your agents may read records, create them, or change them, and which fields they may write.
+
+These providers have an integration page:
+
+- [HubSpot](/integrations/hubspot)
+- [Attio](/integrations/attio)
+- [Zoho CRM](/integrations/zoho)
+- [Pipedrive](/integrations/pipedrive)
+- [Close](/integrations/close)
+- [Salesforce](/integrations/salesforce)
+- [Airtable](/integrations/airtable)
+- [Applied Epic](/integrations/applied-epic)
+
+<Info>
+  Integration pages require third-party integrations on your plan. Without them, the page says **Integrations are not on your current plan**.
+</Info>
+
+## Opening an integration's page
+
+1. Navigate to **Settings > Integrations** in your Dimedove dashboard.
+2. Under the card of a connected integration, click **Manage permissions and actions**.
+
+The link appears once the integration has been connected. To connect one, follow its provider page above.
+
+## Connection health
+
+The top of the page shows how the connection is doing:
+
+| Status | What it means |
+| --- | --- |
+| **Connected** | Your agents can read and write in the integration. |
+| **Needs attention** | The connection answers, but something is incomplete, for example some objects did not load, or the integration returned an error when Dimedove checked it. |
+| **Not working** | Your agents cannot use the integration until someone fixes it, for example because the sign-in expired or was revoked, or a permission Dimedove needs was not granted. |
+
+When Dimedove can tell what is wrong, hovering over the status shows the reason, phrased as what needs to happen next. Dimedove checks each connection in the background about once an hour, so a problem shows up even when nobody is using the integration.
+
+The ⋯ menu next to the status offers:
+
+- **Refresh**: reach the integration again and reload its objects, for example after you add a custom object or field in your CRM.
+- **Reconnect**: sign in again. For Applied Epic and Salesforce, which connect with your own credentials, this takes you to **Settings > Integrations**, where you enter them.
+- **Remove**: disconnect the integration. Your agents stop reading and writing in it right away, and the sign-in Dimedove holds is deleted. What you have allowed on the page is kept, so reconnecting later does not mean setting up the permissions again.
+
+## What the agent may do
+
+This section lists each object the integration offers, such as contacts, companies, or deals, with one row per action the integration supports on that object:
+
+- **Read**: look records up.
+- **Create**: add new records.
+- **Update**: change existing records.
+- **Create or update**: find a matching record and update it, or create one when there is no match.
+
+Each row is either allowed or blocked. An allowed row also shows which fields it covers: **All fields**, or the number of fields you chose (hover over it to see them).
+
+<Note>
+  When you set up a tool that uses an integration, its **Operation** setting calls these actions **Get**, **Create**, **Update**, and **Upsert**. They correspond to **Read**, **Create**, **Update**, and **Create or update** on this page.
+</Note>
+
+### Allowing an action
+
+Click **Allow** on a row, or **Add** at the top of the section, to open the **Allow an action** dialog:
+
+1. **Object**: the object the permission applies to.
+2. **What the agent may do**: **Read**, **Create**, **Update**, or **Create or update**.
+3. **Fields**: **Every field**, which includes fields added to the object later, or **Only the fields I choose**, and then pick them. Read-only fields are left out of the list for actions that write.
+4. **Why** (optional): who asked for the permission and what it is for.
+5. Click **Allow**.
+
+The field list governs what the agent writes: if a write would touch any field outside the list, the whole write is refused, so make sure the fields you choose cover every field your tools map. An action that changes data shows a warning in the dialog, because the agent will be able to overwrite values that are already there.
+
+### Blocking an action
+
+Click **Block** on an allowed row. It takes effect immediately, with no confirmation, and applies from the agent's next attempt, even in a conversation already under way. If a [goal](/platform/goals/overview) has scheduled work that relies on the action you blocked, the goal moves to **Waiting for team** and its owner is told why.
+
+### How permissions apply
+
+A newly connected integration starts with **Read** allowed on every object it loads, and nothing else: your agents can look records up, but cannot create or change anything until you allow it here. Allow the matching action before a tool that creates or updates records goes live.
+
+If nothing at all has been allowed on an integration, the section says **Nothing is restricted yet**, and everything your team has configured on it keeps running. The first action you allow changes that, and so does a **Refresh** or **Reconnect**, which gives the integration the same starting point as a new connection. From then on, only what is allowed runs, and anything else is refused, checked every time the agent acts. That stays true even if you later block every action, so blocking the last one never opens the integration back up.
+
+Permissions apply everywhere your agents use the integration:
+
+- Tools in conversations, on every channel, including chat, voice calls, and SMS
+- [Workflows](/platform/workflows/overview)
+- [MCP servers](/developer/mcp/overview)
+- [Goals](/platform/goals/overview)
+- Tools that [Ask Dimedove](/platform/ask-dimedove/delegation) runs for your team
+
+## Source of truth
+
+You can also have your agents check one of these integrations before they act on a goal, by making it your team's source of truth. That setting lives under **Settings > Identity**: see [Source of truth](/platform/team/identity#source-of-truth). It needs **Read** allowed on the object it reads, which you grant on the integration's page.

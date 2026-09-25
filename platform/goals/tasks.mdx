@@ -1,0 +1,81 @@
+---
+title: Tasks and Approvals
+description: Follow every step your agents plan, and decide what goes out before it is sent.
+---
+
+Every step an agent plans while pursuing a [goal](/platform/goals/overview) becomes a task, and every message or action that needs your decision becomes an approval. Both live under **Tasks** in the sidebar, which shows a count of open tasks.
+
+## Tasks
+
+The **Tasks** page lists the work your agents have planned across every goal, grouped by when it is due: **Overdue**, **Today**, **Tomorrow**, **This week**, and **Upcoming**, followed by **Done** and **Dropped**. Each row shows an icon for the kind of task, the task, when it is due, the goal it belongs to, and the agent it is assigned to. Use **Filter tasks** to narrow the list.
+
+### Kinds of tasks
+
+| Kind | What the agent does |
+| --- | --- |
+| **Reach out** | Contacts the person on a given channel, for example **Reach out · Email**. |
+| **Review** | Looks at where the goal stands, such as a reply that just came in or a scheduled check-in, and decides the next step. |
+| **Notify team** | Lets your team know about something that needs their attention. |
+| **Run action** | Runs one of the agent's [tools](/platform/agents/tools/api). |
+
+### Working with a task
+
+Click a task to open it, with a link to the goal it belongs to. When the agent's reasoning adds something to the title, the info icon next to the title shows why it planned the task. From there you can:
+
+- **Reschedule**: click the due date to pick a new time.
+- **Mark done**: close the task yourself.
+- **Cancel**: drop the task, with an optional reason.
+
+Only scheduled tasks can be changed, and only by the goal's owner or an admin (anyone can, when the goal has no owner). A contact's tasks also appear on the **Tasks** tab of their [contact record](/platform/contacts/contact), soonest first.
+
+## Approvals
+
+Approvals are how you keep the final say over what your agents send. Each goal runs in one of two modes:
+
+- **Ask**: the agent asks you before every message, call, and record update. Nothing goes out until you approve it. This is the default for new goals.
+- **Autonomous**: the agent sends messages, places calls, and updates records without asking you. If something it wrote looks wrong, it stops and asks anyway.
+
+You choose the default mode for new goals in [Settings](/platform/goals/settings), and you can change a goal's mode from its page at any time. Anything already waiting for your approval stays there when you switch.
+
+### When an autonomous goal still asks
+
+Before anything goes out on an autonomous goal, the agent's draft is checked. When a check trips, the draft is held for your approval and the reason is listed under **Look at**:
+
+- It promises something this goal does not cover
+- It repeats internal notes about this person
+- It tells them they are not a fit
+- They asked to be contacted another way
+- Nothing on file supports this value
+
+**Look at** can also point out things that do not hold a draft on their own, such as a message that is not in the contact's language or an update that replaces a value already on the record.
+
+### Where approvals appear
+
+- The **Approvals** column on the **Tasks** page, which reads **All caught up** when nothing is waiting
+- The top of the goal's page
+- **Needs your attention** on your dashboard's **Home** page
+
+Open an approval to see the full proposal, with links to the contact and the goal and when the request expires. Approving sends exactly what is shown: drafts cannot be edited. See [After you approve](#after-you-approve) for when it goes out.
+
+If the proposal is not right, reject it and add a **Note** telling the agent why. The agent uses your note to plan again: on an Ask goal, its new draft comes back to you as a new request, and on an Autonomous goal it goes out unless a check holds it. Reject without a note, or with a note saying to stop, and the goal moves to **Waiting for team**.
+
+Only the goal's owner or an admin can decide its approvals; when the goal has no owner, anyone on your team can.
+
+### Approving from outside the dashboard
+
+You do not have to open the dashboard to decide:
+
+- **Email**: when **Ask by email** is on in [Settings](/platform/goals/settings), the goal's owner (or your default owner, when nobody owns the goal) receives each request by email, as long as they have not turned off **Approval requested** in their notifications. Reply "approve" or "reject" to decide; short answers such as yes, ok, or no work too, in English or French. Reminders arrive by email before the request expires.
+- **Slack and Microsoft Teams**: when a goal was delegated to [Ask Dimedove](/platform/ask-dimedove/delegation) from a Slack or Microsoft Teams thread, its approvals appear in that thread as a card with **Approve** and **Reject** buttons.
+
+### Expiry
+
+Approval requests expire after 48 hours by default, and sooner when the request is urgent or the goal's deadline is close. You can change the default in [Settings](/platform/goals/settings). Silence never counts as approval: when a request expires, nothing is sent and the goal moves to **Waiting for team** until someone decides the next step.
+
+### After you approve
+
+An approved message goes out immediately when you are inside your working hours. An email or text you approve outside working hours goes out in the hour before they open, and an approved call waits until they open. If the agent re-planned the proposal while you were reading it, the request can no longer be decided: check the goal for its next step.
+
+<Note>
+  The same approval queue also holds requests from workflow [Approval request](/platform/workflows/actions#approval-request) steps and tool runs you asked Ask Dimedove to carry out, so every decision your team owes is in one place.
+</Note>

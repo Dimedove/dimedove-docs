@@ -1,0 +1,115 @@
+---
+title: Overview
+description: Give an agent an outcome to reach with a contact, and let it plan, follow up, and report back over days instead of a single conversation.
+---
+
+<Info>Goals are experimental. Agent work is off by default: an admin turns it on under **Settings > Goals**. See [Settings](/platform/goals/settings).</Info>
+
+Most of what your agents do happens inside a single conversation: someone writes in, and the agent answers. Goals stretch that work over time. A goal gives an agent one outcome to reach, usually with one contact, such as getting a renewal signed, collecting missing documents, or booking a review call, and the agent works toward it over days. It plans each step, reaches out on the right channel, waits for answers, follows up, and hands the goal back to your team when a person should step in.
+
+You stay in control the whole way. Every step the agent plans appears as a [task](/platform/goals/tasks) you can see, reschedule, or cancel, and depending on the goal's mode, the agent asks for your approval before anything goes out.
+
+## How goals start
+
+You hand work to an agent from the places where it naturally comes up:
+
+- **Ask Dimedove**: describe what you want in plain language, from the dashboard, Slack, Microsoft Teams, or email. For example: "Follow up with Marie Tremblay about her renewal until she answers." See [Delegating work](/platform/ask-dimedove/delegation).
+- **Workflows**: a **Start goal** step starts a goal from any workflow, such as when a form is submitted or a contact is updated. See [Workflow steps](/platform/workflows/actions#start-goal).
+- **Conversations**: when a customer asks your agent for something that needs follow-through from your team, the agent can hand it over to your team as a goal.
+
+Goals started through Ask Dimedove belong to the teammate who asked. Goals started by a workflow or handed over from a conversation have no owner, so anyone on your team can act on them, and the **Default owner** you choose in [Settings](/platform/goals/settings) receives their emails and approval requests.
+
+## What a goal contains
+
+| Field | Description |
+| --- | --- |
+| **Goal** | What done looks like, in plain words. The agent reads this before every step. |
+| **Title** | A short name for the goal. When left empty, it is taken from the goal's first sentence. |
+| **Done when** | Optional completion criteria, in your own words. The agent judges them on what the platform observed, never on what the customer claims. |
+| **Deadline** | Optional date and time by which the goal should be reached. |
+| **Mode** | **Ask** or **Autonomous**: whether the agent asks you before each message, call, and record update, or acts on its own. See [Tasks and approvals](/platform/goals/tasks). |
+| **Reports to** | The teammate who owns the goal and hears about its progress. |
+
+Each goal is pursued by one agent, with its own instructions, channels, and tools, together with your team's [Business](/platform/team/business) details.
+
+## How the agent works a goal
+
+Before every step, the agent checks whether it may act:
+
+- If agent work is off or paused, or it is outside your working hours, the step waits.
+- If the contact is blocked, deleted, or has opted out of every channel the agent could use, the goal is cancelled.
+- If the deadline has passed or the goal has used up its credit allowance, the goal goes back to its owner.
+
+The agent then picks one action:
+
+- Send an email, send a text message, or place a call
+- Run one of its [tools](/platform/agents/tools/api), such as an API call or an integration action that updates a record in your CRM
+- Wait, and check back later
+- Hand the goal to your team
+- Mark the goal complete
+
+Messages go out from the agent's own channels. Emails come from its email channel, or as a reply in an existing thread, and always include an unsubscribe link. Texts and calls come from the agent's phone number, or another of your team's lines. Every message appears in your [Inbox](/platform/inbox/overview) like any other conversation.
+
+Unless the goal or the agent's instructions set a pace, the agent follows up two business days after reaching out, then four, then five, counting the days in your working hours, and it spreads its timing inside those hours rather than sending everything at once. When the contact replies, the goal wakes up right away and the agent reviews the reply before doing anything else.
+
+The agent does not chase forever. After at most four unanswered messages in a row (fewer when another message is unlikely to help), it hands the goal back to its owner instead of sending more, and if the contact declines, it hands the goal back too. The count starts over after the contact replies or you resume the goal.
+
+## How a goal ends
+
+- **Completed**: the agent can point to evidence that the goal is reached (or its **Done when** criteria are met), or a teammate marks it done.
+- **Cancelled**: a teammate cancels it, or it is cancelled automatically when the contact is blocked, deleted, or has opted out of every channel the agent could use. Opting out of a single channel only closes that channel.
+- **Handed to your team**: when the deadline passes, the credit allowance is used up, or the agent needs a person, the goal moves to **Waiting for team**. The owner decides what happens next and resumes the goal, marks it done, or cancels it.
+
+## Statuses
+
+| Status | Meaning |
+| --- | --- |
+| **Active** | The agent is working on the goal. |
+| **Waiting for customer** | The agent reached out and is waiting for the contact to reply. |
+| **Waiting for approval** | A message or action is waiting for your decision. |
+| **Waiting for team** | The agent handed the goal to your team, with the reason why. |
+| **Paused** | Nothing happens until someone resumes the goal. |
+| **Completed** | The goal was reached. |
+| **Cancelled** | The goal was stopped before it was reached. |
+| **Failed** | A system error prevented the goal from moving forward. |
+
+## Following a goal
+
+Open **Goals** in the sidebar to see every goal on a board with a column per status (**Waiting on customer** and **Waiting on team** among them), each with its own count. The sidebar shows how many goals are still being worked. You also find a contact's goals on the **Goals** tab of their [contact record](/platform/contacts/contact), and on the contact card of their conversations in the Inbox.
+
+Each goal has its own page:
+
+- **Tasks**: the steps the agent has planned, with their due dates.
+- **Notes**: notes filed on this goal. What the agent learns about the contact is on the contact's **Notes** tab. See [Notes](/platform/goals/notes).
+- **Activity**: what happened, in plain sentences such as "Nova sent an email" or "Nova waited for working hours".
+- **Details panel**: the goal and its **Done when** criteria, deadline, contact, agent, owner, the total credits the goal has used, and the goal's **Mode**.
+
+When a goal needs you, its page says so at the top: a goal waiting for your team shows the agent's reason and a **Resume** button, and pending approvals appear as cards you can approve or reject in place.
+
+## Changing a goal
+
+The ⋯ menu on a goal's page offers:
+
+- **Edit**: change the goal's text, title, **Done when**, deadline, or owner. Changing the goal or its **Done when** criteria re-plans the scheduled tasks; other changes do not.
+- **Pause** and **Resume**: stop the agent until you resume, with its scheduled tasks kept in place. Resuming picks the work back up from the next scheduled task.
+- **Take over**: you own the goal from here. The agent drops its scheduled steps and stops until you resume it, then plans its next step afresh.
+- **Mark as done**: close the goal as reached and cancel every scheduled task.
+- **Cancel**: stop the goal for good. This cannot be undone.
+
+Pause, Resume, Take over, Mark as done, and Cancel accept an optional reason; for a paused, taken-over, or cancelled goal, it is shown at the top of the goal's page. Changing the **Mode** applies from the agent's next action and never re-plans the work already scheduled.
+
+### Who can change a goal
+
+Everyone on your team can see every goal, so colleagues can cover for each other. Only the goal's owner, an admin, or the team owner can change it. When nobody owns a goal, anyone on the team can. Anyone can also **Take over** a goal that is still in progress.
+
+### Pausing from the Inbox
+
+Pausing a conversation in the Inbox also pauses the goals the agent is pursuing for that contact and hands them to you. Resuming the conversation restarts them. See [Pausing the agent](/platform/inbox/chats#pausing-the-agent).
+
+## Notifications
+
+The goal's owner, or the **Default owner** for a goal nobody owns, is emailed when the goal is completed, cancelled, or cannot be completed, when it is blocked or needs a decision, and when an action needs approval. Hand-backs that are not urgent are gathered into one email a day. You can turn most of these off under **Account > Notifications**, in the **Agent work** group of your [notifications](/platform/team/notifications).
+
+## Credits
+
+Goals run on [credits](/platform/team/credits). Your agent uses credits as it plans and carries out each step, and each goal shows the total credits it has used in its details panel. Every goal also has a built-in credit allowance: a goal that reaches it goes back to its owner, who can resume it, which grants a new allowance, or cancel it.

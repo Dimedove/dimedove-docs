@@ -1,0 +1,73 @@
+---
+title: Calendar
+description: Let your agent share booking links or check availability, book, and reschedule meetings directly in the conversation.
+---
+
+Calendar tools let your agent help visitors schedule meetings without leaving the chat. You can connect Calendly, Cal.com, Acuity Scheduling, or Outlook Calendar, and choose how much of the booking your agent handles.
+
+## Two ways to schedule
+
+A calendar tool runs in one of two modes:
+
+### Event link
+
+The agent shares a link to a specific event type, and the visitor books on your provider's own scheduling page. This is the simplest setup: you only need a booking URL, and nothing is connected to your calendar through Dimedove.
+
+### Live calendar
+
+The agent works directly with your calendar inside the conversation. Depending on the permissions you grant, it can:
+
+- **Check availability**: pull real open time slots from your calendar and present them in the chat.
+- **Book a meeting**: confirm the visitor's details and create the appointment.
+- **Reschedule a meeting**: move an existing appointment to a new time the visitor chooses.
+
+In a chat or form, available times appear in an interactive calendar widget. On channels without a visual interface (such as voice or SMS), the agent offers the same times as text.
+
+<Info>
+  Live calendar is available with Calendly, Cal.com, Acuity Scheduling, and Outlook Calendar. Acuity Scheduling and Outlook Calendar are supported in live mode only. Event-link mode is available for Calendly and Cal.com.
+</Info>
+
+## Supported providers
+
+- **Calendly**: widely used scheduling tool with robust calendar integrations.
+- **Cal.com**: open-source scheduling platform with flexible customization options.
+- **Acuity Scheduling**: appointment scheduling for service-based businesses.
+- **Outlook Calendar**: meetings booked directly on your organization's Microsoft 365 calendars, routed to the right person.
+
+For provider-specific connection steps, see the [Calendly](/integrations/calendly), [Cal.com](/integrations/calcom), [Acuity Scheduling](/integrations/acuity), and [Outlook Calendar](/integrations/outlook-calendar) integration pages.
+
+## Who this tool is for
+
+Your agent answers in two kinds of conversation: the ones it has with your customers, and the ones your own team has with it. The **Who this tool is for** setting on the tool's **Basic** tab decides which of them can use it: **Everywhere** (the default) for both, **Customers only** to keep it out of your team's own conversations, or **Your team only** so it never reaches a customer, not even through a goal. The preview reflects a change right away, and your live channels pick it up when you publish the agent.
+
+## Configuration
+
+To set up a calendar tool:
+
+1. **Choose a provider**: select Calendly, Cal.com, Acuity, or Outlook.
+2. **Choose a mode**: event link or live calendar. Acuity and Outlook always run as a live calendar.
+3. **Connect your account** (live calendar only): enter the credentials for your provider so Dimedove can read availability and create bookings on your behalf. Outlook uses your Microsoft 365 organization's connection instead: a Microsoft 365 administrator connects it once, from the tool or from **Settings > Integrations**, and every Outlook calendar tool shares it.
+4. **Add your event types** (live calendar only; in event-link mode you give a single booking link): specify the meeting types visitors can book. You can offer more than one, give each a clear label, set a default, and add a condition that tells the agent when to use it (for example, a longer consultation for enterprise prospects). With Outlook, you add **Calendar hosts** instead: the Microsoft 365 mailboxes the agent may book, each with its own label, routing condition, meeting length, buffers, minimum notice, and event title.
+5. **Choose what the agent can do** (live calendar only): turn on availability, booking, and rescheduling independently. You decide which of these permissions your agent has, so you stay in control of what it can change on your calendar. An Outlook calendar tool always has all three, limited to the hosts you add.
+
+<Note>
+  You manage calendar permissions per tool. If you only want the agent to propose times and book, leave rescheduling off. With Outlook, the hosts you add set the limit instead: the agent can only read and book the calendars you list. Your agent never has access beyond what you grant.
+</Note>
+
+## How it works
+
+When your agent decides a visitor is ready to schedule (based on the conversation and your agent's instructions), it uses the calendar tool:
+
+**Event link**
+
+1. The agent shares the booking link for the right event type.
+2. The visitor books on your provider's scheduling page.
+
+**Live calendar**
+
+1. The agent checks your calendar and presents real available times.
+2. The visitor selects a time and provides their details.
+3. The agent books the meeting, and both you and the visitor receive confirmation.
+4. If the visitor needs a different time later, the agent can reschedule the existing meeting. With Calendly, the agent shares Calendly's own reschedule link instead.
+
+The booking flow happens inside the conversation, creating a smooth and engaging experience while keeping your calendar accurate.
